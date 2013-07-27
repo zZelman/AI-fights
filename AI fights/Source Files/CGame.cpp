@@ -4,15 +4,14 @@
 CGame::CGame()
 {
 	m_pGameWindow = new CWindow();
-	m_pTexture = new CTexture("foo.png", m_pGameWindow);
-	m_pTexture->load();
+	m_pBot = new CBot("redAI.png", m_pGameWindow);
 }
 
 
 CGame::~CGame()
 {
 	delete m_pGameWindow;
-	delete m_pTexture;
+	delete m_pBot;
 }
 
 
@@ -38,7 +37,7 @@ void CGame::gameLoop()
 		gameUpdate();
 		gameRender();
 	}
-	assert(false);
+	//assert(false);
 }
 
 
@@ -50,9 +49,13 @@ void CGame::userInput(SDL_Event& event)
 		{
 			isGameRunning = false;
 		}
-		if (event.key.keysym.sym == SDLK_ESCAPE)
+		else if (event.key.keysym.sym == SDLK_ESCAPE)
 		{
 			isGameRunning = false;
+		}
+		else 
+		{
+			m_pBot->userInput(&event);
 		}
 	}
 }
@@ -60,7 +63,7 @@ void CGame::userInput(SDL_Event& event)
 
 void CGame::gameUpdate()
 {
-	
+	m_pBot->update();
 }
 
 
@@ -71,8 +74,7 @@ void CGame::gameRender()
 	SDL_RenderSetScale(m_pGameWindow->getRenderer(), 1.0f, 1.0f);
 	SDL_RenderClear(m_pGameWindow->getRenderer());
 
-	m_pTexture->setColor(255-32, 255-32, 255-32);
-	m_pTexture->render(10, 10);
+	m_pBot->render();
 
 	SDL_RenderPresent(m_pGameWindow->getRenderer());
 }

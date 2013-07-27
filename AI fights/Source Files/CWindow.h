@@ -11,12 +11,15 @@ public:
 	SDL_Window* getWindow();
 	SDL_Renderer* getRenderer();
 
+	int getWindowWidth();
+	int getWindowHeight();
+
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 
-	int windowPosX, windowPosY; // top left of window position from top left of screen
-	int windowWidth, windowHeight;
+	int m_windowPosX, m_windowPosY; // top left of window position from top left of screen
+	int m_windowWidth, m_windowHeight;
 
 	void init();
 };

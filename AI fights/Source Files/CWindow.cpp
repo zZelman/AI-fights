@@ -3,11 +3,11 @@
 
 CWindow::CWindow()
 {
-	windowPosX = 100;
-	windowPosY = 100;
+	m_windowPosX = 100;
+	m_windowPosY = 100;
 
-	windowWidth = 500;
-	windowHeight = 500;
+	m_windowWidth = 500;
+	m_windowHeight = 500;
 
 	init();
 }
@@ -38,6 +38,18 @@ SDL_Renderer* CWindow::getRenderer()
 }
 
 
+int CWindow::getWindowWidth()
+{
+	return m_windowWidth;
+}
+
+
+int CWindow::getWindowHeight()
+{
+	return m_windowHeight;
+}
+
+
 void CWindow::init()
 {
 	// init sdl
@@ -62,8 +74,8 @@ void CWindow::init()
 	// create window
 	m_pWindow = NULL;
 	m_pWindow = SDL_CreateWindow("AI fights", 
-								windowPosX, windowPosY, 
-								windowWidth, windowHeight, 
+								m_windowPosX, m_windowPosY, 
+								m_windowWidth, m_windowHeight, 
 								SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 #ifdef DEBUG
 	assert(m_pWindow != NULL);

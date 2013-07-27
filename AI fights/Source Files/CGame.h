@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 #include "CWindow.h"
-#include "CTexture.h"
+#include "CBot.h"
 
 class CGame
 {
@@ -16,7 +16,7 @@ public:
 private:
 	bool isGameRunning; // boolean that controlles continued exicution of the main game loop
 	CWindow* m_pGameWindow; // the window were everything is drawn
-	CTexture* m_pTexture; // test texture rendering
+	CBot* m_pBot; // first bot to be played :D
 
 	void gameLoop(); // main game loop
 	void userInput(SDL_Event& event); // redirects user input appropriately

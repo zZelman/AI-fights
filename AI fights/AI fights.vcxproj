@@ -82,23 +82,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Files\1 Main.cpp" />
+    <ClCompile Include="Source Files\CBot.cpp" />
     <ClCompile Include="Source Files\CGame.cpp" />
     <ClCompile Include="Source Files\CResourceDirectories.cpp" />
-    <ClCompile Include="Source Files\CTexture.cpp" />
+    <ClCompile Include="Source Files\CSprite.cpp" />
     <ClCompile Include="Source Files\CWindow.cpp" />
     <ClCompile Include="Source Files\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source Files\CBot.h" />
     <ClInclude Include="Source Files\CGame.h" />
     <ClInclude Include="Source Files\CResourceDirectories.h" />
     <ClInclude Include="Source Files\CWindow.h" />
-    <ClInclude Include="Source Files\CTexture.h" />
+    <ClInclude Include="Source Files\CSprite.h" />
     <ClInclude Include="Source Files\stdafx.h" />
     <ClInclude Include="Source Files\targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resource Files\Sprites\redAI.png" />
     <Image Include="Resource Files\Textures\foo.png" />
     <Image Include="Resource Files\Textures\texture.png" />
   </ItemGroup>

@@ -1,17 +1,14 @@
-﻿Build started 7/27/2013 4:43:10 AM.
+﻿Build started 7/27/2013 7:52:08 AM.
      1>Project "C:\Users\DonBot\workspace - C++\AI fights\AI fights\AI fights.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\AI fights.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Source Files\1 Main.cpp" "Source Files\CGame.cpp" "Source Files\CTexture.cpp"
-         1 Main.cpp
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         CTexture.cpp
-         CGame.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\AI fights.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Source Files\CBot.cpp"
+         CBot.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib SDL2_image.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.lib" /MACHINE:X86 "Debug\1 Main.obj"
+         Debug\CBot.obj
          Debug\CGame.obj
          Debug\CResourceDirectories.obj
-         Debug\CTexture.obj
+         Debug\CSprite.obj
          Debug\CWindow.obj
          Debug\stdafx.obj
          AI fights.vcxproj -> C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.exe
@@ -19,4 +16,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.53
+Time Elapsed 00:00:00.25
