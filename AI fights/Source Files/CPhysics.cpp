@@ -1,8 +1,27 @@
 #include "stdafx.h"
 #include "CPhysics.h"
 
-CPhysics::CPhysics() {}
+CPhysics::CPhysics() 
+{
+	float bounceTime = 2; // seconds
+
+	m_gravityA = 2;
+	m_gravityB = -(m_gravityA * bounceTime);
+}
+
+
 CPhysics::~CPhysics() {}
+
+
+void CPhysics::applyGravity(CBot* bot)
+{
+	Uint32 time = bot->m_sAtributes.gravityTimer.getTime();
+
+	float timef = ToSeconds(time);
+
+	// use the first derivative of the parabolic formula to account for changes in velocity
+	bot->m_sAtributes.velosity_y = ((m_gravityA * m_gravityA) * timef) + m_gravityB;
+}
 
 
 bool CPhysics::collisionDetection(CBot* bot1, CBot* bot2)
@@ -16,7 +35,10 @@ void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 	// General logic:
 	// if (bot's next step is outside of screen)
 	//		step to edge of screen;
-	//		velosity = -velosity
+	//		if (vertical movement)
+	//			start timer to record time since last 'ground' bounce
+	//		else
+	//			velocity = -velocity
 	// else
 	//		do not change anything
 
@@ -51,7 +73,8 @@ void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 		if (pMin->y + bot->m_sAtributes.velosity_y < 0)
 		{
 			pAABB->setMinY(0);
-			bot->m_sAtributes.velosity_y = -bot->m_sAtributes.velosity_y;
+
+			bot->m_sAtributes.gravityTimer.start();
 		}
 	}
 	else if (bot->m_sAtributes.velosity_y > 0) // moving down
@@ -59,7 +82,8 @@ void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 		if (pMin->y + bot->m_sAtributes.velosity_y + pAABB->getHeight() > winHeight)
 		{
 			pAABB->setMinY(winHeight - pAABB->getHeight());
-			bot->m_sAtributes.velosity_y = -bot->m_sAtributes.velosity_y;
+
+			bot->m_sAtributes.gravityTimer.start();
 		} 
 	}
 }

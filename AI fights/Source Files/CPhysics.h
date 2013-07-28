@@ -14,6 +14,10 @@ public:
 	CPhysics();
 	~CPhysics();
 
+	// * applies gravity to bot
+	// * does not move bot, only changes the velocities within the bot to reflect gravity
+	void applyGravity(CBot* bot);
+
 	// * returns true if yes, false if no
 	bool collisionDetection(CBot* bot1, CBot* bot2);
 
@@ -34,5 +38,13 @@ public:
 	SManifold* generateManafold(CBot* bot1, CBot* bot2);
 
 private:
+	// * 'a' in the parabolic formula ax^2 + bx + c
+	// * should always be positive because the positive y axis extends downward
+	//		(top left to bottom left)
+	float m_gravityA;
 
+	// * 'b' in the parabolic formula ax^2 + bx + c
+	// * should always be negative because the positive y axis extends downward
+	//		(top left to bottom left)
+	float m_gravityB;
 };

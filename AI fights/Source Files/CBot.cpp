@@ -8,6 +8,8 @@ CBot::CBot(std::string spriteName, CWindow* pWindow)
 	m_spriteName = spriteName;
 	m_pWindow = pWindow;
 
+	m_sAtributes.gravityTimer.start();
+
 	init();
 }
 

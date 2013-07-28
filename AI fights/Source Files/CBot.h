@@ -4,10 +4,11 @@
 #include "CWindow.h"
 #include "CSprite.h"
 #include "Math2D.h"
+#include "CTimer.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-// these declorations/deffinitions are here because CBot.h cant find them in Math2D.h for whatever reason
+// these declarations/definitions are here because CBot.h cant find them in Math2D.h for whatever reason
 
 class CAABB_f;
 
@@ -16,9 +17,13 @@ struct SAtributes
 {
 	float defaultVelosity_pos; // DEFAULT movement size each update
 	float defaultVelosity_neg; // DEFAULT movement size each update
+
 	float velosity_x; // change in the x axis each update
 	float velosity_y; // change in the y axis each update
+
 	float mass;
+
+	CTimer gravityTimer; // how long has gravity been affecting this object since last collision
 
 	void nullVelosity()
 	{

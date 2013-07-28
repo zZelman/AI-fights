@@ -81,6 +81,7 @@ void CGame::gameUpdate()
 	m_pUserBot->update();
 
 	m_pPhysics->collisionDetection(m_pAIBot, m_pGameWindow);
+	m_pPhysics->applyGravity(m_pAIBot);
 	m_pAIBot->update();
 }
 
