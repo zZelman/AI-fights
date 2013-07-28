@@ -127,6 +127,13 @@ void CAABB_f::setMin(CVector2f* _min)
 }
 
 
+void CAABB_f::setMin(float x, float y)
+{
+	setMinX(x);
+	setMinY(y);
+}
+
+
 void CAABB_f::setMinX(float x)
 {
 	min->x = x;

@@ -11,8 +11,8 @@ public:
 	SDL_Window* getWindow();
 	SDL_Renderer* getRenderer();
 
-	int getWindowWidth();
-	int getWindowHeight();
+	int getWidth();
+	int getHeight();
 
 	void updateSize(); // updates window size. Called when window has changed
 

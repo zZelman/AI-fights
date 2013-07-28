@@ -116,9 +116,9 @@ void CUserControlled_Bot::update()
 	}
 	if (isDownPressed)
 	{
-		if (pMin->y + m_sAtributes.velosity_y + m_pSprite->getHeight() > m_pWindow->getWindowHeight())
+		if (pMin->y + m_sAtributes.velosity_y + m_pSprite->getHeight() > m_pWindow->getHeight())
 		{
-			m_pAABB->setMinY(m_pWindow->getWindowHeight() - m_pSprite->getHeight());
+			m_pAABB->setMinY(m_pWindow->getHeight() - m_pSprite->getHeight());
 		}
 		else
 		{
@@ -138,9 +138,9 @@ void CUserControlled_Bot::update()
 	}
 	if (isRightPressed)
 	{
-		if (pMin->x + m_sAtributes.velosity_x + m_pSprite->getWidth() > m_pWindow->getWindowWidth())
+		if (pMin->x + m_sAtributes.velosity_x + m_pSprite->getWidth() > m_pWindow->getWidth())
 		{
-			m_pAABB->setMinX(m_pWindow->getWindowWidth() - m_pSprite->getWidth());
+			m_pAABB->setMinX(m_pWindow->getWidth() - m_pSprite->getWidth());
 		}
 		else
 		{

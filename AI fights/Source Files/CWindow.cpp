@@ -38,13 +38,13 @@ SDL_Renderer* CWindow::getRenderer()
 }
 
 
-int CWindow::getWindowWidth()
+int CWindow::getWidth()
 {
 	return m_windowWidth;
 }
 
 
-int CWindow::getWindowHeight()
+int CWindow::getHeight()
 {
 	return m_windowHeight;
 }

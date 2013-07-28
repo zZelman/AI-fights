@@ -54,6 +54,7 @@ public:
 	float getHeight();
 
 	void setMin(CVector2f* _min);
+	void setMin(float x, float y);
 	void setMinX(float x);
 	void setMinY(float y);
 

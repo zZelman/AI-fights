@@ -4,8 +4,8 @@
 CAI_Bot::CAI_Bot(std::string spriteName, CWindow* pWindow)
 	: CBot(spriteName, pWindow)
 {
-	float x = pWindow->getWindowWidth() / 2;
-	float y = pWindow->getWindowHeight() / 2;
+	float x = pWindow->getWidth() / 2;
+	float y = pWindow->getHeight() / 2;
 	CVector2f* min = new CVector2f(x, y);
 	CVector2f* max = new CVector2f(x + m_pSprite->getWidth(), y + m_pSprite->getHeight());
 	m_pAABB = new CAABB_f(min, max);

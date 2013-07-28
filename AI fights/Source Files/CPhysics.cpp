@@ -5,7 +5,7 @@ CPhysics::CPhysics()
 {
 	float bounceTime = 2; // seconds
 
-	m_gravityA = 2;
+	m_gravityA = 10;
 	m_gravityB = -(m_gravityA * bounceTime);
 }
 
@@ -32,6 +32,25 @@ bool CPhysics::collisionDetection(CBot* bot1, CBot* bot2)
 
 void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 {
+	CAABB_f* pAABB = bot->getAABB();
+	CVector2f* pMin = bot->getAABB()->getMin();
+	CVector2f* pMax = bot->getAABB()->getMax();
+
+	int winWidth = window->getWidth();
+	int winHeight = window->getHeight();
+
+//	// somehow the bot got outside of the window so warp it to the center
+//	if (pMin->x < 0 || pMin->y > winWidth ||
+//		pMax->x < 0 || pMax->y > winHeight)
+//	{
+//		float midX = winWidth/2;
+//		float midY = winHeight/2;
+//		pAABB->setMin(midX, midY);
+//#ifdef DEBUG
+//		assert(false);
+//#endif // DEBUG
+//	}
+
 	// General logic:
 	// if (bot's next step is outside of screen)
 	//		step to edge of screen;
@@ -44,12 +63,6 @@ void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 
 	// as it stands now, this function is intended to be for 
 	//		passive collisions (something not user controlled)
-
-	CAABB_f* pAABB = bot->getAABB();
-	CVector2f* pMin = bot->getAABB()->getMin();
-
-	int winWidth = window->getWindowWidth();
-	int winHeight = window->getWindowHeight();
 
 	if (bot->m_sAtributes.velosity_x > 0) // moving right
 	{
@@ -74,7 +87,7 @@ void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 		{
 			pAABB->setMinY(0);
 
-			bot->m_sAtributes.gravityTimer.start();
+			//bot->m_sAtributes.gravityTimer.start();
 		}
 	}
 	else if (bot->m_sAtributes.velosity_y > 0) // moving down
