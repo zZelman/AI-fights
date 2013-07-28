@@ -34,6 +34,9 @@
     <Filter Include="Header Files\Interfaces">
       <UniqueIdentifier>{816f7712-d556-4204-b2ef-3039392fcbba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Music">
+      <UniqueIdentifier>{670b5361-d2d4-49d2-9f72-4bfedff56e2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -75,6 +78,9 @@
     <ClCompile Include="Source Files\CPhysics.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\CMusic.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\stdafx.h">
@@ -113,6 +119,9 @@
     <ClInclude Include="Source Files\CPhysics.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Source Files\CMusic.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource Files\Textures\foo.png">
@@ -127,5 +136,10 @@
     <Image Include="Resource Files\Sprites\blueAI.png">
       <Filter>Resource Files\Sprites</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource Files\Music\testMusic.ogg">
+      <Filter>Resource Files\Music</Filter>
+    </None>
   </ItemGroup>
 </Project>

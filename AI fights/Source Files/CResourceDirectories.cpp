@@ -5,6 +5,7 @@ CResourceDirectories::CResourceDirectories()
 {
 	m_resource_texture	= "Resource Files/Textures/";
 	m_resource_sprite	= "Resource Files/Sprites/";
+	m_resource_music	= "Resource Files/Music/";
 }
 
 CResourceDirectories::~CResourceDirectories()

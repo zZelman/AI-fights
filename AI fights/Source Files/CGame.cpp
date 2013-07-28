@@ -5,7 +5,10 @@ CGame::CGame()
 {
 	m_pGameWindow	= new CWindow();
 	m_pPhysics		= new CPhysics();
-	m_pUserBot			= new CUserControlled_Bot("redAI.png", m_pGameWindow);
+	m_pMusic		= new CMusic("testMusic.ogg");
+	m_pMusic->play();
+
+	m_pUserBot		= new CUserControlled_Bot("redAI.png", m_pGameWindow);
 	m_pAIBot		= new CAI_Bot("blueAI.png", m_pGameWindow);
 }
 
@@ -17,6 +20,9 @@ CGame::~CGame()
 
 	delete m_pPhysics;
 	m_pPhysics = NULL;
+
+	delete m_pMusic;
+	m_pMusic = NULL;
 
 	delete m_pUserBot;
 	m_pUserBot = NULL;

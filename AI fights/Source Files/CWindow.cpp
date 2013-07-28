@@ -59,7 +59,7 @@ void CWindow::updateSize()
 void CWindow::init()
 {
 	// init sdl
-	int sdlInitCode = SDL_Init(SDL_INIT_VIDEO);
+	int sdlInitCode = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 #ifdef DEBUG
 	assert(sdlInitCode >= 0);
 #endif // DEBUG

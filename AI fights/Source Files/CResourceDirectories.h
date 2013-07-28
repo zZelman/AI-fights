@@ -11,4 +11,5 @@ public:
 protected:
 	std::string m_resource_texture; // directory to texture files
 	std::string m_resource_sprite; // directory to sprite files
+	std::string m_resource_music; // directory to music files
 };
