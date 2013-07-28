@@ -3,16 +3,26 @@
 
 CGame::CGame()
 {
-	m_pGameWindow = new CWindow();
-	m_pBot = new CUserControlled_Bot("redAI.png", m_pGameWindow);
-	m_pAIBot = new CAI_Bot("blueAI.png", m_pGameWindow);
+	m_pGameWindow	= new CWindow();
+	m_pPhysics		= new CPhysics();
+	m_pUserBot			= new CUserControlled_Bot("redAI.png", m_pGameWindow);
+	m_pAIBot		= new CAI_Bot("blueAI.png", m_pGameWindow);
 }
 
 
 CGame::~CGame()
 {
 	delete m_pGameWindow;
-	delete m_pBot;
+	m_pGameWindow = NULL;
+
+	delete m_pPhysics;
+	m_pPhysics = NULL;
+
+	delete m_pUserBot;
+	m_pUserBot = NULL;
+
+	delete m_pAIBot;
+	m_pAIBot = NULL;
 }
 
 
@@ -60,7 +70,7 @@ void CGame::gameEvents(SDL_Event& event)
 		}
 		else
 		{
-			m_pBot->userInput(&event);
+			m_pUserBot->userInput(&event);
 		}
 	}
 }
@@ -68,7 +78,9 @@ void CGame::gameEvents(SDL_Event& event)
 
 void CGame::gameUpdate()
 {
-	m_pBot->update();
+	m_pUserBot->update();
+
+	m_pPhysics->collisionDetection(m_pAIBot, m_pGameWindow);
 	m_pAIBot->update();
 }
 
@@ -80,7 +92,7 @@ void CGame::gameRender()
 	SDL_RenderSetScale(m_pGameWindow->getRenderer(), 1.0f, 1.0f);
 	SDL_RenderClear(m_pGameWindow->getRenderer());
 
-	m_pBot->render();
+	m_pUserBot->render();
 	m_pAIBot->render();
 
 	SDL_RenderPresent(m_pGameWindow->getRenderer());

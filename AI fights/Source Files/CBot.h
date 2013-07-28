@@ -3,12 +3,50 @@
 #include "stdafx.h"
 #include "CWindow.h"
 #include "CSprite.h"
+#include "Math2D.h"
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// these declorations/deffinitions are here because CBot.h cant find them in Math2D.h for whatever reason
+
+class CAABB_f;
+
+// Holds physics information about the object
+struct SAtributes
+{
+	float defaultVelosity_pos; // DEFAULT movement size each update
+	float defaultVelosity_neg; // DEFAULT movement size each update
+	float velosity_x; // change in the x axis each update
+	float velosity_y; // change in the y axis each update
+	float mass;
+
+	void nullVelosity()
+	{
+		velosity_x = 0;
+		velosity_y = 0;
+	}
+
+	void nullVelosity_x()
+	{
+		velosity_x = 0;
+	}
+
+	void nullVelosity_y()
+	{
+		velosity_y = 0;
+	}
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // serves as the base class for all movable 'bot's in the game
 class CBot
 {
 public:
+	// * holds all of the physics data for this object
+	// * public because there are no bounds atm for data, so why use getters/setters?
+	SAtributes m_sAtributes;
+
 	CBot(std::string spriteName, CWindow* pWindow);
 	virtual ~CBot();
 
@@ -23,7 +61,6 @@ protected:
 	std::string m_spriteName; // file name (not path) of the sprite used for this bot
 
 	CAABB_f* m_pAABB; // axis aligned bonding box
-	int m_stepSize; // size of each increment
 
 	// loads everything (separate from constructor b/c constructor sets data values)
 	virtual void init();

@@ -72,6 +72,9 @@
     <ClCompile Include="Source Files\CBot.cpp">
       <Filter>Source Files\Base Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\CPhysics.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\stdafx.h">

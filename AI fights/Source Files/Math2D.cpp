@@ -102,6 +102,18 @@ CVector2f* CAABB_f::getMax()
 }
 
 
+float CAABB_f::getWidth()
+{
+	return width;
+}
+
+
+float CAABB_f::getHeight()
+{
+	return height;
+}
+
+
 void CAABB_f::setMin(CVector2f* _min)
 {
 	// delete because if you move the pointer you will cause a memory leak
@@ -109,7 +121,7 @@ void CAABB_f::setMin(CVector2f* _min)
 	min = _min;
 
 	// don't need to delete max because just changing values inside of max,
-	//		not moving pointer
+	//		not moving a pointer
 	max->x = min->x + width;
 	max->y = min->y + height;
 }
@@ -136,7 +148,7 @@ void CAABB_f::setMax(CVector2f* _max)
 	max = _max;
 
 	// don't need to delete min because just changing values inside of min,
-	//		not moving pointer
+	//		not moving a pointer
 	min->x = max->x - width;
 	min->y = max->y - height;
 }

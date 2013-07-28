@@ -50,6 +50,9 @@ public:
 	CVector2f* getMin();
 	CVector2f* getMax();
 
+	float getWidth();
+	float getHeight();
+
 	void setMin(CVector2f* _min);
 	void setMinX(float x);
 	void setMinY(float y);
@@ -81,14 +84,33 @@ struct SManifold
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// Holds physics information about the object
-struct SAtributes
-{
-	float moveDirection;
-	float velosity_x; // change in the x axis each update
-	float velosity_y; // change in the y axis each update
-	float mass;
-};
+// commented out because CBot isnt able to see this for whatever reason (in CBot.h atm)
+
+//// Holds physics information about the object
+//struct SAtributes
+//{
+//	float defaultVelosity_pos; // DEFAULT movement size each update
+//	float defaultVelosity_neg; // DEFAULT movement size each update
+//	float velosity_x; // change in the x axis each update
+//	float velosity_y; // change in the y axis each update
+//	float mass;
+//
+//	void nullVelosity()
+//	{
+//		velosity_x = 0;
+//		velosity_y = 0;
+//	}
+//
+//	void nullVelosity_x()
+//	{
+//		velosity_x = 0;
+//	}
+//
+//	void nullVelosity_y()
+//	{
+//		velosity_y = 0;
+//	}
+//};
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

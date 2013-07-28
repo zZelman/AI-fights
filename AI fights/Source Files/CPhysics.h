@@ -19,7 +19,7 @@ public:
 
 	// * checks the bot's collision against the window edges
 	// * calculates against the bot's NEXT move
-	bool collisionDetection(CBot* bot, CWindow* window);
+	void collisionDetection(CBot* bot, CWindow* window);
 
 	// * calculates how much bot1 has collided with bot2
 	// * NOTE: does not check collision detection, it is assumed as true
@@ -36,11 +36,3 @@ public:
 private:
 
 };
-
-CPhysics::CPhysics()
-{
-}
-
-CPhysics::~CPhysics()
-{
-}

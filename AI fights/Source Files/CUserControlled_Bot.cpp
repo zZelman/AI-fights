@@ -10,7 +10,10 @@ CUserControlled_Bot::CUserControlled_Bot(std::string spriteName, CWindow* pWindo
 	CVector2f* max = new CVector2f(x + m_pSprite->getWidth(), y + m_pSprite->getHeight());
 	m_pAABB = new CAABB_f(min, max);
 
-	m_stepSize = 5;
+	m_sAtributes.defaultVelosity_pos = 5;
+	m_sAtributes.defaultVelosity_neg = -5;
+	m_sAtributes.nullVelosity();
+	m_sAtributes.mass = 10;
 
 	isUpPressed		= false;
 	isDownPressed	= false;
@@ -33,21 +36,25 @@ bool CUserControlled_Bot::userInput(SDL_Event* key)
 		{
 		case SDLK_UP:
 			isUpPressed = true;
+			m_sAtributes.velosity_y = m_sAtributes.defaultVelosity_neg;
 			return true;
 			break;
 
 		case SDLK_DOWN:
 			isDownPressed = true;
+			m_sAtributes.velosity_y = m_sAtributes.defaultVelosity_pos;
 			return true;
 			break;
 
 		case SDLK_LEFT:
 			isLeftPressed = true;
+			m_sAtributes.velosity_x = m_sAtributes.defaultVelosity_neg;
 			return true;
 			break;
 
 		case SDLK_RIGHT:
 			isRightPressed = true;
+			m_sAtributes.velosity_x = m_sAtributes.defaultVelosity_pos;
 			return true;
 			break;
 		}
@@ -58,21 +65,25 @@ bool CUserControlled_Bot::userInput(SDL_Event* key)
 		{
 		case SDLK_UP:
 			isUpPressed = false;
+			m_sAtributes.nullVelosity_y();
 			return true;
 			break;
 
 		case SDLK_DOWN:
 			isDownPressed = false;
+			m_sAtributes.nullVelosity_y();
 			return true;
 			break;
 
 		case SDLK_LEFT:
 			isLeftPressed = false;
+			m_sAtributes.nullVelosity_x();
 			return true;
 			break;
 
 		case SDLK_RIGHT:
 			isRightPressed = false;
+			m_sAtributes.nullVelosity_x();
 			return true;
 			break;
 		}
@@ -94,46 +105,46 @@ void CUserControlled_Bot::update()
 
 	if (isUpPressed)
 	{
-		if (pMin->y - m_stepSize < 0)
+		if (pMin->y + m_sAtributes.velosity_y < 0)
 		{
 			m_pAABB->setMinY(0);
 		}
 		else
 		{
-			m_pAABB->setMinY(pMin->y - m_stepSize);
+			m_pAABB->setMinY(pMin->y + m_sAtributes.velosity_y);
 		}
 	}
 	if (isDownPressed)
 	{
-		if (pMin->y + m_stepSize + m_pSprite->getHeight() > m_pWindow->getWindowHeight())
+		if (pMin->y + m_sAtributes.velosity_y + m_pSprite->getHeight() > m_pWindow->getWindowHeight())
 		{
 			m_pAABB->setMinY(m_pWindow->getWindowHeight() - m_pSprite->getHeight());
 		}
 		else
 		{
-			m_pAABB->setMinY(pMin->y + m_stepSize);
+			m_pAABB->setMinY(pMin->y + m_sAtributes.velosity_y);
 		}
 	}
 	if (isLeftPressed)
 	{
-		if (pMin->x - m_stepSize < 0)
+		if (pMin->x + m_sAtributes.velosity_x < 0)
 		{
 			m_pAABB->setMinX(0);
 		}
 		else
 		{
-			m_pAABB->setMinX(pMin->x - m_stepSize);
+			m_pAABB->setMinX(pMin->x + m_sAtributes.velosity_x);
 		}
 	}
 	if (isRightPressed)
 	{
-		if (pMin->x + m_stepSize + m_pSprite->getWidth() > m_pWindow->getWindowWidth())
+		if (pMin->x + m_sAtributes.velosity_x + m_pSprite->getWidth() > m_pWindow->getWindowWidth())
 		{
 			m_pAABB->setMinX(m_pWindow->getWindowWidth() - m_pSprite->getWidth());
 		}
 		else
 		{
-			m_pAABB->setMinX(pMin->x + m_stepSize);
+			m_pAABB->setMinX(pMin->x + m_sAtributes.velosity_x);
 		}
 	}
 }

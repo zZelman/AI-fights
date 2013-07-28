@@ -84,6 +84,7 @@
     <ClCompile Include="Source Files\1 Main.cpp" />
     <ClCompile Include="Source Files\CAI_Bot.cpp" />
     <ClCompile Include="Source Files\CBot.cpp" />
+    <ClCompile Include="Source Files\CPhysics.cpp" />
     <ClCompile Include="Source Files\CUserControlled_Bot.cpp" />
     <ClCompile Include="Source Files\CGame.cpp" />
     <ClCompile Include="Source Files\CResourceDirectories.cpp" />

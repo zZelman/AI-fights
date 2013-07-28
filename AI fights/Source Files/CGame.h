@@ -4,6 +4,7 @@
 #include "CWindow.h"
 #include "CUserControlled_Bot.h"
 #include "CAI_Bot.h"
+#include "CPhysics.h"
 
 class CGame
 {
@@ -17,7 +18,9 @@ public:
 private:
 	bool isGameRunning; // boolean that controlles continued exicution of the main game loop
 	CWindow* m_pGameWindow; // the window were everything is drawn
-	CUserControlled_Bot* m_pBot; // first bot to be played :D
+	CPhysics* m_pPhysics; // phisics that control the game movements
+
+	CUserControlled_Bot* m_pUserBot; // first bot to be played :D
 	CAI_Bot* m_pAIBot; // first atempt at AI :D
 
 	void gameLoop(); // main game loop
