@@ -14,6 +14,8 @@ public:
 	int getWindowWidth();
 	int getWindowHeight();
 
+	void updateSize(); // updates window size. Called when window has changed
+
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;

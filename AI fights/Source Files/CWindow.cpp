@@ -50,6 +50,12 @@ int CWindow::getWindowHeight()
 }
 
 
+void CWindow::updateSize()
+{
+	SDL_GetWindowSize(m_pWindow, &m_windowWidth, &m_windowHeight);
+}
+
+
 void CWindow::init()
 {
 	// init sdl
@@ -73,10 +79,10 @@ void CWindow::init()
 
 	// create window
 	m_pWindow = NULL;
-	m_pWindow = SDL_CreateWindow("AI fights", 
-								m_windowPosX, m_windowPosY, 
-								m_windowWidth, m_windowHeight, 
-								SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+	m_pWindow = SDL_CreateWindow("AI fights",
+	                             m_windowPosX, m_windowPosY,
+	                             m_windowWidth, m_windowHeight,
+	                             SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 #ifdef DEBUG
 	assert(m_pWindow != NULL);
 #endif // DEBUG

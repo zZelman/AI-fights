@@ -4,7 +4,8 @@
 CGame::CGame()
 {
 	m_pGameWindow = new CWindow();
-	m_pBot = new CBot("redAI.png", m_pGameWindow);
+	m_pBot = new CUserControlled_Bot("redAI.png", m_pGameWindow);
+	m_pAIBot = new CAI_Bot("blueAI.png", m_pGameWindow);
 }
 
 
@@ -33,7 +34,7 @@ void CGame::gameLoop()
 	SDL_Event events;
 	while (isGameRunning)
 	{
-		userInput(events);
+		gameEvents(events);
 		gameUpdate();
 		gameRender();
 	}
@@ -41,7 +42,7 @@ void CGame::gameLoop()
 }
 
 
-void CGame::userInput(SDL_Event& event)
+void CGame::gameEvents(SDL_Event& event)
 {
 	while (SDL_PollEvent(&event) != 0)
 	{
@@ -53,7 +54,11 @@ void CGame::userInput(SDL_Event& event)
 		{
 			isGameRunning = false;
 		}
-		else 
+		else if (event.type == SDL_WINDOWEVENT)
+		{
+			m_pGameWindow->updateSize();
+		}
+		else
 		{
 			m_pBot->userInput(&event);
 		}
@@ -64,6 +69,7 @@ void CGame::userInput(SDL_Event& event)
 void CGame::gameUpdate()
 {
 	m_pBot->update();
+	m_pAIBot->update();
 }
 
 
@@ -75,6 +81,7 @@ void CGame::gameRender()
 	SDL_RenderClear(m_pGameWindow->getRenderer());
 
 	m_pBot->render();
+	m_pAIBot->render();
 
 	SDL_RenderPresent(m_pGameWindow->getRenderer());
 }

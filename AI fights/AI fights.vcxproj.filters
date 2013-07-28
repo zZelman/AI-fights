@@ -31,6 +31,9 @@
     <Filter Include="Resource Files\Sprites">
       <UniqueIdentifier>{40f30155-ffd7-4e72-98db-24f4c8eb6b7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interfaces">
+      <UniqueIdentifier>{816f7712-d556-4204-b2ef-3039392fcbba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,8 +57,20 @@
     <ClCompile Include="Source Files\CSprite.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\CBot.cpp">
+    <ClCompile Include="Source Files\CTimer.cpp">
       <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CUserControlled_Bot.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CAI_Bot.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\Math2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CBot.cpp">
+      <Filter>Source Files\Base Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,7 +92,22 @@
     <ClInclude Include="Source Files\CSprite.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Source Files\CTimer.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CUserControlled_Bot.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CAI_Bot.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\Math2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Source Files\CBot.h">
+      <Filter>Header Files\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CPhysics.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,6 +119,9 @@
       <Filter>Resource Files\Textures</Filter>
     </Image>
     <Image Include="Resource Files\Sprites\redAI.png">
+      <Filter>Resource Files\Sprites</Filter>
+    </Image>
+    <Image Include="Resource Files\Sprites\blueAI.png">
       <Filter>Resource Files\Sprites</Filter>
     </Image>
   </ItemGroup>

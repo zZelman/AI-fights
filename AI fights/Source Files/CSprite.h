@@ -15,7 +15,7 @@ public:
 	int getHeight();
 	std::string getFileName();
 
-	// * change the file name of the texture 
+	// * change the file name of the texture
 	// * NOTE: does not load
 	// * NOTE: destroys old texture (b/c y change name if not new texture?)
 	void setFileName(std::string fileName);
@@ -46,8 +46,8 @@ private:
 	CWindow* m_pWindow; // access to the game window
 
 	bool isTextureLoaded; // simple check to see if load() has been called
-	// final loaded 'texture' 
-	//		called a texture because it is a sprite sheet -parts- 
+	// final loaded 'texture'
+	//		called a texture because it is a sprite sheet -parts-
 	//		applied to an arbitrary rectangle
 	SDL_Texture* m_pTexture;
 	int m_width, m_height; // width and height of the texture
