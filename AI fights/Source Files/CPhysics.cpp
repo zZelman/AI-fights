@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CPhysics.h"
 
-CPhysics::CPhysics() 
+CPhysics::CPhysics()
 {
 	float bounceTime = 2; // seconds
 
@@ -61,7 +61,7 @@ void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 	// else
 	//		do not change anything
 
-	// as it stands now, this function is intended to be for 
+	// as it stands now, this function is intended to be for
 	//		passive collisions (something not user controlled)
 
 	if (bot->m_sAtributes.velosity_x > 0) // moving right
@@ -71,7 +71,7 @@ void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 			pAABB->setMinX(winWidth - pAABB->getWidth());
 			bot->m_sAtributes.velosity_x = -bot->m_sAtributes.velosity_x;
 		}
-	} 
+	}
 	else if (bot->m_sAtributes.velosity_x < 0) // moving left
 	{
 		if (pMin->x  + bot->m_sAtributes.velosity_x < 0)
@@ -97,7 +97,7 @@ void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 			pAABB->setMinY(winHeight - pAABB->getHeight());
 
 			bot->m_sAtributes.gravityTimer.start();
-		} 
+		}
 	}
 }
 

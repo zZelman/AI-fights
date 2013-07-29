@@ -37,9 +37,15 @@
     <Filter Include="Resource Files\Music">
       <UniqueIdentifier>{670b5361-d2d4-49d2-9f72-4bfedff56e2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{94515ff4-5779-45c1-a8ac-dc4592d9cba5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="Other\Known Bugs.txt">
+      <Filter>Other</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Files\stdafx.cpp">
@@ -141,5 +147,10 @@
     <None Include="Resource Files\Music\testMusic.ogg">
       <Filter>Resource Files\Music</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resource Files\Music\testChunk.wav">
+      <Filter>Resource Files\Music</Filter>
+    </Media>
   </ItemGroup>
 </Project>

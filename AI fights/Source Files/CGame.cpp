@@ -4,11 +4,16 @@
 CGame::CGame()
 {
 	m_pGameWindow	= new CWindow();
+
 	m_pPhysics		= new CPhysics();
-	m_pMusic		= new CMusic("testMusic.ogg");
-	m_pMusic->play();
+
+	m_pMusic		= new CMusic();
+	//m_pMusic->load("testMusic.ogg");
+	//m_pMusic->play_music("testMusic.ogg", 0);
+	m_pMusic->load("testChunk.wav");
 
 	m_pUserBot		= new CUserControlled_Bot("redAI.png", m_pGameWindow);
+
 	m_pAIBot		= new CAI_Bot("blueAI.png", m_pGameWindow);
 }
 
@@ -73,6 +78,10 @@ void CGame::gameEvents(SDL_Event& event)
 		else if (event.type == SDL_WINDOWEVENT)
 		{
 			m_pGameWindow->updateSize();
+		}
+		else if (event.key.keysym.sym == SDLK_m)
+		{
+			m_pMusic->play_chunk("testChunk.wav", 0);
 		}
 		else
 		{
