@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="dirt-grass road tileset" tilewidth="32" tileheight="32">
+  <image source="dirt-grass road tileset.png" width="256" height="32"/>
+ </tileset>
+ <objectgroup name="object" width="25" height="25"/>
+ <imagelayer name="background" width="25" height="25">
+  <image source="pollygon background.png"/>
+ </imagelayer>
+ <objectgroup name="collision" width="25" height="25"/>
+ <layer name="Tile Layer 1" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztzrkNACAMwMBA+PafOI03QDTI17h1hG412mnSQSdddNPz+EuSJP2rADaTACU=
+  </data>
+ </layer>
+</map>

@@ -6,6 +6,7 @@
 #include "CAI_Bot.h"
 #include "CPhysics.h"
 #include "CMusic.h"
+#include "CMap.h"
 
 class CGame
 {
@@ -22,6 +23,7 @@ private:
 	CWindow* m_pGameWindow; // the window were everything is drawn
 	CPhysics* m_pPhysics; // physics that control the game movements
 	CMusic* m_pMusic; // game music
+	CMap* m_pMap; // game map
 
 	CUserControlled_Bot* m_pUserBot; // first bot to be played :D
 	CAI_Bot* m_pAIBot; // first attempt at AI :D

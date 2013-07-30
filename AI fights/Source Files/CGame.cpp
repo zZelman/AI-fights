@@ -8,10 +8,9 @@ CGame::CGame()
 	m_pPhysics		= new CPhysics();
 
 	m_pMusic		= new CMusic();
-	m_pMusic->load_music("music.wav");
-	m_pMusic->play_music("music.wav", 0);
-	m_pMusic->load_chunk("chunk.wav");
-	m_pMusic->load_chunk("electronica_1.wav");
+
+	m_pMap			= new CMap();
+	m_pMap->load("testing.txt");
 
 	m_pUserBot		= new CUserControlled_Bot("redAI.png", m_pGameWindow);
 
@@ -29,6 +28,9 @@ CGame::~CGame()
 
 	delete m_pMusic;
 	m_pMusic = NULL;
+
+	delete m_pMap;
+	m_pMap = NULL;
 
 	delete m_pUserBot;
 	m_pUserBot = NULL;
@@ -79,14 +81,6 @@ void CGame::gameEvents(SDL_Event& event)
 		else if (event.type == SDL_WINDOWEVENT)
 		{
 			m_pGameWindow->updateSize();
-		}
-		else if (event.key.keysym.sym == SDLK_m)
-		{
-			m_pMusic->play_chunk("chunk.wav", 0);
-		}
-		else if (event.key.keysym.sym == SDLK_n)
-		{
-			m_pMusic->play_chunk("electronica_1.wav", 0);
 		}
 		else
 		{

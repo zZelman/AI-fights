@@ -85,6 +85,7 @@
     <ClCompile Include="Source Files\1 Main.cpp" />
     <ClCompile Include="Source Files\CAI_Bot.cpp" />
     <ClCompile Include="Source Files\CBot.cpp" />
+    <ClCompile Include="Source Files\CMap.cpp" />
     <ClCompile Include="Source Files\CMusic.cpp" />
     <ClCompile Include="Source Files\CPhysics.cpp" />
     <ClCompile Include="Source Files\CUserControlled_Bot.cpp" />
@@ -102,6 +103,7 @@
   <ItemGroup>
     <ClInclude Include="Source Files\CAI_Bot.h" />
     <ClInclude Include="Source Files\CBot.h" />
+    <ClInclude Include="Source Files\CMap.h" />
     <ClInclude Include="Source Files\CMusic.h" />
     <ClInclude Include="Source Files\CPhysics.h" />
     <ClInclude Include="Source Files\CUserControlled_Bot.h" />

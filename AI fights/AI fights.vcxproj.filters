@@ -40,6 +40,9 @@
     <Filter Include="Other">
       <UniqueIdentifier>{94515ff4-5779-45c1-a8ac-dc4592d9cba5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Maps">
+      <UniqueIdentifier>{ae29c454-a9e1-4f3a-b934-526b56b7145c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -87,6 +90,9 @@
     <ClCompile Include="Source Files\CMusic.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\CMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\stdafx.h">
@@ -126,6 +132,9 @@
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Source Files\CMusic.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CMap.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
