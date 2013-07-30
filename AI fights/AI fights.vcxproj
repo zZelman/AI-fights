@@ -120,12 +120,6 @@
     <Image Include="Resource Files\Textures\foo.png" />
     <Image Include="Resource Files\Textures\texture.png" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resource Files\Music\testMusic.ogg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Resource Files\Music\testChunk.wav" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

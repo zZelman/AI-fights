@@ -8,9 +8,10 @@ CGame::CGame()
 	m_pPhysics		= new CPhysics();
 
 	m_pMusic		= new CMusic();
-	//m_pMusic->load("testMusic.ogg");
-	//m_pMusic->play_music("testMusic.ogg", 0);
-	m_pMusic->load("testChunk.wav");
+	m_pMusic->load_music("music.wav");
+	m_pMusic->play_music("music.wav", 0);
+	m_pMusic->load_chunk("chunk.wav");
+	m_pMusic->load_chunk("electronica_1.wav");
 
 	m_pUserBot		= new CUserControlled_Bot("redAI.png", m_pGameWindow);
 
@@ -81,7 +82,11 @@ void CGame::gameEvents(SDL_Event& event)
 		}
 		else if (event.key.keysym.sym == SDLK_m)
 		{
-			m_pMusic->play_chunk("testChunk.wav", 0);
+			m_pMusic->play_chunk("chunk.wav", 0);
+		}
+		else if (event.key.keysym.sym == SDLK_n)
+		{
+			m_pMusic->play_chunk("electronica_1.wav", 0);
 		}
 		else
 		{

@@ -4,8 +4,6 @@
 
 CMusic::CMusic() : CResourceDirectories()
 {
-	m_chunkChanel = -1;
-
 	audio_rate		= 22050;
 	audio_format	= AUDIO_S16; /* 16-bit stereo */
 	audio_channels	= 2;
@@ -89,10 +87,26 @@ int CMusic::getChanel(std::string fileName)
 }
 
 
+void CMusic::load_music(std::string fileName)
+{
+	// "can load WAVE, MOD, MIDI, OGG, MP3, FLAC, and any file that you use a command to play with"
+	// http://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_55.html
+
+	std::string filePath = m_resource_music + fileName;
+	Mix_Music* pMusic = Mix_LoadMUS(filePath.c_str());
+
+	m_music.insert(musicMap::value_type(fileName, pMusic));
+	m_musicNames.push_back(fileName);
+}
+
+
 void CMusic::play_music(std::string fileName, int loops)
 {
-	Mix_PlayMusic(getMusic(fileName), loops);
-	//Mix_HookMusicFinished(musicOver);
+	if (Mix_PlayingMusic() == 0) // music is not playing
+	{
+		Mix_PlayMusic(getMusic(fileName), loops);
+		//Mix_HookMusicFinished(musicOver);
+	}
 }
 
 
@@ -103,80 +117,40 @@ void CMusic::stop_music()
 }
 
 
-void CMusic::play_chunk(std::string fileName, int loops, int chanel)
+void CMusic::load_chunk(std::string fileName)
 {
-	int chanelReturn = Mix_PlayChannel(chanel, getChunk(fileName), loops);
-	m_chanels.insert(chanelMap::value_type(fileName, chanelReturn));
-}
+	// "The name is misleading. It also supports OGG, MP3, MOD and MIDI"
+	// http://sdl.beuc.net/sdl.wiki/Mix_LoadWAV
 
-
-void CMusic::stop_chunk(std::string fileName)
-{
-	Mix_HaltChannel(m_chunkChanel);
-}
-
-
-void CMusic::load(std::string fileName)
-{
-	std::string type_ogg = ".ogg";
-	std::string type_wav = ".wav";
-	std::string type_mp3 = ".mp3";
-
-	// extract the extension from the fileName
-	std::string extention = "";
-	for (std::string::iterator itr = fileName.end()-4; itr != fileName.end(); ++itr)
-	{
-		extention.operator+=(*itr);
-	}
-
-	if (extention.compare(type_ogg) == 0)
-	{
-		load_ogg(fileName);
-		return; // music file can only be one type
-	}
-
-	if (extention.compare(type_wav) == 0)
-	{
-		load_wav(fileName);
-		return;
-	}
-
-	if (extention.compare(type_mp3) == 0)
-	{
-		load_mp3(fileName);
-		return;
-	}
-}
-
-
-void CMusic::musicOver()
-{
-	// still have no idea how to solve this callback scope thing
-}
-
-
-void CMusic::load_ogg(std::string fileName)
-{
-	std::string filePath = m_resource_music += (fileName);
-	Mix_Music* pMusic = Mix_LoadMUS(filePath.c_str());
-
-	m_music.insert(musicMap::value_type(fileName, pMusic));
-	m_musicNames.push_back(fileName);
-}
-
-
-void CMusic::load_wav(std::string fileName)
-{
-	std::string filePath = m_resource_music += (fileName);
+	std::string filePath = m_resource_music + fileName;
 	Mix_Chunk* pChunck = Mix_LoadWAV(filePath.c_str());
+#ifdef DEBUG
+	assert(pChunck != NULL);
+#endif // DEBUG
 
 	m_chunks.insert(chunkMap::value_type(fileName, pChunck));
 	m_chunkNames.push_back(fileName);
 }
 
 
-void CMusic::load_mp3(std::string fileName)
+void CMusic::play_chunk(std::string fileName, int loops, int chanel)
 {
-	std::string filePath = m_resource_music += (fileName);
-	assert(false);
+	int chanelReturn = Mix_PlayChannel(chanel, getChunk(fileName), loops);
+#ifdef DEBUG
+	assert(chanelReturn != -1);
+#endif // DEBUG
+
+	m_chanels.insert(chanelMap::value_type(fileName, chanelReturn));
+}
+
+
+void CMusic::stop_chunk(std::string fileName)
+{
+	Mix_HaltChannel(getChanel(fileName));
+}
+
+
+void CMusic::musicOver()
+{
+	// still have no idea how to solve this callback scope thing
 }

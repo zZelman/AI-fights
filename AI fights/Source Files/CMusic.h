@@ -13,17 +13,15 @@ public:
 	Mix_Chunk* getChunk(std::string fileName); // returns the associated chunk pointer from the file name
 	int getChanel(std::string fileName); // returns the associated channel for a chunk that has started playing
 
+	void load_music(std::string fileName);
 	void play_music(std::string fileName, int loops); // start the music (-1 for infinet, 0 for 1 etc)
 	void stop_music();
 
+	void load_chunk(std::string fileName); // loads any supported music file (chooses how to load by file extension)
 	void play_chunk(std::string fileName, int loops, int chanel = -1); // starts a sound clip
 	void stop_chunk(std::string fileName);
 
-	void load(std::string fileName); // loads any supported music file (chooses how to load by file extension)
-
 private:
-	Mix_Chunk* m_pChunck; // sound effects
-	int m_chunkChanel;
 
 	typedef std::vector<std::string> stringVector;
 
@@ -44,9 +42,5 @@ private:
 	int audio_buffers;
 
 	void musicOver(); // when music has stopped playing this gets called [TODO: fix callback scope]
-
-	void load_ogg(std::string filePath); // all ogg files are treated as 'music' and not 'chunks'
-	void load_wav(std::string filePath); // all wav files are treated as 'chunks' and not 'music'
-	void load_mp3(std::string filePath);
 
 };
