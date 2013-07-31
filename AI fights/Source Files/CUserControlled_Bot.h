@@ -11,13 +11,16 @@
 class CUserControlled_Bot : public CBot
 {
 public:
-	CUserControlled_Bot(std::string spriteName, CWindow* pWindow);
+	CUserControlled_Bot(CWindow* window, std::string fileName, 
+		int imageWidth, int imageHeight,
+		int numImages_rows = 1, int numImages_columns = 1);
 	~CUserControlled_Bot();
 
 	// * allows user to manipulate things
 	// * returns true if key is consumed
 	bool userInput(SDL_Event* key);
 	void update(); // executes from on instance variables
+	void render();
 
 private:
 	bool isUpPressed, isDownPressed;

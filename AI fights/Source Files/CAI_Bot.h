@@ -8,7 +8,9 @@
 class CAI_Bot : public CBot
 {
 public:
-	CAI_Bot(std::string spriteName, CWindow* pWindow);
+	CAI_Bot(CWindow* window, std::string fileName, 
+		int imageWidth, int imageHeight,
+		int numImages_rows = 1, int numImages_columns = 1);
 	~CAI_Bot();
 
 	void update(); // executes from on instance variables

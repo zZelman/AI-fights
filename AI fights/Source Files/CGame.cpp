@@ -12,9 +12,9 @@ CGame::CGame()
 	m_pMap			= new CMap();
 	m_pMap->load("testing.txt");
 
-	m_pUserBot		= new CUserControlled_Bot("redAI.png", m_pGameWindow);
+	m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, "rpg.png", 32, 32, 6, 11);
 
-	m_pAIBot		= new CAI_Bot("blueAI.png", m_pGameWindow);
+	//m_pAIBot		= new CAI_Bot("blueAI.png", m_pGameWindow);
 }
 
 
@@ -35,8 +35,8 @@ CGame::~CGame()
 	delete m_pUserBot;
 	m_pUserBot = NULL;
 
-	delete m_pAIBot;
-	m_pAIBot = NULL;
+	//delete m_pAIBot;
+	//m_pAIBot = NULL;
 }
 
 
@@ -94,9 +94,9 @@ void CGame::gameUpdate()
 {
 	m_pUserBot->update();
 
-	m_pPhysics->collisionDetection(m_pAIBot, m_pGameWindow);
-	m_pPhysics->applyGravity(m_pAIBot);
-	m_pAIBot->update();
+	//m_pPhysics->collisionDetection(m_pAIBot, m_pGameWindow);
+	//m_pPhysics->applyGravity(m_pAIBot);
+	//m_pAIBot->update();
 }
 
 
@@ -108,7 +108,7 @@ void CGame::gameRender()
 	SDL_RenderClear(m_pGameWindow->getRenderer());
 
 	m_pUserBot->render();
-	m_pAIBot->render();
+	//m_pAIBot->render();
 
 	SDL_RenderPresent(m_pGameWindow->getRenderer());
 }

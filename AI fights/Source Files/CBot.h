@@ -11,6 +11,7 @@
 // these declarations/definitions are here because CBot.h cant find them in Math2D.h for whatever reason
 
 class CAABB_f;
+struct SCoords2i;
 
 // Holds physics information about the object
 struct SAtributes
@@ -42,6 +43,19 @@ struct SAtributes
 	}
 };
 
+
+struct SCoords2i
+{
+	int x, y;
+
+	SCoords2i() {}
+	SCoords2i(int _x, int _y)
+	{
+		x = _x;
+		y = _y;
+	}
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // serves as the base class for all movable 'bot's in the game
@@ -52,7 +66,13 @@ public:
 	// * public because there are no bounds atm for data, so why use getters/setters?
 	SAtributes m_sAtributes;
 
-	CBot(std::string spriteName, CWindow* pWindow);
+	// * holds the sprite sheet coords for animation/successive images to be played by the bot
+	// * SPRITE SHEET COORDS (lengths -> top left is 1,1)
+	SCoords2i m_sAnimationSequence;
+
+	CBot(CWindow* window, std::string fileName, 
+		int imageWidth, int imageHeight,
+		int numImages_rows = 1, int numImages_columns = 1);
 	virtual ~CBot();
 
 	CAABB_f* getAABB();

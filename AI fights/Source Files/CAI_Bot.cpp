@@ -1,13 +1,17 @@
 #include "stdafx.h"
 #include "CAI_Bot.h"
 
-CAI_Bot::CAI_Bot(std::string spriteName, CWindow* pWindow)
-	: CBot(spriteName, pWindow)
+CAI_Bot::CAI_Bot(CWindow* window, std::string fileName, 
+				 int imageWidth, int imageHeight,
+				 int numImages_rows, int numImages_columns)
+	: CBot(window, fileName, 
+	imageWidth, imageHeight, 
+	numImages_rows, numImages_columns)
 {
-	float x = pWindow->getWidth() / 2;
-	float y = pWindow->getHeight() / 2;
+	float x = window->getWidth() / 2;
+	float y = window->getHeight() / 2;
 	CVector2f* min = new CVector2f(x, y);
-	CVector2f* max = new CVector2f(x + m_pSprite->getWidth(), y + m_pSprite->getHeight());
+	CVector2f* max = new CVector2f(x + m_pSprite->getImageWidth(), y + m_pSprite->getImageHeight());
 	m_pAABB = new CAABB_f(min, max);
 
 	m_sAtributes.defaultVelosity_pos = 5;

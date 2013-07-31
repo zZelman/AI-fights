@@ -1,11 +1,20 @@
 #include "stdafx.h"
 #include "CSprite.h"
 
-CSprite::CSprite(std::string fileName, CWindow* window) : CResourceDirectories()
+CSprite::CSprite(CWindow* window, std::string fileName, 
+				 int imageWidth, int imageHeight,
+				 int numImages_rows, int numImages_columns) 
+	: CResourceDirectories()
 {
-	m_TexturePath	= m_resource_sprite += (fileName);
-	m_TextureName	= fileName;
-	isTextureLoaded = false;
+	m_pWindow = window;
+
+	isSpriteSheetLoaded = false;
+	setFileName(fileName);
+
+	m_imageWidth	= imageWidth;
+	m_imageHeight	= imageHeight;
+	m_numRows		= numImages_rows;
+	m_numColums		= numImages_columns;
 
 	// default color manipulation is white
 	m_red	= 255;
@@ -18,7 +27,7 @@ CSprite::CSprite(std::string fileName, CWindow* window) : CResourceDirectories()
 	// default blending is no blending
 	m_blendMode = SDL_BLENDMODE_NONE;
 
-	m_pWindow = window;
+	load();
 }
 
 
@@ -31,59 +40,87 @@ CSprite::~CSprite()
 SDL_Texture* CSprite::getTexture()
 {
 #ifdef DEBUG
-	assert(isTextureLoaded);
+	assert(isSpriteSheetLoaded);
 #endif // DEBUG
 
-	return m_pTexture;
+	return m_pSpriteSheet;
 }
 
 
-int CSprite::getWidth()
+int CSprite::getImageWidth()
 {
-	return m_width;
+	return m_imageWidth;
 }
 
 
-int CSprite::getHeight()
+int CSprite::getImageHeight()
 {
-	return m_height;
+	return m_imageHeight;
+}
+
+
+int CSprite::getEntireWidth()
+{
+	return m_entireWidth;
+}
+
+
+int CSprite::getEntireHeight()
+{
+	return m_entireHeight;
+}
+
+
+int CSprite::getNumRows()
+{
+	return m_numRows;
+}
+
+
+int CSprite::getNumColumns()
+{
+	return m_numColums;
 }
 
 
 std::string CSprite::getFileName()
 {
-	return m_TextureName;
+	return m_fileName;
 }
 
 
 void CSprite::setFileName(std::string fileName)
 {
 	free();
-	m_TexturePath = m_resource_sprite += (fileName);
-	m_TextureName = fileName;
+	m_filePath = m_resource_sprite += (fileName);
+	m_fileName = fileName;
 }
 
 
 void CSprite::free()
 {
-	if (isTextureLoaded == true)
+	if (isSpriteSheetLoaded == true)
 	{
-		SDL_DestroyTexture(m_pTexture);
-		m_pTexture = NULL;
-		m_width = 0;
-		m_height = 0;
+		delete m_imageArray;
 
-		isTextureLoaded = false;
+		SDL_DestroyTexture(m_pSpriteSheet);
+		m_pSpriteSheet = NULL;
+		m_imageWidth = 0;
+		m_imageHeight = 0;
+		m_entireWidth = 0;
+		m_entireHeight = 0;
+
+		isSpriteSheetLoaded = false;
 	}
 }
 
 
 void CSprite::load()
 {
-	m_pTexture = NULL;
+	m_pSpriteSheet = NULL;
 
 	// load image at specified path
-	SDL_Surface* pLoadedSurface = IMG_Load(m_TexturePath.c_str());
+	SDL_Surface* pLoadedSurface = IMG_Load(m_filePath.c_str());
 #ifdef DEBUG
 	assert(pLoadedSurface != NULL);
 #endif // DEBUG
@@ -96,24 +133,60 @@ void CSprite::load()
 	SDL_SetColorKey(pLoadedSurface, SDL_TRUE, SDL_MapRGB(pLoadedSurface->format, 0, 0xFF, 0xFF));
 
 	// create texture from surface pixels
-	m_pTexture = SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), pLoadedSurface);
+	m_pSpriteSheet = SDL_CreateTextureFromSurface(m_pWindow->getRenderer(), pLoadedSurface);
 #ifdef DEBUG
-	assert(m_pTexture != NULL);
+	assert(m_pSpriteSheet != NULL);
 #endif // DEBUG
 
-	m_width = pLoadedSurface->w;
-	m_height = pLoadedSurface->h;
+	m_entireWidth = pLoadedSurface->w;
+	m_entireHeight = pLoadedSurface->h;
 
 	// free unneeded surface
 	SDL_FreeSurface(pLoadedSurface);
 
-	isTextureLoaded = true;
+	isSpriteSheetLoaded = true;
+
+	m_imageArray = new SDL_Rect[m_numRows * m_numColums];
+	for (int i = 0; i < m_numRows; ++i)
+	{
+		for (int n = 0; n < m_numColums; ++n)
+		{
+			int topLeftX = n * m_imageWidth;
+			int topLeftY = i * m_imageHeight;
+			SDL_Rect rect = {topLeftX, topLeftY, m_imageWidth, m_imageHeight};
+			m_imageArray[i * m_numRows + n] = rect;
+		}
+	}
+
 }
 
 
-void CSprite::loadNew(std::string fileName)
+void CSprite::loadNew(std::string fileName,
+					  int imageWidth, int imageHeight,
+					  int numImages_rows, int numImages_columns)
 {
 	setFileName(fileName);
+
+	m_filePath	= m_resource_sprite += (fileName);
+	m_fileName	= fileName;
+	isSpriteSheetLoaded = false;
+
+	m_imageWidth	= imageWidth;
+	m_imageHeight	= imageHeight;
+	m_numRows		= numImages_rows;
+	m_numColums		= numImages_columns;
+
+	// default color manipulation is white
+	m_red	= 255;
+	m_green = 255;
+	m_blue	= 255;
+
+	// default alpha is solid
+	m_alpha	= 255;
+
+	// default blending is no blending
+	m_blendMode = SDL_BLENDMODE_NONE;
+
 	load();
 }
 
@@ -128,7 +201,7 @@ void CSprite::setColor(Uint8 red, Uint8 green, Uint8 blue)
 
 void CSprite::manipulate_Color()
 {
-	SDL_SetTextureColorMod(m_pTexture, m_red, m_green, m_blue);
+	SDL_SetTextureColorMod(m_pSpriteSheet, m_red, m_green, m_blue);
 }
 
 
@@ -140,7 +213,7 @@ void CSprite::setAlpha(Uint8 alpha)
 
 void CSprite::manipulate_Alpha()
 {
-	SDL_SetTextureAlphaMod(m_pTexture, m_alpha);
+	SDL_SetTextureAlphaMod(m_pSpriteSheet, m_alpha);
 }
 
 
@@ -152,33 +225,48 @@ void CSprite::setBlendMode(SDL_BlendMode blendMode)
 
 void CSprite::manipulate_Blending()
 {
-	SDL_SetTextureBlendMode(m_pTexture, m_blendMode);
+	SDL_SetTextureBlendMode(m_pSpriteSheet, m_blendMode);
 }
 
 
-void CSprite::render(int x, int y, SDL_Rect* clip)
+SDL_Rect CSprite::getRect(int row, int column)
+{
+	return m_imageArray[(row-1) * m_numRows + (column-1)]; // length -> index
+}
+
+
+void CSprite::render(int screenX, int screenY, 
+					 int screenW, int screenH, 
+					 int sheetRow, int sheetColumn)
 {
 	manipulate_Color();
 	manipulate_Alpha();
 	//manipulate_Blending();
-
+	
 	// Set rendering space and render to screen
-	SDL_Rect renderQuad = {x, y, m_width, m_height};
-
-	// set clip rendering dimensions (part of the texture to be rendered -- a sprite from a sprite sheet)
-	if (clip != NULL)
+	SDL_Rect renderQuad = {screenX, screenY, m_entireWidth, m_entireHeight};
+	if (screenW != NULL && 
+		screenH != NULL)
 	{
-		renderQuad.w = clip->w;
-		renderQuad.h = clip->h;
+		renderQuad.w = screenW;
+		renderQuad.h = screenH;
 	}
+
+	// individual sprite to be rendered to renderQuad
+	SDL_Rect spriteQuad = getRect(sheetRow, sheetColumn);
 
 	// * render to the screen
 	// * 'clip' is the selection from the sprite sheet
-	SDL_RenderCopy(m_pWindow->getRenderer(), m_pTexture, clip, &renderQuad);
+	SDL_RenderCopy(m_pWindow->getRenderer(), m_pSpriteSheet, &spriteQuad, &renderQuad);
+
+	if (sheetRow == 6)
+	{
+		int q = 0;
+	}
 }
 
 
 bool CSprite::equals(CSprite* other)
 {
-	return m_TextureName.compare(other->getFileName());
+	return m_fileName.compare(other->getFileName());
 }

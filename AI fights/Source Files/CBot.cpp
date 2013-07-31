@@ -1,16 +1,22 @@
 #include "stdafx.h"
 #include "CBot.h"
 
-CBot::CBot(std::string spriteName, CWindow* pWindow)
+CBot::CBot(CWindow* window, std::string fileName, 
+		   int imageWidth, int imageHeight,
+		   int numImages_rows, int numImages_columns)
 {
 	// position is not initalized here because each bot has different values
 
-	m_spriteName = spriteName;
-	m_pWindow = pWindow;
+	m_spriteName = fileName;
+	m_pWindow = window;
 
 	m_sAtributes.gravityTimer.start();
 
-	init();
+	m_pSprite = new CSprite(m_pWindow, fileName, 
+		imageWidth, imageHeight, 
+		numImages_rows, numImages_columns);
+	m_pSprite->load();
+
 }
 
 
@@ -32,18 +38,10 @@ CAABB_f* CBot::getAABB()
 }
 
 
-void CBot::init()
-{
-	m_pSprite = new CSprite(m_spriteName, m_pWindow);
-	m_pSprite->load();
-}
-
-
 void CBot::update() {}
 
 
-void CBot::render()
-{
-	CVector2f* pMin = m_pAABB->getMin();
-	m_pSprite->render(pMin->x, pMin->y);
-}
+void CBot::render() {}
+
+
+void CBot::init() {}
