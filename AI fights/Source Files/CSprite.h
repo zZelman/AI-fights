@@ -51,7 +51,7 @@ public:
 
 	// * x, y: where the top left corner of the texture will start to be rendered in screen space
 	// * screenW, screenH: width and height the sprite will be rendered TO (null will be the whole size of the sprite sheet)
-	// * sheetRow, sheetColumn: which segment of the sprite sheet will be rendered (defaults to top left)
+	// * sheetRow, sheetColumn: LENGTH which segment of the sprite sheet will be rendered (defaults to top left)
 	void render(int screenX, int screenY, 
 		int screenW = NULL, int screenH = NULL, 
 		int sheetRow = 1, int sheetColumn = 1);

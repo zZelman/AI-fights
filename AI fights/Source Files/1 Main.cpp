@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 	CGame* game = new CGame();
 	game->startGame();
 
-	delete game;
+	//delete game;
 
 	return EXIT_SUCCESS;
 }

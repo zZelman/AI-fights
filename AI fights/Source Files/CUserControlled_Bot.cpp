@@ -55,40 +55,12 @@ bool CUserControlled_Bot::userInput(SDL_Event* key)
 		case SDLK_LEFT:
 			isLeftPressed = true;
 			m_sAtributes.velosity_x = m_sAtributes.defaultVelosity_neg;
-
-			m_sAnimationSequence.y = 1;
-			if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
-			{
-				m_sAnimationSequence.x = 1;
-			} 
-			else
-			{
-				++m_sAnimationSequence.x;
-			}
-			//m_sAnimationSequence.y = 1;
-			//m_sAnimationSequence.x = 3;
-
-			std::cout << "row: " << m_sAnimationSequence.y << " col: " << m_sAnimationSequence.x << std::endl;
-
 			return true;
 			break;
 
 		case SDLK_RIGHT:
 			isRightPressed = true;
 			m_sAtributes.velosity_x = m_sAtributes.defaultVelosity_pos;
-
-			m_sAnimationSequence.y = 2;
-			if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
-			{
-				m_sAnimationSequence.x = 1;
-			} 
-			else
-			{
-				++m_sAnimationSequence.x;
-			}
-
-			std::cout << "row: " << m_sAnimationSequence.y << " col: " << m_sAnimationSequence.x << std::endl;
-
 			return true;
 			break;
 		}
@@ -161,6 +133,16 @@ void CUserControlled_Bot::update()
 	}
 	if (isLeftPressed)
 	{
+		m_sAnimationSequence.y = 1;
+		if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
+		{
+			m_sAnimationSequence.x = 1;
+		} 
+		else
+		{
+			++m_sAnimationSequence.x;
+		}
+
 		if (pMin->x + m_sAtributes.velosity_x < 0)
 		{
 			m_pAABB->setMinX(0);
@@ -172,6 +154,16 @@ void CUserControlled_Bot::update()
 	}
 	if (isRightPressed)
 	{
+		m_sAnimationSequence.y = 2;
+		if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
+		{
+			m_sAnimationSequence.x = 1;
+		} 
+		else
+		{
+			++m_sAnimationSequence.x;
+		}
+
 		if (pMin->x + m_sAtributes.velosity_x + m_pSprite->getImageWidth() > m_pWindow->getWidth())
 		{
 			m_pAABB->setMinX(m_pWindow->getWidth() - m_pSprite->getImageWidth());

@@ -9,8 +9,7 @@ CGame::CGame()
 
 	m_pMusic		= new CMusic();
 
-	m_pMap			= new CMap();
-	m_pMap->load("testing.txt");
+	m_pMap			= new CMap(m_pGameWindow, "testing.txt");
 
 	m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, "ninja (46h 32w).png", 32, 46, 2, 6);
 
@@ -62,7 +61,7 @@ void CGame::gameLoop()
 		gameUpdate();
 		gameRender();
 	}
-	//assert(false);
+	assert(false);
 }
 
 
@@ -72,7 +71,7 @@ void CGame::gameEvents(SDL_Event& event)
 	{
 		if (event.type == SDL_QUIT)
 		{
-			isGameRunning = false;
+			//isGameRunning = false;
 		}
 		else if (event.key.keysym.sym == SDLK_ESCAPE)
 		{
@@ -107,6 +106,7 @@ void CGame::gameRender()
 	SDL_RenderSetScale(m_pGameWindow->getRenderer(), 1.0f, 1.0f);
 	SDL_RenderClear(m_pGameWindow->getRenderer());
 
+	m_pMap->render();
 	m_pUserBot->render();
 	//m_pAIBot->render();
 
