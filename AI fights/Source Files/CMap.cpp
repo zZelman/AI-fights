@@ -141,13 +141,6 @@ void CMap::load()
 	{
 		m_pTileCoordsArray[i] = SCoords2i(i+1, 1);
 	}
-
-	//// varifiying the coords
-	//for (int i = 0; i < spriteColumns; ++i)
-	//{
-	//	SCoords2i cord = m_pTileCoordsArray[i];
-	//	int p = 0;
-	//}
 }
 
 
@@ -166,18 +159,34 @@ void CMap::render()
 			}
 			else
 			{
-				int index = lineVector[n];
-				int screenX = n * m_tileWidth;
-				int screenY = i * m_tileHeight;
-				int screenW = m_tileWidth;
-				int screenH = m_tileHeight;
-				int spriteR = m_pTileCoordsArray[index-1].y;
-				int spriteC = m_pTileCoordsArray[index-1].x;
+				// what number represents the tile that should be drawn
+				int numberInPosition = lineVector[n];
+
+				// these two floats are what make the map draw to the entire screen no mater what
+				float proportionX = m_pWindow->getWidth() / lineVector.size();
+				float proportionY = m_pWindow->getHeight() / m_mapData.size();
+
+				int screenX = n * proportionX;
+				int screenY = i * proportionY;
+
+				int screenW = proportionX;
+				int screenH = proportionY;
+
+				// -1 b/c length -> index in data structure
+				int spriteR = m_pTileCoordsArray[numberInPosition-1].y;
+				int spriteC = m_pTileCoordsArray[numberInPosition-1].x;
+
 				m_pSpriteSheet->render(screenX, screenY, screenW, screenH, 
 					spriteR, spriteC);
 			}
 		}
 	}
+}
+
+
+bool CMap::mapColision(int x, int y)
+{
+
 }
 
 

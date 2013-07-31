@@ -61,7 +61,7 @@ void CGame::gameLoop()
 		gameUpdate();
 		gameRender();
 	}
-	assert(false);
+	//assert(false);
 }
 
 
@@ -71,7 +71,7 @@ void CGame::gameEvents(SDL_Event& event)
 	{
 		if (event.type == SDL_QUIT)
 		{
-			//isGameRunning = false;
+			isGameRunning = false;
 		}
 		else if (event.key.keysym.sym == SDLK_ESCAPE)
 		{

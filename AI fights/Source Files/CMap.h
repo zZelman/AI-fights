@@ -13,6 +13,10 @@ public:
 	void load(); // loads a map file named 'fileName'
 	void render(); // draws the loaded file
 
+	// * checks if screen coords (x, y) are inside of any tiles in the map
+	// * true if yes, false if now
+	bool mapColision(int x, int y);
+
 private:
 	CWindow* m_pWindow;
 
@@ -21,7 +25,7 @@ private:
 	int m_tileWidth;			// width of tiles
 	int m_tileHeight;			// height of tiles
 
-	int m_MapColumns;				// number of tiles per row
+	int m_MapColumns;			// number of tiles per row
 	int m_MapRows;				// number of tiles per column
 
 	CSprite* m_pSpriteSheet;
