@@ -82,11 +82,7 @@ CAABB_f::CAABB_f(CVector2f* _min, CVector2f* _max)
 
 CAABB_f::~CAABB_f()
 {
-	delete min;
-	min = NULL;
-
-	delete max;
-	max = NULL;
+	// no need to delete max/min because they are just pointers (no new was used in this class)
 }
 
 
@@ -172,6 +168,19 @@ void CAABB_f::setMaxY(float y)
 {
 	max->y = y;
 	min->y = max->y - height;
+}
+
+
+bool CAABB_f::collision(CAABB_f* other)
+{
+	// exit with no intersection if found separated along an axis
+	if (max->x < other->getMin()->x || min->x > other->getMax()->x)
+		return false;
+	if (max->y < other->getMin()->y || min->y > other->getMax()->y)
+		return false;
+
+	// no separating axis found, therefore there is at least one overlapping axis
+	return true;
 }
 
 

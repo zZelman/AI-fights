@@ -1,1 +1,1 @@
-CMusic:		Mix_Music* and Mix_Chunk* will not play at the same time
+global search for [BUG] to find notes of them

@@ -92,6 +92,7 @@ void CGame::gameEvents(SDL_Event& event)
 void CGame::gameUpdate()
 {
 	m_pUserBot->update();
+	std::cout << m_pUserBot->mapCollision(m_pMap) << std::endl;
 
 	//m_pPhysics->collisionDetection(m_pAIBot, m_pGameWindow);
 	//m_pPhysics->applyGravity(m_pAIBot);

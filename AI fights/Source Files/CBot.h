@@ -5,6 +5,7 @@
 #include "CSprite.h"
 #include "Math2D.h"
 #include "CTimer.h"
+#include "CMap.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,6 +80,10 @@ public:
 
 	virtual void update(); // serves as a dummy function
 	virtual void render();
+
+	// * checks collision against the given map
+	// * ATM it only checks the top left as for collisions -> possible [BUG]
+	virtual bool mapCollision(CMap* map);
 
 protected:
 	CWindow* m_pWindow; // window everything happens in

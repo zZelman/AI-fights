@@ -21,6 +21,18 @@ CMap::~CMap()
 }
 
 
+int CMap::getRows()
+{
+	return m_MapRows;
+}
+
+
+int CMap::getColumns()
+{
+	return m_MapColumns;
+}
+
+
 void CMap::load()
 {
 	using namespace std;
@@ -184,9 +196,62 @@ void CMap::render()
 }
 
 
-bool CMap::mapColision(int x, int y)
+bool CMap::collision_screenToMap(CAABB_f* aabb)
 {
+	for (int i = 0; i < m_mapData.size(); ++i) // row
+	{
+		std::vector<int> lineVector = m_mapData[i];
+		for (int n = 0; n < lineVector.size(); ++n) // column
+		{
+			if (lineVector[n] == 0)
+			{
+				continue;
+			}
 
+			float proportionX = m_pWindow->getWidth() / lineVector.size();
+			float proportionY = m_pWindow->getHeight() / m_mapData.size();
+
+			int topLeftX = n * proportionX;
+			int topLeftY = i * proportionY;
+
+			int botomRightX = topLeftX + proportionX;
+			int botomRightY = topLeftY + proportionY;
+
+			// TODO: this many allocations/deallocations a second may cause memory fragmentation
+			//		implement better solution? (custom memory stack?)
+			CVector2f* min = new CVector2f(topLeftX, topLeftY);
+			CVector2f* max = new CVector2f(botomRightX, botomRightY);
+			CAABB_f* tileAABB = new CAABB_f(min, max);
+
+			if (aabb->collision(tileAABB) == true)
+			{
+				delete min;
+				delete max;
+				delete tileAABB;
+
+				return true;
+			}
+
+			delete min;
+			delete max;
+			delete tileAABB;
+		}
+	}
+	return false;
+}
+
+
+bool CMap::collision_mapToMap(int row, int column)
+{
+	std::vector<int> lineVector = m_mapData[row];
+	int num = lineVector[column];
+
+	if (num != 0) // 0 represents no rendering on map -> != is collision
+	{
+		return true;
+	}
+
+	return false;
 }
 
 

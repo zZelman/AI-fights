@@ -44,4 +44,10 @@ void CBot::update() {}
 void CBot::render() {}
 
 
+bool CBot::mapCollision(CMap* map)
+{
+	return map->collision_screenToMap(m_pAABB);
+}
+
+
 void CBot::init() {}

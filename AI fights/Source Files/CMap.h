@@ -3,6 +3,15 @@
 #include "stdafx.h"
 #include "CResourceDirectories.h"
 #include "CSprite.h"
+#include "CBot.h"
+#include "Math2D.h"
+
+//////////////////////////////////////////////////////////////////////////
+
+struct SCoords2i;
+class CAABB_f;
+
+//////////////////////////////////////////////////////////////////////////
 
 class CMap : public CResourceDirectories
 {
@@ -10,12 +19,19 @@ public:
 	CMap(CWindow* window, std::string fileName);
 	~CMap();
 
+	int getRows();
+	int getColumns();
+
 	void load(); // loads a map file named 'fileName'
 	void render(); // draws the loaded file
 
 	// * checks if screen coords (x, y) are inside of any tiles in the map
 	// * true if yes, false if now
-	bool mapColision(int x, int y);
+	bool collision_screenToMap(CAABB_f* aabb);
+
+	// * checks if any part of the AABB is within a tile
+	// * 0's represent no rendering -> non-zero is collision 
+	bool collision_mapToMap(int x, int y);
 
 private:
 	CWindow* m_pWindow;

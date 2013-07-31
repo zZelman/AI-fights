@@ -78,6 +78,8 @@ public:
 	void setMaxX(float x);
 	void setMaxY(float y);
 
+	bool collision(CAABB_f* other);
+
 private:
 	CVector2f* min; // represents the top left corner
 	CVector2f* max; // represents the bottom right corner
