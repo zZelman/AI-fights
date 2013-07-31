@@ -16,6 +16,12 @@ CSprite::CSprite(CWindow* window, std::string fileName,
 	m_numRows		= numImages_rows;
 	m_numColums		= numImages_columns;
 
+	m_imageArray = new SDL_Rect*[m_numRows];
+	for (int i = 0; i < m_numRows; ++i)
+	{
+		m_imageArray[i] = new SDL_Rect[m_numColums];
+	}
+
 	// default color manipulation is white
 	m_red	= 255;
 	m_green = 255;
@@ -91,7 +97,6 @@ std::string CSprite::getFileName()
 
 void CSprite::setFileName(std::string fileName)
 {
-	free();
 	m_filePath = m_resource_sprite += (fileName);
 	m_fileName = fileName;
 }
@@ -101,7 +106,12 @@ void CSprite::free()
 {
 	if (isSpriteSheetLoaded == true)
 	{
-		delete m_imageArray;
+		for (int i = 0; i < m_numRows; ++i)
+		{
+			delete [] m_imageArray[i];
+		}
+		delete [] m_imageArray;
+		m_imageArray = NULL;
 
 		SDL_DestroyTexture(m_pSpriteSheet);
 		m_pSpriteSheet = NULL;
@@ -146,7 +156,6 @@ void CSprite::load()
 
 	isSpriteSheetLoaded = true;
 
-	m_imageArray = new SDL_Rect[m_numRows * m_numColums];
 	for (int i = 0; i < m_numRows; ++i)
 	{
 		for (int n = 0; n < m_numColums; ++n)
@@ -154,10 +163,9 @@ void CSprite::load()
 			int topLeftX = n * m_imageWidth;
 			int topLeftY = i * m_imageHeight;
 			SDL_Rect rect = {topLeftX, topLeftY, m_imageWidth, m_imageHeight};
-			m_imageArray[i * m_numRows + n] = rect;
+			m_imageArray[i][n] = rect;
 		}
 	}
-
 }
 
 
@@ -165,16 +173,21 @@ void CSprite::loadNew(std::string fileName,
 					  int imageWidth, int imageHeight,
 					  int numImages_rows, int numImages_columns)
 {
-	setFileName(fileName);
+	isSpriteSheetLoaded = true; // going to be loading new, so delete the old (it must be there)
+	free();
 
-	m_filePath	= m_resource_sprite += (fileName);
-	m_fileName	= fileName;
-	isSpriteSheetLoaded = false;
+	setFileName(fileName);
 
 	m_imageWidth	= imageWidth;
 	m_imageHeight	= imageHeight;
 	m_numRows		= numImages_rows;
 	m_numColums		= numImages_columns;
+
+	m_imageArray = new SDL_Rect*[m_numRows];
+	for (int i = 0; i < m_numRows; ++i)
+	{
+		m_imageArray[i] = new SDL_Rect[m_numColums];
+	}
 
 	// default color manipulation is white
 	m_red	= 255;
@@ -231,7 +244,8 @@ void CSprite::manipulate_Blending()
 
 SDL_Rect CSprite::getRect(int row, int column)
 {
-	return m_imageArray[(row-1) * m_numRows + (column-1)]; // length -> index
+	SDL_Rect rect = m_imageArray[row-1][column-1];
+	return rect;
 }
 
 
@@ -258,11 +272,6 @@ void CSprite::render(int screenX, int screenY,
 	// * render to the screen
 	// * 'clip' is the selection from the sprite sheet
 	SDL_RenderCopy(m_pWindow->getRenderer(), m_pSpriteSheet, &spriteQuad, &renderQuad);
-
-	if (sheetRow == 6)
-	{
-		int q = 0;
-	}
 }
 
 

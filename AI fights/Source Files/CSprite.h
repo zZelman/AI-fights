@@ -74,7 +74,7 @@ private:
 	// the sprite sheet is comprised of 2D images with the same size and width
 	//		So, this is an array of pointers of size n pointing to another array of size m
 	// NOT REFFERENCED BY INDEX image 1,1 is the top left
-	SDL_Rect* m_imageArray;
+	SDL_Rect** m_imageArray;
 
 	Uint8 m_red, m_green, m_blue; // color manipulations of the texture (255 = white)
 	Uint8 m_alpha; // alpha manipulation (255 = solid [opaque])

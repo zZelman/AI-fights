@@ -12,7 +12,7 @@ CGame::CGame()
 	m_pMap			= new CMap();
 	m_pMap->load("testing.txt");
 
-	m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, "rpg.png", 32, 32, 6, 11);
+	m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, "ninja (46h 32w).png", 32, 46, 2, 6);
 
 	//m_pAIBot		= new CAI_Bot("blueAI.png", m_pGameWindow);
 }
