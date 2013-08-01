@@ -83,7 +83,6 @@ bool CBot::correctMapCollision_up()
 		m_pAABB->setMinY(nextStepY_min);
 		return false;
 	}
-	//a 
 }
 
 
