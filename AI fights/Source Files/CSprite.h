@@ -14,12 +14,16 @@ public:
 	~CSprite();
 
 	SDL_Texture* getTexture();
+
 	int getImageWidth();
 	int getImageHeight();
+
 	int getEntireWidth();
 	int getEntireHeight();
+
 	int getNumRows();
 	int getNumColumns();
+
 	std::string getFileName();
 
 	// * change the file name of the texture

@@ -10,6 +10,8 @@
 #define ToRadian(x) (float)(((x) * M_PI / 180.0f))
 #define ToDegree(x) (float)(((x) * 180.0f / M_PI))
 
+#define SecToMS(x) ((x) * 1000)
+#define MStoSec(x) ((x) / 1000)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 

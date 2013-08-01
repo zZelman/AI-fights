@@ -78,7 +78,7 @@ public:
 
 	CAABB_f* getAABB();
 
-	virtual void update(); // serves as a dummy function
+	virtual void update();
 	virtual void render();
 
 	// * checks collision against the given map
@@ -90,6 +90,12 @@ protected:
 	CMap* m_pCollisionMap; // the map that will serve as collision detection/resolution
 	CSprite* m_pSprite; // holds the entire sprite sheet for this Bot
 	std::string m_spriteName; // file name (not path) of the sprite used for this bot
+
+	CTimer* m_pAnimationTimer;
+
+	// this prevents the first animation sequence from accounting for other loads which would chew up time
+	bool isFirstUpdate;
+	int m_animationChangeMS; // how many ms will be between animation image changes
 
 	CAABB_f* m_pAABB; // axis aligned bonding box
 

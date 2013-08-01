@@ -25,6 +25,7 @@ CUserControlled_Bot::CUserControlled_Bot(CWindow* window, CMap* collisionMap, st
 	isRightPressed	= false;
 
 	m_sAnimationSequence = SCoords2i(1, 1);
+	m_animationChangeMS = SecToMS(0.09);
 }
 
 
@@ -101,6 +102,8 @@ bool CUserControlled_Bot::userInput(SDL_Event* key)
 
 void CUserControlled_Bot::update()
 {
+	CBot::update();
+
 	// General logic:
 	// if (bot's next step is outside of screen)
 	//		step to edge of screen;
@@ -120,7 +123,7 @@ void CUserControlled_Bot::update()
 	float nextStepY_max		= maxPosY + m_sAtributes.velosity_y;
 
 
-	if (isUpPressed)
+	if (isUpPressed && !isDownPressed)
 	{
 		if (!correctScreenEdgeCollision_up())
 		{
@@ -130,7 +133,8 @@ void CUserControlled_Bot::update()
 			}
 		}
 	}
-	if (isDownPressed)
+
+	if (isDownPressed && !isUpPressed)
 	{
 		if (!correctScreenEdgeCollision_down())
 		{
@@ -140,16 +144,22 @@ void CUserControlled_Bot::update()
 			}
 		}
 	}
-	if (isLeftPressed)
+
+	if (isLeftPressed && !isRightPressed)
 	{
-		m_sAnimationSequence.y = 1;
-		if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
+		if (m_pAnimationTimer->getTime() > m_animationChangeMS)
 		{
-			m_sAnimationSequence.x = 1;
-		}
-		else
-		{
-			++m_sAnimationSequence.x;
+			m_sAnimationSequence.y = 1;
+			if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
+			{
+				m_sAnimationSequence.x = 1;
+			}
+			else
+			{
+				++m_sAnimationSequence.x;
+			}
+
+			m_pAnimationTimer->start();
 		}
 
 		if (!correctScreenEdgeCollision_left())
@@ -160,16 +170,22 @@ void CUserControlled_Bot::update()
 			}
 		}
 	}
-	if (isRightPressed)
+
+	if (isRightPressed && !isLeftPressed)
 	{
-		m_sAnimationSequence.y = 2;
-		if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
+		if (m_pAnimationTimer->getTime() > m_animationChangeMS)
 		{
-			m_sAnimationSequence.x = 1;
-		}
-		else
-		{
-			++m_sAnimationSequence.x;
+			m_sAnimationSequence.y = 2;
+			if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
+			{
+				m_sAnimationSequence.x = 1;
+			}
+			else
+			{
+				++m_sAnimationSequence.x;
+			}
+
+			m_pAnimationTimer->start();
 		}
 
 		if (!correctScreenEdgeCollision_right())

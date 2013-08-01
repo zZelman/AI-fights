@@ -16,8 +16,9 @@ CBot::CBot(CWindow* window, CMap* collisionMap, std::string fileName,
 	m_pSprite = new CSprite(m_pWindow, fileName,
 	                        imageWidth, imageHeight,
 	                        numImages_rows, numImages_columns);
-	m_pSprite->load();
-
+	
+	m_pAnimationTimer = new CTimer();
+	isFirstUpdate = true;
 }
 
 
@@ -30,6 +31,9 @@ CBot::~CBot()
 
 	delete m_pAABB;
 	m_pAABB = NULL;
+
+	delete m_pAnimationTimer;
+	m_pAnimationTimer = NULL;
 }
 
 
@@ -39,7 +43,14 @@ CAABB_f* CBot::getAABB()
 }
 
 
-void CBot::update() {}
+void CBot::update() 
+{
+	if (isFirstUpdate == true)
+	{
+		m_pAnimationTimer->start();
+		isFirstUpdate = false;
+	}
+}
 
 
 void CBot::render() {}
