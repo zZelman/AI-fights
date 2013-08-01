@@ -61,7 +61,6 @@ class CAABB_f
 public:
 	CAABB_f();
 	CAABB_f(CVector2f* _min, CVector2f* _max);
-	CAABB_f(CVector2f _min, CVector2f _max);
 	~CAABB_f();
 
 	CVector2f* getMin();
@@ -72,22 +71,25 @@ public:
 	float getWidth();
 	float getHeight();
 
+	// * sets the min/max CVector2f
+	// * calculates the width and height accordingly
+	void setEverything(float upperX, float upperY, float lowerX, float lowerY);
+
 	void setMin(CVector2f* _min);
 	void setMin(float x, float y);
 	void setMinX(float x);
 	void setMinY(float y);
 
 	void setMax(CVector2f* _max);
+	void setMax(float x, float y);
 	void setMaxX(float x);
 	void setMaxY(float y);
 
 	bool collision(CAABB_f* other); // heap collision detection
-	bool collision(CAABB_f other); // stack collision detection
 
 private:
 	CVector2f* min; // represents the top left corner
 	CVector2f* max; // represents the bottom right corner
-	CVector2f Smin, Smax; // same as above, only allocated on the stack (S)
 
 	float width, height; // size of the AABB from the top left to each corresponding edge
 };

@@ -26,9 +26,6 @@ public:
 	// check if the aabb is AT THIS MOMENT outside of the window edges
 	bool isOutsideWindow(CAABB_f* aabb);
 
-	// same as above, but on the stack (if CAABB_f, no pointer)
-	bool isOutsideWindow(CAABB_f aabb); 
-
 private:
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;

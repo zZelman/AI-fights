@@ -21,12 +21,14 @@ public:
 
 	int getRows();
 	int getColumns();
-
+	
 	void load(); // loads a map file named 'fileName'
 	void render(); // draws the loaded file
 
 	// * checks if screen coords (x, y) are inside of any tiles in the map
 	// * true if yes, false if now
+	// * tileCollidedWith will be the returned tile that the aabb collided with
+	//		this allows resolution of what to do next to happen outside of CMap
 	bool collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith = NULL);
 
 	// * checks if any part of the AABB is within a tile

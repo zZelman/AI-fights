@@ -8,7 +8,7 @@
  <objectgroup name="collision" width="25" height="25"/>
  <layer name="Tile Layer 1" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYBgZgHGgHTAKUAAjA+3jhB52jALiASMD7eNkuNgxCogHjAy0j5NRO0bBYAUAgbAAHw==
+   eJxjYBgFo2AUDBXAiIRH7RgFo2AUjIKRDQA80AAK
   </data>
  </layer>
 </map>

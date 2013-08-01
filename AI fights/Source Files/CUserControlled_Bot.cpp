@@ -107,13 +107,38 @@ void CUserControlled_Bot::update()
 	// else
 	//		step normally
 
+	CVector2f* pMin = m_pAABB->getMin();
+	float minPosX			= pMin->x;
+	float minPosY			= pMin->y;
+	float nextStepX_min		= minPosX + m_sAtributes.velosity_x;
+	float nextStepY_min		= minPosY + m_sAtributes.velosity_y;
+
+	CVector2f* pMax = m_pAABB->getMax();
+	float maxPosX			= pMax->x;
+	float maxPosY			= pMax->y;
+	float nextStepX_max		= maxPosX + m_sAtributes.velosity_x;
+	float nextStepY_max		= maxPosY + m_sAtributes.velosity_y;
+
+
 	if (isUpPressed)
 	{
-		correctScreenEdgeCollision_up();
+		if (!correctScreenEdgeCollision_up())
+		{
+			if (!correctMapCollision_up())
+			{
+				m_pAABB->setMinY(nextStepY_min);
+			}
+		}
 	}
 	if (isDownPressed)
 	{
-		correctScreenEdgeCollision_down();
+		if (!correctScreenEdgeCollision_down())
+		{
+			if (!correctMapCollision_down())
+			{
+				m_pAABB->setMinY(nextStepY_min);
+			}
+		}
 	}
 	if (isLeftPressed)
 	{
@@ -127,7 +152,13 @@ void CUserControlled_Bot::update()
 			++m_sAnimationSequence.x;
 		}
 
-		correctScreenEdgeCollision_left();
+		if (!correctScreenEdgeCollision_left())
+		{
+			if (!correctMapCollision_left())
+			{
+				m_pAABB->setMinX(nextStepX_min);
+			}
+		}
 	}
 	if (isRightPressed)
 	{
@@ -141,7 +172,13 @@ void CUserControlled_Bot::update()
 			++m_sAnimationSequence.x;
 		}
 
-		correctScreenEdgeCollision_right();
+		if (!correctScreenEdgeCollision_right())
+		{
+			if (!correctMapCollision_right())
+			{
+				m_pAABB->setMinX(nextStepX_min);
+			}
+		}
 	}
 }
 

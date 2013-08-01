@@ -68,39 +68,126 @@ bool CBot::correctMapCollision_up()
 
 	CVector2f min(minPosX, nextStepY_min);
 	CVector2f max(maxPosX, nextStepY_max);
-	CAABB_f aabb(min, max);
+	CAABB_f aabb(&min, &max);
 
-	// the = doesn't do anything, just makes sure that tileAABB is NOT null
-	CAABB_f tileAABB = aabb;
+	CAABB_f tileAABB;
 
-	if (m_pCollisionMap->collision_screenToMap(&aabb, &tileAABB))
+	// just set everything within the tileAABB with arbitrary NEW values
+	// they will be changed later, just need to have them, but not have tileAABB equal to something
+	//		else (no pointers)
+	tileAABB.setEverything(minPosX, minPosY, maxPosX, maxPosY);
+
+	if (m_pCollisionMap->collision_screenToMap(&aabb, &tileAABB) == true)
 	{
-		m_pAABB->setMinY(0);
+		m_pAABB->setMin(minPosX, tileAABB.getMax()->y);
 		return true;
 	}
-	else
-	{
-		m_pAABB->setMinY(nextStepY_min);
-		return false;
-	}
+	return false;
 }
 
 
 bool CBot::correctMapCollision_down()
 {
+	CVector2f* pMin = m_pAABB->getMin();
+	float minPosX			= pMin->x;
+	float minPosY			= pMin->y;
+	float nextStepX_min		= minPosX + m_sAtributes.velosity_x;
+	float nextStepY_min		= minPosY + m_sAtributes.velosity_y;
 
+	CVector2f* pMax = m_pAABB->getMax();
+	float maxPosX			= pMax->x;
+	float maxPosY			= pMax->y;
+	float nextStepX_max		= maxPosX + m_sAtributes.velosity_x;
+	float nextStepY_max		= maxPosY + m_sAtributes.velosity_y;
+
+
+	CVector2f min(minPosX, nextStepY_min);
+	CVector2f max(maxPosX, nextStepY_max);
+	CAABB_f aabb(&min, &max);
+
+	CAABB_f tileAABB;
+
+	// just set everything within the tileAABB with arbitrary NEW values
+	// they will be changed later, just need to have them, but not have tileAABB equal to something
+	//		else (no pointers)
+	tileAABB.setEverything(minPosX, minPosY, maxPosX, maxPosY);
+
+	if (m_pCollisionMap->collision_screenToMap(&aabb, &tileAABB) == true)
+	{
+		m_pAABB->setMax(maxPosX, tileAABB.getMin()->y);
+		return true;
+	}
+	return false;
 }
 
 
 bool CBot::correctMapCollision_left()
 {
+	CVector2f* pMin = m_pAABB->getMin();
+	float minPosX			= pMin->x;
+	float minPosY			= pMin->y;
+	float nextStepX_min		= minPosX + m_sAtributes.velosity_x;
+	float nextStepY_min		= minPosY + m_sAtributes.velosity_y;
 
+	CVector2f* pMax = m_pAABB->getMax();
+	float maxPosX			= pMax->x;
+	float maxPosY			= pMax->y;
+	float nextStepX_max		= maxPosX + m_sAtributes.velosity_x;
+	float nextStepY_max		= maxPosY + m_sAtributes.velosity_y;
+
+
+	CVector2f min(nextStepX_min, minPosY);
+	CVector2f max(nextStepX_max, maxPosY);
+	CAABB_f aabb(&min, &max);
+
+	CAABB_f tileAABB;
+
+	// just set everything within the tileAABB with arbitrary NEW values
+	// they will be changed later, just need to have them, but not have tileAABB equal to something
+	//		else (no pointers)
+	tileAABB.setEverything(minPosX, minPosY, maxPosX, maxPosY);
+
+	if (m_pCollisionMap->collision_screenToMap(&aabb, &tileAABB) == true)
+	{
+		m_pAABB->setMin(tileAABB.getMax()->x, minPosY);
+		return true;
+	}
+	return false;
 }
 
 
 bool CBot::correctMapCollision_right()
 {
+	CVector2f* pMin = m_pAABB->getMin();
+	float minPosX			= pMin->x;
+	float minPosY			= pMin->y;
+	float nextStepX_min		= minPosX + m_sAtributes.velosity_x;
+	float nextStepY_min		= minPosY + m_sAtributes.velosity_y;
 
+	CVector2f* pMax = m_pAABB->getMax();
+	float maxPosX			= pMax->x;
+	float maxPosY			= pMax->y;
+	float nextStepX_max		= maxPosX + m_sAtributes.velosity_x;
+	float nextStepY_max		= maxPosY + m_sAtributes.velosity_y;
+
+
+	CVector2f min(nextStepX_min, minPosY);
+	CVector2f max(nextStepX_max, maxPosY);
+	CAABB_f aabb(&min, &max);
+
+	CAABB_f tileAABB;
+
+	// just set everything within the tileAABB with arbitrary NEW values
+	// they will be changed later, just need to have them, but not have tileAABB equal to something
+	//		else (no pointers)
+	tileAABB.setEverything(minPosX, minPosY, maxPosX, maxPosY);
+
+	if (m_pCollisionMap->collision_screenToMap(&aabb, &tileAABB) == true)
+	{
+		m_pAABB->setMax(tileAABB.getMin()->x, maxPosY);
+		return true;
+	}
+	return false;
 }
 
 
@@ -126,16 +213,12 @@ bool CBot::correctScreenEdgeCollision_up()
 	CVector2f max(maxPosX, nextStepY_max);
 	CAABB_f aabb(&min, &max);
 
-	if (m_pWindow->isOutsideWindow(aabb))
+	if (m_pWindow->isOutsideWindow(&aabb))
 	{
 		m_pAABB->setMinY(0);
 		return true;
 	}
-	else
-	{
-		m_pAABB->setMinY(nextStepY_min);
-		return false;
-	}
+	return false;
 }
 
 
@@ -156,9 +239,9 @@ bool CBot::correctScreenEdgeCollision_down()
 
 	CVector2f min(minPosX, nextStepY_min);
 	CVector2f max(maxPosX, nextStepY_max);
-	CAABB_f aabb(min, max);
+	CAABB_f aabb(&min, &max);
 
-	if (m_pWindow->isOutsideWindow(aabb))
+	if (m_pWindow->isOutsideWindow(&aabb))
 	{
 		m_pAABB->setMinY(m_pWindow->getHeight() - m_pSprite->getImageHeight());
 		return true;
@@ -187,9 +270,9 @@ bool CBot::correctScreenEdgeCollision_left()
 
 	CVector2f min(nextStepX_min, minPosY);
 	CVector2f max(nextStepX_max, maxPosY);
-	CAABB_f aabb(min, max);
+	CAABB_f aabb(&min, &max);
 
-	if (m_pWindow->isOutsideWindow(aabb))
+	if (m_pWindow->isOutsideWindow(&aabb))
 	{
 		m_pAABB->setMinX(0);
 		return true;
@@ -218,9 +301,9 @@ bool CBot::correctScreenEdgeCollision_right()
 
 	CVector2f min(nextStepX_min, minPosY);
 	CVector2f max(nextStepX_max, maxPosY);
-	CAABB_f aabb(min, max);
+	CAABB_f aabb(&min, &max);
 
-	if (m_pWindow->isOutsideWindow(aabb))
+	if (m_pWindow->isOutsideWindow(&aabb))
 	{
 		m_pAABB->setMinX(m_pWindow->getWidth() - m_pSprite->getImageWidth());
 		return true;

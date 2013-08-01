@@ -88,38 +88,6 @@ bool CWindow::isOutsideWindow(CAABB_f* aabb)
 }
 
 
-bool CWindow::isOutsideWindow(CAABB_f aabb)
-{
-	float minX = aabb.getMinS().x;
-	float minY = aabb.getMinS().y;
-
-	float maxX = aabb.getMaxS().x;
-	float maxY = aabb.getMaxS().y;
-
-	// min testing (top left of aabb)
-	if (minX < 0)
-		return true;
-	if (minX > m_windowWidth)
-		return true;
-	if (minY < 0)
-		return true;
-	if (minY > m_windowHeight)
-		return true;
-
-	// max testing (bottom right of aabb)
-	if (maxX < 0)
-		return true;
-	if (maxX > m_windowWidth)
-		return true;
-	if (maxY < 0)
-		return true;
-	if (maxY > m_windowHeight)
-		return true;
-
-	return false;
-}
-
-
 void CWindow::init()
 {
 	// init sdl

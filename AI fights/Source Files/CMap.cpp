@@ -220,14 +220,14 @@ bool CMap::collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith)
 
 			CVector2f tileMin(topLeftX, topLeftY);
 			CVector2f tileMax(botomRightX, botomRightY);
-			CAABB_f tileAABB(tileMin, tileMax);
+			CAABB_f tileAABB(&tileMin, &tileMax);
 
-			if (aabb->collision(tileAABB) == true)
+			if (aabb->collision(&tileAABB) == true)
 			{
 				if (tileCollidedWith != NULL)
 				{
 					// give the calling place the tile that the given aabb collided with
-					tileCollidedWith->setMin(topLeftX, topLeftY);
+					tileCollidedWith->setEverything(topLeftX, topLeftY, botomRightX, botomRightY);
 				}
 
 				return true;
