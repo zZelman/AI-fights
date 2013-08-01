@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CMap.h"
 
-CMap::CMap(CWindow* window, std::string fileName) 
+CMap::CMap(CWindow* window, std::string fileName)
 	: CResourceDirectories()
 {
 	m_pWindow = window;
@@ -124,12 +124,12 @@ void CMap::load()
 					// this line of code slowly reduces the size of the string
 					//		each time a number is found (from the start to the next ',')
 					//		it makes a substring from the rest of the line after the ','
-					line = line.substr(line.find(delimiter)+1, line.length());
+					line = line.substr(line.find(delimiter) + 1, line.length());
 				}
 				// get rid of any spot that was grown by the vector that we don't want
 				//		(it is uninitialized data which could be a problem)
 				lineVector.resize(m_MapColumns);
-				
+
 				m_mapData.push_back(lineVector);
 			}
 
@@ -137,13 +137,13 @@ void CMap::load()
 
 	}
 
- 	fileStream.close();
+	fileStream.close();
 
 	isMapLoaded = true;
 
-	m_pSpriteSheet = new CSprite(m_pWindow, m_tileSetName, 
-		m_tileWidth, m_tileHeight, 
-		1, 8);
+	m_pSpriteSheet = new CSprite(m_pWindow, m_tileSetName,
+	                             m_tileWidth, m_tileHeight,
+	                             1, 8);
 
 	int spriteColumns = m_pSpriteSheet->getNumColumns();
 	m_pTileCoordsArray = new SCoords2i[spriteColumns];
@@ -151,7 +151,7 @@ void CMap::load()
 	// this for loop assumes that it is a 1D tile set of sequential indecies converted to lengths
 	for (int i = 0; i < spriteColumns; ++i)
 	{
-		m_pTileCoordsArray[i] = SCoords2i(i+1, 1);
+		m_pTileCoordsArray[i] = SCoords2i(i + 1, 1);
 	}
 }
 
@@ -185,11 +185,11 @@ void CMap::render()
 				int screenH = proportionY;
 
 				// -1 b/c length -> index in data structure
-				int spriteR = m_pTileCoordsArray[numberInPosition-1].y;
-				int spriteC = m_pTileCoordsArray[numberInPosition-1].x;
+				int spriteR = m_pTileCoordsArray[numberInPosition - 1].y;
+				int spriteC = m_pTileCoordsArray[numberInPosition - 1].x;
 
-				m_pSpriteSheet->render(screenX, screenY, screenW, screenH, 
-					spriteR, spriteC);
+				m_pSpriteSheet->render(screenX, screenY, screenW, screenH,
+				                       spriteR, spriteC);
 			}
 		}
 	}

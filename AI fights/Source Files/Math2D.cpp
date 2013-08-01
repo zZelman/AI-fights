@@ -196,9 +196,13 @@ bool CAABB_f::collision(CAABB_f* other)
 {
 	// exit with no intersection if found separated along an axis
 	if (max->x < other->getMin()->x || min->x > other->getMax()->x)
+	{
 		return false;
+	}
 	if (max->y < other->getMin()->y || min->y > other->getMax()->y)
+	{
 		return false;
+	}
 
 	// no separating axis found, therefore there is at least one overlapping axis
 	return true;

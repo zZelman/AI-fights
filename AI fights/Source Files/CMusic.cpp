@@ -27,7 +27,7 @@ CMusic::~CMusic()
 		// (*itr) is the string inside of the vector at each given point
 		Mix_FreeMusic(getMusic(*itr));
 	}
-	
+
 	for (stringVector::iterator itr = m_chunkNames.begin(); itr != m_chunkNames.end(); ++itr)
 	{
 		Mix_HaltChannel(getChanel(*itr));

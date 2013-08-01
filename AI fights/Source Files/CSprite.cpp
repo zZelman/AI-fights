@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CSprite.h"
 
-CSprite::CSprite(CWindow* window, std::string fileName, 
-				 int imageWidth, int imageHeight,
-				 int numImages_rows, int numImages_columns) 
+CSprite::CSprite(CWindow* window, std::string fileName,
+                 int imageWidth, int imageHeight,
+                 int numImages_rows, int numImages_columns)
 	: CResourceDirectories()
 {
 	m_pWindow = window;
@@ -170,8 +170,8 @@ void CSprite::load()
 
 
 void CSprite::loadNew(std::string fileName,
-					  int imageWidth, int imageHeight,
-					  int numImages_rows, int numImages_columns)
+                      int imageWidth, int imageHeight,
+                      int numImages_rows, int numImages_columns)
 {
 	isSpriteSheetLoaded = true; // going to be loading new, so delete the old (it must be there)
 	free();
@@ -244,23 +244,23 @@ void CSprite::manipulate_Blending()
 
 SDL_Rect CSprite::getRect(int row, int column)
 {
-	SDL_Rect rect = m_imageArray[row-1][column-1];
+	SDL_Rect rect = m_imageArray[row - 1][column - 1];
 	return rect;
 }
 
 
-void CSprite::render(int screenX, int screenY, 
-					 int screenW, int screenH, 
-					 int sheetRow, int sheetColumn)
+void CSprite::render(int screenX, int screenY,
+                     int screenW, int screenH,
+                     int sheetRow, int sheetColumn)
 {
 	manipulate_Color();
 	manipulate_Alpha();
 	//manipulate_Blending();
-	
+
 	// Set rendering space and render to screen
 	SDL_Rect renderQuad = {screenX, screenY, m_entireWidth, m_entireHeight};
-	if (screenW != NULL && 
-		screenH != NULL)
+	if (screenW != NULL &&
+	        screenH != NULL)
 	{
 		renderQuad.w = screenW;
 		renderQuad.h = screenH;

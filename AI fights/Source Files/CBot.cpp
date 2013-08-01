@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CBot.h"
 
-CBot::CBot(CWindow* window, CMap* collisionMap, std::string fileName, 
-		   int imageWidth, int imageHeight,
-		   int numImages_rows, int numImages_columns)
+CBot::CBot(CWindow* window, CMap* collisionMap, std::string fileName,
+           int imageWidth, int imageHeight,
+           int numImages_rows, int numImages_columns)
 {
 	// position is not initalized here because each bot has different values
 
@@ -13,9 +13,9 @@ CBot::CBot(CWindow* window, CMap* collisionMap, std::string fileName,
 
 	m_sAtributes.gravityTimer.start();
 
-	m_pSprite = new CSprite(m_pWindow, fileName, 
-		imageWidth, imageHeight, 
-		numImages_rows, numImages_columns);
+	m_pSprite = new CSprite(m_pWindow, fileName,
+	                        imageWidth, imageHeight,
+	                        numImages_rows, numImages_columns);
 	m_pSprite->load();
 
 }
@@ -79,7 +79,7 @@ bool CBot::correctMapCollision_up()
 
 	if (m_pCollisionMap->collision_screenToMap(&aabb, &tileAABB) == true)
 	{
-		m_pAABB->setMin(minPosX, tileAABB.getMax()->y);
+		m_pAABB->setMin(minPosX, tileAABB.getMax()->y+0.5);
 		return true;
 	}
 	return false;
@@ -114,7 +114,7 @@ bool CBot::correctMapCollision_down()
 
 	if (m_pCollisionMap->collision_screenToMap(&aabb, &tileAABB) == true)
 	{
-		m_pAABB->setMax(maxPosX, tileAABB.getMin()->y);
+		m_pAABB->setMax(maxPosX, tileAABB.getMin()->y-0.5);
 		return true;
 	}
 	return false;
@@ -149,7 +149,7 @@ bool CBot::correctMapCollision_left()
 
 	if (m_pCollisionMap->collision_screenToMap(&aabb, &tileAABB) == true)
 	{
-		m_pAABB->setMin(tileAABB.getMax()->x, minPosY);
+		m_pAABB->setMin(tileAABB.getMax()->x+0.5, minPosY);
 		return true;
 	}
 	return false;
@@ -184,7 +184,7 @@ bool CBot::correctMapCollision_right()
 
 	if (m_pCollisionMap->collision_screenToMap(&aabb, &tileAABB) == true)
 	{
-		m_pAABB->setMax(tileAABB.getMin()->x, maxPosY);
+		m_pAABB->setMax(tileAABB.getMin()->x-0.5, maxPosY);
 		return true;
 	}
 	return false;

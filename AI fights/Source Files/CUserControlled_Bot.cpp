@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "CUserControlled_Bot.h"
 
-CUserControlled_Bot::CUserControlled_Bot(CWindow* window, CMap* collisionMap, std::string fileName, 
-										 int imageWidth, int imageHeight,
-										 int numImages_rows, int numImages_columns)
-	: CBot(window, collisionMap, fileName, 
-	imageWidth, imageHeight, 
-	numImages_rows, numImages_columns)
+CUserControlled_Bot::CUserControlled_Bot(CWindow* window, CMap* collisionMap, std::string fileName,
+        int imageWidth, int imageHeight,
+        int numImages_rows, int numImages_columns)
+	: CBot(window, collisionMap, fileName,
+	       imageWidth, imageHeight,
+	       numImages_rows, numImages_columns)
 {
 	float x = 10;
 	float y = 10;
@@ -24,7 +24,7 @@ CUserControlled_Bot::CUserControlled_Bot(CWindow* window, CMap* collisionMap, st
 	isLeftPressed	= false;
 	isRightPressed	= false;
 
-	m_sAnimationSequence = SCoords2i(1,1);
+	m_sAnimationSequence = SCoords2i(1, 1);
 }
 
 
@@ -146,7 +146,7 @@ void CUserControlled_Bot::update()
 		if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
 		{
 			m_sAnimationSequence.x = 1;
-		} 
+		}
 		else
 		{
 			++m_sAnimationSequence.x;
@@ -166,7 +166,7 @@ void CUserControlled_Bot::update()
 		if (m_sAnimationSequence.x + 1 > m_pSprite->getNumColumns())
 		{
 			m_sAnimationSequence.x = 1;
-		} 
+		}
 		else
 		{
 			++m_sAnimationSequence.x;
@@ -186,7 +186,7 @@ void CUserControlled_Bot::update()
 void CUserControlled_Bot::render()
 {
 	CVector2f* pMin = m_pAABB->getMin();
-	m_pSprite->render(pMin->x, pMin->y, 
-		m_pSprite->getImageWidth(), m_pSprite->getImageHeight(), 
-		m_sAnimationSequence.y, m_sAnimationSequence.x);
+	m_pSprite->render(pMin->x, pMin->y,
+	                  m_pSprite->getImageWidth(), m_pSprite->getImageHeight(),
+	                  m_sAnimationSequence.y, m_sAnimationSequence.x);
 }

@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "CAI_Bot.h"
 
-CAI_Bot::CAI_Bot(CWindow* window, CMap* map, std::string fileName, 
-				 int imageWidth, int imageHeight,
-				 int numImages_rows, int numImages_columns)
-	: CBot(window, map, fileName, 
-	imageWidth, imageHeight, 
-	numImages_rows, numImages_columns)
+CAI_Bot::CAI_Bot(CWindow* window, CMap* map, std::string fileName,
+                 int imageWidth, int imageHeight,
+                 int numImages_rows, int numImages_columns)
+	: CBot(window, map, fileName,
+	       imageWidth, imageHeight,
+	       numImages_rows, numImages_columns)
 {
 	float x = window->getWidth() / 2;
 	float y = window->getHeight() / 2;

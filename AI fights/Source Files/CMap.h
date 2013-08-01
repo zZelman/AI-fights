@@ -21,7 +21,7 @@ public:
 
 	int getRows();
 	int getColumns();
-	
+
 	void load(); // loads a map file named 'fileName'
 	void render(); // draws the loaded file
 
@@ -32,7 +32,7 @@ public:
 	bool collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith = NULL);
 
 	// * checks if any part of the AABB is within a tile
-	// * 0's represent no rendering -> non-zero is collision 
+	// * 0's represent no rendering -> non-zero is collision
 	bool collision_mapToMap(int x, int y);
 
 private:

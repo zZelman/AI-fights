@@ -71,9 +71,9 @@ public:
 	// * SPRITE SHEET COORDS (lengths -> top left is 1,1)
 	SCoords2i m_sAnimationSequence;
 
-	CBot(CWindow* window, CMap* collisionMap, std::string fileName, 
-		int imageWidth, int imageHeight,
-		int numImages_rows = 1, int numImages_columns = 1);
+	CBot(CWindow* window, CMap* collisionMap, std::string fileName,
+	     int imageWidth, int imageHeight,
+	     int numImages_rows = 1, int numImages_columns = 1);
 	virtual ~CBot();
 
 	CAABB_f* getAABB();

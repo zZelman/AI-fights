@@ -8,9 +8,9 @@ class CSprite : public CResourceDirectories
 {
 public:
 	// only takes the file name, default texture directory is used
-	CSprite(CWindow* window, std::string fileName, 
-		int imageWidth, int imageHeight,
-		int numImages_rows = 1, int numImages_columns = 1);
+	CSprite(CWindow* window, std::string fileName,
+	        int imageWidth, int imageHeight,
+	        int numImages_rows = 1, int numImages_columns = 1);
 	~CSprite();
 
 	SDL_Texture* getTexture();
@@ -31,8 +31,8 @@ public:
 	void load(); // loads from m_filePath into m_spriteSheet
 	// loads a new file into a texture NOTE: destroys old one
 	void loadNew(std::string fileName,
-		int imageWidth, int imageHeight,
-		int numImages_rows = 1, int numImages_columns = 1);
+	             int imageWidth, int imageHeight,
+	             int numImages_rows = 1, int numImages_columns = 1);
 
 	// * sets the color modulation for the texture
 	void setColor(Uint8 red, Uint8 green, Uint8 blue);
@@ -52,9 +52,9 @@ public:
 	// * x, y: where the top left corner of the texture will start to be rendered in screen space
 	// * screenW, screenH: width and height the sprite will be rendered TO (null will be the whole size of the sprite sheet)
 	// * sheetRow, sheetColumn: LENGTH which segment of the sprite sheet will be rendered (defaults to top left)
-	void render(int screenX, int screenY, 
-		int screenW = NULL, int screenH = NULL, 
-		int sheetRow = 1, int sheetColumn = 1);
+	void render(int screenX, int screenY,
+	            int screenW = NULL, int screenH = NULL,
+	            int sheetRow = 1, int sheetColumn = 1);
 
 	bool equals(CSprite* other);
 
