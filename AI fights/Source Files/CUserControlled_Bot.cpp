@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "CUserControlled_Bot.h"
 
-CUserControlled_Bot::CUserControlled_Bot(CWindow* window, std::string fileName, 
+CUserControlled_Bot::CUserControlled_Bot(CWindow* window, CMap* collisionMap, std::string fileName, 
 										 int imageWidth, int imageHeight,
 										 int numImages_rows, int numImages_columns)
-	: CBot(window, fileName, 
+	: CBot(window, collisionMap, fileName, 
 	imageWidth, imageHeight, 
 	numImages_rows, numImages_columns)
 {
@@ -107,29 +107,13 @@ void CUserControlled_Bot::update()
 	// else
 	//		step normally
 
-	CVector2f* pMin = m_pAABB->getMin();
-
 	if (isUpPressed)
 	{
-		if (pMin->y + m_sAtributes.velosity_y < 0)
-		{
-			m_pAABB->setMinY(0);
-		}
-		else
-		{
-			m_pAABB->setMinY(pMin->y + m_sAtributes.velosity_y);
-		}
+		correctScreenEdgeCollision_up();
 	}
 	if (isDownPressed)
 	{
-		if (pMin->y + m_sAtributes.velosity_y + m_pSprite->getImageHeight() > m_pWindow->getHeight())
-		{
-			m_pAABB->setMinY(m_pWindow->getHeight() - m_pSprite->getImageHeight());
-		}
-		else
-		{
-			m_pAABB->setMinY(pMin->y + m_sAtributes.velosity_y);
-		}
+		correctScreenEdgeCollision_down();
 	}
 	if (isLeftPressed)
 	{
@@ -143,14 +127,7 @@ void CUserControlled_Bot::update()
 			++m_sAnimationSequence.x;
 		}
 
-		if (pMin->x + m_sAtributes.velosity_x < 0)
-		{
-			m_pAABB->setMinX(0);
-		}
-		else
-		{
-			m_pAABB->setMinX(pMin->x + m_sAtributes.velosity_x);
-		}
+		correctScreenEdgeCollision_left();
 	}
 	if (isRightPressed)
 	{
@@ -164,14 +141,7 @@ void CUserControlled_Bot::update()
 			++m_sAnimationSequence.x;
 		}
 
-		if (pMin->x + m_sAtributes.velosity_x + m_pSprite->getImageWidth() > m_pWindow->getWidth())
-		{
-			m_pAABB->setMinX(m_pWindow->getWidth() - m_pSprite->getImageWidth());
-		}
-		else
-		{
-			m_pAABB->setMinX(pMin->x + m_sAtributes.velosity_x);
-		}
+		correctScreenEdgeCollision_right();
 	}
 }
 

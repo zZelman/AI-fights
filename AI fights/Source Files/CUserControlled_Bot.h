@@ -11,7 +11,7 @@
 class CUserControlled_Bot : public CBot
 {
 public:
-	CUserControlled_Bot(CWindow* window, std::string fileName, 
+	CUserControlled_Bot(CWindow* window, CMap* collisionMap, std::string fileName, 
 		int imageWidth, int imageHeight,
 		int numImages_rows = 1, int numImages_columns = 1);
 	~CUserControlled_Bot();

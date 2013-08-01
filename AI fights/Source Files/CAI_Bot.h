@@ -4,11 +4,12 @@
 #include "CWindow.h"
 #include "CSprite.h"
 #include "CBot.h"
+#include "CMap.h"
 
 class CAI_Bot : public CBot
 {
 public:
-	CAI_Bot(CWindow* window, std::string fileName, 
+	CAI_Bot(CWindow* window, CMap* map, std::string fileName, 
 		int imageWidth, int imageHeight,
 		int numImages_rows = 1, int numImages_columns = 1);
 	~CAI_Bot();

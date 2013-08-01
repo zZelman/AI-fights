@@ -1,6 +1,13 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Math2D.h"
+
+//////////////////////////////////////////////////////////////////////////
+
+class CAABB_f;
+
+//////////////////////////////////////////////////////////////////////////
 
 class CWindow
 {
@@ -15,6 +22,12 @@ public:
 	int getHeight();
 
 	void updateSize(); // updates window size. Called when window has changed
+
+	// check if the aabb is AT THIS MOMENT outside of the window edges
+	bool isOutsideWindow(CAABB_f* aabb);
+
+	// same as above, but on the stack (if CAABB_f, no pointer)
+	bool isOutsideWindow(CAABB_f aabb); 
 
 private:
 	SDL_Window* m_pWindow;

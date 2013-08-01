@@ -80,6 +80,16 @@ CAABB_f::CAABB_f(CVector2f* _min, CVector2f* _max)
 }
 
 
+CAABB_f::CAABB_f(CVector2f _min, CVector2f _max)
+{
+	Smin = _min;
+	Smax = _max;
+
+	width = Smax.x - Smin.x;
+	height = Smax.y - Smin.y;
+}
+
+
 CAABB_f::~CAABB_f()
 {
 	// no need to delete max/min because they are just pointers (no new was used in this class)
@@ -95,6 +105,18 @@ CVector2f* CAABB_f::getMin()
 CVector2f* CAABB_f::getMax()
 {
 	return max;
+}
+
+
+CVector2f CAABB_f::getMinS()
+{
+	return Smin;
+}
+
+
+CVector2f CAABB_f::getMaxS()
+{
+	return Smax;
 }
 
 
@@ -177,6 +199,19 @@ bool CAABB_f::collision(CAABB_f* other)
 	if (max->x < other->getMin()->x || min->x > other->getMax()->x)
 		return false;
 	if (max->y < other->getMin()->y || min->y > other->getMax()->y)
+		return false;
+
+	// no separating axis found, therefore there is at least one overlapping axis
+	return true;
+}
+
+
+bool CAABB_f::collision(CAABB_f other)
+{
+	// exit with no intersection if found separated along an axis
+	if (max->x < other.getMinS().x || min->x > other.getMaxS().x)
+		return false;
+	if (max->y < other.getMinS().y || min->y > other.getMaxS().y)
 		return false;
 
 	// no separating axis found, therefore there is at least one overlapping axis

@@ -27,7 +27,7 @@ public:
 
 	// * checks if screen coords (x, y) are inside of any tiles in the map
 	// * true if yes, false if now
-	bool collision_screenToMap(CAABB_f* aabb);
+	bool collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith = NULL);
 
 	// * checks if any part of the AABB is within a tile
 	// * 0's represent no rendering -> non-zero is collision 

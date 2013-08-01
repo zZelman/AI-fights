@@ -39,18 +39,6 @@ void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 	int winWidth = window->getWidth();
 	int winHeight = window->getHeight();
 
-//	// somehow the bot got outside of the window so warp it to the center
-//	if (pMin->x < 0 || pMin->y > winWidth ||
-//		pMax->x < 0 || pMax->y > winHeight)
-//	{
-//		float midX = winWidth/2;
-//		float midY = winHeight/2;
-//		pAABB->setMin(midX, midY);
-//#ifdef DEBUG
-//		assert(false);
-//#endif // DEBUG
-//	}
-
 	// General logic:
 	// if (bot's next step is outside of screen)
 	//		step to edge of screen;

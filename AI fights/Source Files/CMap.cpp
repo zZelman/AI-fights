@@ -196,7 +196,7 @@ void CMap::render()
 }
 
 
-bool CMap::collision_screenToMap(CAABB_f* aabb)
+bool CMap::collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith)
 {
 	for (int i = 0; i < m_mapData.size(); ++i) // row
 	{
@@ -208,6 +208,7 @@ bool CMap::collision_screenToMap(CAABB_f* aabb)
 				continue;
 			}
 
+			// window size / how many tiles are in it = size of individual tile
 			float proportionX = m_pWindow->getWidth() / lineVector.size();
 			float proportionY = m_pWindow->getHeight() / m_mapData.size();
 
@@ -217,24 +218,20 @@ bool CMap::collision_screenToMap(CAABB_f* aabb)
 			int botomRightX = topLeftX + proportionX;
 			int botomRightY = topLeftY + proportionY;
 
-			// TODO: this many allocations/deallocations a second may cause memory fragmentation
-			//		implement better solution? (custom memory stack?)
-			CVector2f* min = new CVector2f(topLeftX, topLeftY);
-			CVector2f* max = new CVector2f(botomRightX, botomRightY);
-			CAABB_f* tileAABB = new CAABB_f(min, max);
+			CVector2f tileMin(topLeftX, topLeftY);
+			CVector2f tileMax(botomRightX, botomRightY);
+			CAABB_f tileAABB(tileMin, tileMax);
 
 			if (aabb->collision(tileAABB) == true)
 			{
-				delete min;
-				delete max;
-				delete tileAABB;
+				if (tileCollidedWith != NULL)
+				{
+					// give the calling place the tile that the given aabb collided with
+					tileCollidedWith->setMin(topLeftX, topLeftY);
+				}
 
 				return true;
 			}
-
-			delete min;
-			delete max;
-			delete tileAABB;
 		}
 	}
 	return false;

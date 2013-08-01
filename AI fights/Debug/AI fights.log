@@ -1,26 +1,55 @@
-﻿Build started 7/31/2013 3:02:45 PM.
+﻿Build started 8/1/2013 5:59:06 AM.
      1>Project "C:\Users\DonBot\workspace - C++\AI fights\AI fights\AI fights.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\AI fights.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Source Files\Math2D.cpp"
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\AI fights.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Source Files\stdafx.cpp"
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\AI fights.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Source Files\1 Main.cpp" "Source Files\CAI_Bot.cpp" "Source Files\CBot.cpp" "Source Files\CGame.cpp" "Source Files\CMap.cpp" "Source Files\CMusic.cpp" "Source Files\CPhysics.cpp" "Source Files\CResourceDirectories.cpp" "Source Files\CSprite.cpp" "Source Files\CTimer.cpp" "Source Files\CUserControlled_Bot.cpp" "Source Files\CWindow.cpp" "Source Files\Math2D.cpp"
          Math2D.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib SDL2_image.lib SDL2_mixer.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.lib" /MACHINE:X86 "Debug\1 Main.obj"
-         Debug\CAI_Bot.obj
-         Debug\CBot.obj
-         Debug\CMap.obj
-         Debug\CMusic.obj
-         Debug\CPhysics.obj
-         Debug\CUserControlled_Bot.obj
-         Debug\CGame.obj
-         Debug\CResourceDirectories.obj
-         Debug\CSprite.obj
-         Debug\CTimer.obj
-         Debug\CWindow.obj
-         Debug\Math2D.obj
-         Debug\stdafx.obj
-         AI fights.vcxproj -> C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.exe
-     1>Done Building Project "C:\Users\DonBot\workspace - C++\AI fights\AI fights\AI fights.vcxproj" (Build target(s)).
+         CWindow.cpp
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cwindow.cpp(132): warning C4800: 'SDL_bool' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cwindow.cpp(139): warning C4800: 'SDL_bool' : forcing value to bool 'true' or 'false' (performance warning)
+         CUserControlled_Bot.cpp
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cusercontrolled_bot.cpp(154): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         CMap.cpp
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(162): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(165): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(178): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(179): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(181): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(182): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(184): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(185): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(201): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(204): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(212): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(213): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(215): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(216): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(218): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(219): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(221): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(222): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cmap.cpp(230): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         CGame.cpp
+         CBot.cpp
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cbot.cpp(163): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cbot.cpp(225): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         CAI_Bot.cpp
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cai_bot.cpp(11): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cai_bot.cpp(12): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+         Generating Code...
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cbot.cpp(92): error C4716: 'CBot::correctMapCollision_down' : must return a value
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cbot.cpp(98): error C4716: 'CBot::correctMapCollision_left' : must return a value
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cbot.cpp(104): error C4716: 'CBot::correctMapCollision_right' : must return a value
+         Skipping... (no relevant changes detected)
+         CTimer.cpp
+         CSprite.cpp
+         CResourceDirectories.cpp
+         CPhysics.cpp
+         CMusic.cpp
+         1 Main.cpp
+     1>Done Building Project "C:\Users\DonBot\workspace - C++\AI fights\AI fights\AI fights.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:00.36
+Time Elapsed 00:00:01.36

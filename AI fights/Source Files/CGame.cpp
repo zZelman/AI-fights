@@ -11,7 +11,7 @@ CGame::CGame()
 
 	m_pMap			= new CMap(m_pGameWindow, "testing.txt");
 
-	m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, "ninja (46h 32w).png", 32, 46, 2, 6);
+	m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, m_pMap, "ninja (46h 32w).png", 32, 46, 2, 6);
 
 	//m_pAIBot		= new CAI_Bot("blueAI.png", m_pGameWindow);
 }
