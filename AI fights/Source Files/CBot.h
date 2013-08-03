@@ -14,36 +14,6 @@ class CAABB_f;
 template<typename T> struct SCoords2;
 template<typename T> struct SAtributes;
 
-//// Holds physics information about the object
-//struct SAtributes<float>
-//{
-//	float defaultVelosity_pos; // DEFAULT movement size each update
-//	float defaultVelosity_neg; // DEFAULT movement size each update
-//
-//	float velosity_x; // change in the x axis each update
-//	float velosity_y; // change in the y axis each update
-//
-//	float mass;
-//
-//	CTimer gravityTimer; // how long has gravity been affecting this object since last collision
-//
-//	void nullVelosity()
-//	{
-//		velosity_x = 0;
-//		velosity_y = 0;
-//	}
-//
-//	void nullVelosity_x()
-//	{
-//		velosity_x = 0;
-//	}
-//
-//	void nullVelosity_y()
-//	{
-//		velosity_y = 0;
-//	}
-//};
-
 // Holds physics information about the object
 template<typename T>
 struct SAtributes
@@ -74,19 +44,6 @@ struct SAtributes
 		velosity_y = 0;
 	}
 };
-
-//struct SCoords2<int>
-//{
-//	int x, y;
-//
-//	SCoords2<int>() {}
-//	SCoords2<int>(int _x, int _y)
-//	{
-//		x = _x;
-//		y = _y;
-//	}
-//};
-
 
 template <typename T>
 struct SCoords2

@@ -45,7 +45,7 @@ void CMap::load()
 {
 	using namespace std;
 
-	string filePath = m_resource_tileSets + m_tileSetName;
+	string filePath = /*m_resource_tileSets +*/ m_tileSetName;
 
 	ifstream fileStream;
 	fileStream.open(filePath);
@@ -110,7 +110,7 @@ void CMap::load()
 			string s = line.substr(tileSet.length(), line.length());
 			string delimiter = ",";
 			string name = s.substr(0, s.find(delimiter));
-			m_tileSetName = name;
+			m_tileSetName = "Resource Files/Sprites/" + name;
 		}
 
 		if (line.find(data) != string::npos && !dataFound)

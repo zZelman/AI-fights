@@ -140,9 +140,6 @@
     <ClInclude Include="Source Files\CMap.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Source Files\CBaseRoom.h">
-      <Filter>Header Files\Base Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Source Files\CVector2.h">
       <Filter>Header Files\Templates</Filter>
     </ClInclude>
@@ -151,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Source Files\SAtributes.h">
       <Filter>Header Files\Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CRoom.h">
+      <Filter>Header Files\Base Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

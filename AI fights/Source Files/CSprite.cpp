@@ -97,7 +97,8 @@ std::string CSprite::getFileName()
 
 void CSprite::setFileName(std::string fileName)
 {
-	m_filePath = m_resource_sprite += (fileName);
+	//m_filePath = m_resource_sprite += (fileName);
+	m_filePath = fileName;
 	m_fileName = fileName;
 }
 

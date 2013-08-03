@@ -102,7 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\CAI_Bot.h" />
-    <ClInclude Include="Source Files\CBaseRoom.h" />
+    <ClInclude Include="Source Files\CRoom.h" />
     <ClInclude Include="Source Files\CBot.h" />
     <ClInclude Include="Source Files\CMap.h" />
     <ClInclude Include="Source Files\CMusic.h" />
