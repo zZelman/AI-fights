@@ -10,8 +10,8 @@ CAI_Bot::CAI_Bot(CWindow* window, CMap* map, std::string fileName,
 {
 	float x = window->getWidth() / 2;
 	float y = window->getHeight() / 2;
-	CVector2f* min = new CVector2f(x, y);
-	CVector2f* max = new CVector2f(x + m_pSprite->getImageWidth(), y + m_pSprite->getImageHeight());
+	CVector2<float>* min = new CVector2<float>(x, y);
+	CVector2<float>* max = new CVector2<float>(x + m_pSprite->getImageWidth(), y + m_pSprite->getImageHeight());
 	m_pAABB = new CAABB_f(min, max);
 
 	m_sAtributes.defaultVelosity_pos = 5;

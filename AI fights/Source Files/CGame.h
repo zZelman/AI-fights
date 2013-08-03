@@ -19,14 +19,17 @@ public:
 
 private:
 	bool isGameRunning; // boolean that controls continued execution of the main game loop
+	float fps_MS; // frames per second in ms
+	int MAX_FRAME_SKIPS;
 
 	CWindow* m_pGameWindow; // the window were everything is drawn
 	CPhysics* m_pPhysics; // physics that control the game movements
 	CMusic* m_pMusic; // game music
 	CMap* m_pMap; // game map
+	CTimer* m_pGameTimer;
 
 	CUserControlled_Bot* m_pUserBot; // first bot to be played :D
-	CAI_Bot* m_pAIBot; // first attempt at AI :D
+	//CAI_Bot* m_pAIBot; // first attempt at AI :D
 
 	void gameLoop(); // main game loop
 	void gameEvents(SDL_Event& event); // redirects user input appropriately

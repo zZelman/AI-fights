@@ -19,6 +19,7 @@
 #include <sstream>
 #include <fstream>
 #include <unordered_map> // hash-map c++11
+#include <math.h> // ceil
 
 #define _USE_MATH_DEFINES
 #include <cmath>

@@ -31,7 +31,7 @@ public:
 
 	// * calculates the normal produced from the collision between bot1 and bot2
 	// * NOTE: does not check collision detection, it is assumed as true
-	CVector2f* collisionNormal(CBot* bot1, CBot* bot2);
+	CVector2<float>* collisionNormal(CBot* bot1, CBot* bot2);
 
 	// * Generates a manifold
 	// * a manifold is a small object that contains information about a collision between two objects

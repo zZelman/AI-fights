@@ -43,6 +43,9 @@
     <Filter Include="Resource Files\Maps">
       <UniqueIdentifier>{ae29c454-a9e1-4f3a-b934-526b56b7145c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Templates">
+      <UniqueIdentifier>{ce31338c-b330-44ce-9b2e-7ee8263c0d0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -91,7 +94,7 @@
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\CMap.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +139,18 @@
     </ClInclude>
     <ClInclude Include="Source Files\CMap.h">
       <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CBaseRoom.h">
+      <Filter>Header Files\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CVector2.h">
+      <Filter>Header Files\Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\SCoords2.h">
+      <Filter>Header Files\Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\SAtributes.h">
+      <Filter>Header Files\Templates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

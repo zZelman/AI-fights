@@ -17,7 +17,7 @@ void CPhysics::applyGravity(CBot* bot)
 {
 	Uint32 time = bot->m_sAtributes.gravityTimer.getTime();
 
-	float timef = ToSeconds(time);
+	float timef = MStoSec(time);
 
 	// use the first derivative of the parabolic formula to account for changes in velocity
 	bot->m_sAtributes.velosity_y = ((m_gravityA * m_gravityA) * timef) + m_gravityB;
@@ -33,8 +33,8 @@ bool CPhysics::collisionDetection(CBot* bot1, CBot* bot2)
 void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 {
 	CAABB_f* pAABB = bot->getAABB();
-	CVector2f* pMin = bot->getAABB()->getMin();
-	CVector2f* pMax = bot->getAABB()->getMax();
+	CVector2<float>* pMin = bot->getAABB()->getMin();
+	CVector2<float>* pMax = bot->getAABB()->getMax();
 
 	int winWidth = window->getWidth();
 	int winHeight = window->getHeight();
@@ -96,7 +96,7 @@ float CPhysics::penetrationDepth(CBot* bot1, CBot* bot2)
 }
 
 
-CVector2f* CPhysics::collisionNormal(CBot* bot1, CBot* bot2)
+CVector2<float>* CPhysics::collisionNormal(CBot* bot1, CBot* bot2)
 {
 	return nullptr;
 }

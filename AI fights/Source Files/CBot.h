@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "CWindow.h"
 #include "CSprite.h"
-#include "Math2D.h"
 #include "CTimer.h"
 #include "CMap.h"
 
@@ -12,25 +11,57 @@
 // these declarations/definitions are here because CBot.h cant find them in Math2D.h for whatever reason
 
 class CAABB_f;
-struct SCoords2i;
+template<typename T> struct SCoords2;
+template<typename T> struct SAtributes;
+
+//// Holds physics information about the object
+//struct SAtributes<float>
+//{
+//	float defaultVelosity_pos; // DEFAULT movement size each update
+//	float defaultVelosity_neg; // DEFAULT movement size each update
+//
+//	float velosity_x; // change in the x axis each update
+//	float velosity_y; // change in the y axis each update
+//
+//	float mass;
+//
+//	CTimer gravityTimer; // how long has gravity been affecting this object since last collision
+//
+//	void nullVelosity()
+//	{
+//		velosity_x = 0;
+//		velosity_y = 0;
+//	}
+//
+//	void nullVelosity_x()
+//	{
+//		velosity_x = 0;
+//	}
+//
+//	void nullVelosity_y()
+//	{
+//		velosity_y = 0;
+//	}
+//};
 
 // Holds physics information about the object
+template<typename T>
 struct SAtributes
 {
-	float defaultVelosity_pos; // DEFAULT movement size each update
-	float defaultVelosity_neg; // DEFAULT movement size each update
+	T defaultVelosity_pos; // DEFAULT movement size each update
+	T defaultVelosity_neg; // DEFAULT movement size each update
 
-	float velosity_x; // change in the x axis each update
-	float velosity_y; // change in the y axis each update
+	T velosity_x; // change in the x axis each update
+	T velosity_y; // change in the y axis each update
 
-	float mass;
+	T mass;
 
 	CTimer gravityTimer; // how long has gravity been affecting this object since last collision
 
 	void nullVelosity()
 	{
-		velosity_x = 0;
-		velosity_y = 0;
+		nullVelosity_x();
+		nullVelosity_y();
 	}
 
 	void nullVelosity_x()
@@ -44,13 +75,26 @@ struct SAtributes
 	}
 };
 
+//struct SCoords2<int>
+//{
+//	int x, y;
+//
+//	SCoords2<int>() {}
+//	SCoords2<int>(int _x, int _y)
+//	{
+//		x = _x;
+//		y = _y;
+//	}
+//};
 
-struct SCoords2i
+
+template <typename T>
+struct SCoords2
 {
-	int x, y;
+	T x, y;
 
-	SCoords2i() {}
-	SCoords2i(int _x, int _y)
+	SCoords2() {}
+	SCoords2(T _x, T _y)
 	{
 		x = _x;
 		y = _y;
@@ -65,11 +109,11 @@ class CBot
 public:
 	// * holds all of the physics data for this object
 	// * public because there are no bounds atm for data, so why use getters/setters?
-	SAtributes m_sAtributes;
+	SAtributes<float> m_sAtributes;
 
 	// * holds the sprite sheet coords for animation/successive images to be played by the bot
 	// * SPRITE SHEET COORDS (lengths -> top left is 1,1)
-	SCoords2i m_sAnimationSequence;
+	SCoords2<int> m_sAnimationSequence;
 
 	CBot(CWindow* window, CMap* collisionMap, std::string fileName,
 	     int imageWidth, int imageHeight,

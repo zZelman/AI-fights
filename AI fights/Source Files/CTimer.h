@@ -2,9 +2,6 @@
 
 #include "stdafx.h"
 
-// converts ms to sec (produces a float)
-#define ToSeconds(x) (x/1000.0f)
-
 class CTimer
 {
 public:

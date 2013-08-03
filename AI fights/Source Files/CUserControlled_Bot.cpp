@@ -10,12 +10,12 @@ CUserControlled_Bot::CUserControlled_Bot(CWindow* window, CMap* collisionMap, st
 {
 	float x = 10;
 	float y = 10;
-	CVector2f* min = new CVector2f(x, y);
-	CVector2f* max = new CVector2f(x + m_pSprite->getImageWidth(), y + m_pSprite->getImageHeight());
+	CVector2<float>* min = new CVector2<float>(x, y);
+	CVector2<float>* max = new CVector2<float>(x + m_pSprite->getImageWidth(), y + m_pSprite->getImageHeight());
 	m_pAABB = new CAABB_f(min, max);
 
-	m_sAtributes.defaultVelosity_pos = 5;
-	m_sAtributes.defaultVelosity_neg = -5;
+	m_sAtributes.defaultVelosity_pos = 3;
+	m_sAtributes.defaultVelosity_neg = -3;
 	m_sAtributes.nullVelosity();
 	m_sAtributes.mass = 10;
 
@@ -24,7 +24,7 @@ CUserControlled_Bot::CUserControlled_Bot(CWindow* window, CMap* collisionMap, st
 	isLeftPressed	= false;
 	isRightPressed	= false;
 
-	m_sAnimationSequence = SCoords2i(1, 1);
+	m_sAnimationSequence = SCoords2<int>(1, 1);
 	m_animationChangeMS = SecToMS(0.09);
 }
 
@@ -110,13 +110,13 @@ void CUserControlled_Bot::update()
 	// else
 	//		step normally
 
-	CVector2f* pMin = m_pAABB->getMin();
+	CVector2<float>* pMin = m_pAABB->getMin();
 	float minPosX			= pMin->x;
 	float minPosY			= pMin->y;
 	float nextStepX_min		= minPosX + m_sAtributes.velosity_x;
 	float nextStepY_min		= minPosY + m_sAtributes.velosity_y;
-
-	CVector2f* pMax = m_pAABB->getMax();
+		
+	CVector2<float>* pMax = m_pAABB->getMax();
 	float maxPosX			= pMax->x;
 	float maxPosY			= pMax->y;
 	float nextStepX_max		= maxPosX + m_sAtributes.velosity_x;
@@ -162,13 +162,13 @@ void CUserControlled_Bot::update()
 			m_pAnimationTimer->start();
 		}
 
-		if (!correctScreenEdgeCollision_left())
-		{
-			if (!correctMapCollision_left())
-			{
+		//if (!correctScreenEdgeCollision_left())
+		//{
+		//	if (!correctMapCollision_left())
+		//	{
 				m_pAABB->setMinX(nextStepX_min);
-			}
-		}
+		//	}
+		//}
 	}
 
 	if (isRightPressed && !isLeftPressed)
@@ -188,20 +188,20 @@ void CUserControlled_Bot::update()
 			m_pAnimationTimer->start();
 		}
 
-		if (!correctScreenEdgeCollision_right())
-		{
-			if (!correctMapCollision_right())
-			{
+		//if (!correctScreenEdgeCollision_right())
+		//{
+		//	if (!correctMapCollision_right())
+		//	{
 				m_pAABB->setMinX(nextStepX_min);
-			}
-		}
+		//	}
+		//}
 	}
 }
 
 
 void CUserControlled_Bot::render()
 {
-	CVector2f* pMin = m_pAABB->getMin();
+	CVector2<float>* pMin = m_pAABB->getMin();
 	m_pSprite->render(pMin->x, pMin->y,
 	                  m_pSprite->getImageWidth(), m_pSprite->getImageHeight(),
 	                  m_sAnimationSequence.y, m_sAnimationSequence.x);

@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\CAI_Bot.h" />
+    <ClInclude Include="Source Files\CBaseRoom.h" />
     <ClInclude Include="Source Files\CBot.h" />
     <ClInclude Include="Source Files\CMap.h" />
     <ClInclude Include="Source Files\CMusic.h" />
@@ -110,9 +111,12 @@
     <ClInclude Include="Source Files\CGame.h" />
     <ClInclude Include="Source Files\CResourceDirectories.h" />
     <ClInclude Include="Source Files\CTimer.h" />
+    <ClInclude Include="Source Files\CVector2.h" />
     <ClInclude Include="Source Files\CWindow.h" />
     <ClInclude Include="Source Files\CSprite.h" />
     <ClInclude Include="Source Files\Math2D.h" />
+    <ClInclude Include="Source Files\SAtributes.h" />
+    <ClInclude Include="Source Files\SCoords2.h" />
     <ClInclude Include="Source Files\stdafx.h" />
     <ClInclude Include="Source Files\targetver.h" />
   </ItemGroup>

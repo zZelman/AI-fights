@@ -1,12 +1,8 @@
-﻿Build started 8/1/2013 11:39:25 AM.
+﻿Build started 8/2/2013 6:52:18 PM.
      1>Project "C:\Users\DonBot\workspace - C++\AI fights\AI fights\AI fights.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\AI fights.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Source Files\CUserControlled_Bot.cpp"
-         CUserControlled_Bot.cpp
-     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cusercontrolled_bot.cpp(28): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cusercontrolled_bot.cpp(154): warning C4018: '>' : signed/unsigned mismatch
-     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cusercontrolled_bot.cpp(180): warning C4018: '>' : signed/unsigned mismatch
-     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\cusercontrolled_bot.cpp(211): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\AI fights.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Source Files\CPhysics.cpp"
+         CPhysics.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib SDL2_image.lib SDL2_mixer.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.lib" /MACHINE:X86 "Debug\1 Main.obj"
          Debug\CAI_Bot.obj
@@ -27,4 +23,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.38
+Time Elapsed 00:00:00.56

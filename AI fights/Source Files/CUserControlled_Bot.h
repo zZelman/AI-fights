@@ -1,6 +1,7 @@
 #pragma once
 
 #include "stdafx.h"
+
 #include "CSprite.h"
 #include "CWindow.h"
 #include "CBot.h"
