@@ -24,7 +24,8 @@ CUserControlled_Bot::CUserControlled_Bot(CWindow* window, CMap* collisionMap, st
 	isLeftPressed	= false;
 	isRightPressed	= false;
 
-	m_sAnimationSequence = SCoords2<int>(1, 1);
+	m_sAnimationSequence.x = 1;
+	m_sAnimationSequence.y = 1;
 	m_animationChangeMS = SecToMS(0.09);
 }
 
@@ -162,13 +163,13 @@ void CUserControlled_Bot::update()
 			m_pAnimationTimer->start();
 		}
 
-		//if (!correctScreenEdgeCollision_left())
-		//{
-		//	if (!correctMapCollision_left())
-		//	{
+		if (!correctScreenEdgeCollision_left())
+		{
+			if (!correctMapCollision_left())
+			{
 				m_pAABB->setMinX(nextStepX_min);
-		//	}
-		//}
+			}
+		}
 	}
 
 	if (isRightPressed && !isLeftPressed)
@@ -188,13 +189,13 @@ void CUserControlled_Bot::update()
 			m_pAnimationTimer->start();
 		}
 
-		//if (!correctScreenEdgeCollision_right())
-		//{
-		//	if (!correctMapCollision_right())
-		//	{
+		if (!correctScreenEdgeCollision_right())
+		{
+			if (!correctMapCollision_right())
+			{
 				m_pAABB->setMinX(nextStepX_min);
-		//	}
-		//}
+			}
+		}
 	}
 }
 

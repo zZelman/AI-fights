@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SCOORDS2_H
+#define SCOORDS2_H
+
 
 //template <typename T>
 //struct SCoords2
@@ -12,3 +14,6 @@
 //		y = _y;
 //	}
 //};
+
+
+#endif // !SCOORDS2_H

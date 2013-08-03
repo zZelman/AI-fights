@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CSPRITE_H
+#define CSPRITE_H
+
 
 #include "stdafx.h"
 #include "CResourceDirectories.h"
@@ -84,3 +86,7 @@ private:
 	Uint8 m_alpha; // alpha manipulation (255 = solid [opaque])
 	SDL_BlendMode m_blendMode; // how src rect is blended with dest rect in SDL_RenderCopy()
 };
+
+
+
+#endif // !CSPRITE_H

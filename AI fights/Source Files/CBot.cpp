@@ -11,8 +11,6 @@ CBot::CBot(CWindow* window, CMap* collisionMap, std::string fileName,
 	m_pWindow = window;
 	m_pCollisionMap = collisionMap;
 
-	m_sAtributes.gravityTimer.start();
-
 	m_pSprite = new CSprite(m_pWindow, fileName,
 	                        imageWidth, imageHeight,
 	                        numImages_rows, numImages_columns);
@@ -48,6 +46,7 @@ void CBot::update()
 	if (isFirstUpdate == true)
 	{
 		m_pAnimationTimer->start();
+		m_sAtributes.gravityTimer.start();
 		isFirstUpdate = false;
 	}
 }

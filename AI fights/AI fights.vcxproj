@@ -88,6 +88,7 @@
     <ClCompile Include="Source Files\CMap.cpp" />
     <ClCompile Include="Source Files\CMusic.cpp" />
     <ClCompile Include="Source Files\CPhysics.cpp" />
+    <ClCompile Include="Source Files\CRoom.cpp" />
     <ClCompile Include="Source Files\CUserControlled_Bot.cpp" />
     <ClCompile Include="Source Files\CGame.cpp" />
     <ClCompile Include="Source Files\CResourceDirectories.cpp" />

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CGAME_H
+#define CGAME_H
+
 
 #include "stdafx.h"
 #include "CWindow.h"
@@ -31,8 +33,14 @@ private:
 	CUserControlled_Bot* m_pUserBot; // first bot to be played :D
 	//CAI_Bot* m_pAIBot; // first attempt at AI :D
 
+	std::vector<CRoom*> m_roomVector;
+
 	void gameLoop(); // main game loop
 	void gameEvents(SDL_Event& event); // redirects user input appropriately
 	void gameUpdate(); // update variables in objects
 	void gameRender(); // render everything to the screen
 };
+
+
+
+#endif // !CGAME_H

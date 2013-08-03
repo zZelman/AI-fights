@@ -1,20 +1,64 @@
-#pragma once
+#ifndef CROOM_H
+#define CROOM_H
+
 
 #include "stdafx.h"
 
 class CRoom
 {
 public:
-	CRoom(	CWindow* window, CMap* collisionMap, std::string fileName,
-			SCoords2<int> spawnCoords,
-			int imageWidth, int imageHeight,
+	// holds all physics information for the room
+	SAtributes<float> m_sAtributes;
+
+	// * window:						window to be drawn in
+	// * collisionMap:					map representing tile collision for this room
+	// * collisionRoom:				pointer to what container this room is apart of (outside of this object)
+	// * spawnCoords_screen:	the (x,y) SCREEN SPACE of the top left of where this room will start at
+	// * filePath:						full relative path ("Recource Files/...") to sprite representing room
+	// * imageWidth:				width of sprite
+	// * imageHeight:				height of sprite
+	// * numImages_rows:			how many rows of images are there in the sprite to be loaded
+	// * numImages_columns:	how many columns of images are there in the sprite to be loaded
+	CRoom(	CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom,
+			SCoords2<int> spawnCoords_screen, 
+			std::string filePath, int imageWidth, int imageHeight,
 			int numImages_rows = 1, int numImages_columns = 1);
 	virtual ~CRoom();
+
+	// SCREEN SPACE resets the values within the GIVEN 4 coord pairs to match what this rooms currently are
+	void getEverything(	SCoords2<int>* pTopLeft, SCoords2<int>* pTopRight,
+						SCoords2<int>* pBottomLeft, SCoords2<int>* pBottomRight);
+
+	// SCREEN SPACE resets the values within the GIVEN coord pairs to what this room currently are
+	void getMinMax(SCoords2<int>* pTopLeft, SCoords2<int>* pBottomRight);
+
+	// distance between each respective coord sets
+	int getWidth();
+	int getHeight();
+
+	// calculates NEW width and height based on the coords given
+	void setEverything(	SCoords2<int> topLeft, SCoords2<int> topRight, 
+		SCoords2<int> bottomLeft, SCoords2<int> bottomRight);
+
+	// calculates other coords based on set widths and heights
+	void setTopLeft(SCoords2<int> topLeft);
+	void setTopLeft(int x, int y);
+	void setBottomRight(SCoords2<int> bottomRight);
+	void setBottomRight(int x, int y);
+
+	// checks equivalence by checking coords
+	bool equals(CRoom* other);
 
 	virtual void update();
 	virtual void render();
 
 protected:
+	// which container this room resides within
+	std::vector<CRoom*>* m_pRoomVector;
+
+	// a bool to the first tick of time dependent things (ie: gravity) not messy the first time through
+	bool isFirstUpdate;
+
 	// window everything will be rendered to
 	CWindow* m_pWindow;
 
@@ -24,8 +68,8 @@ protected:
 	// the sprite image that will be used for the room
 	CSprite* m_pSprite;
 
-	// holds all physics information for the room
-	SAtributes<float> m_sAtributes;
+	// file path this Room was loaded with
+	std::string m_filePath;
 
 	// * whether or not this tile is descending
 	// * set to false by correctRoomCollision_down == true or correctMapCollision_down == true
@@ -37,6 +81,10 @@ protected:
 	SCoords2<int> m_topRight;
 	SCoords2<int> m_bottomLeft;
 	SCoords2<int> m_bottomRight;
+
+	// detentions from one corner to another
+	int m_width;
+	int m_height;
 
 	// * the current coords of this room within the collisionMap data structure
 	// * INDEX
@@ -84,10 +132,11 @@ protected:
 	// * NULL if no
 	// * ONLY GETS CALLED WHEN isFallign == false
 	// * 'oldPtr' is this room's respective pointer
-	void check_up(CMap* oldPtr);
-	void check_down(CMap* oldPtr);
-	void check_left(CMap* oldPtr);
-	void check_right(CMap* oldPtr);
+	void checkPtrs(); // wrapper function for all pointer checks
+	void check_up(CRoom* oldPtr);
+	void check_down(CRoom* oldPtr);
+	void check_left(CRoom* oldPtr);
+	void check_right(CRoom* oldPtr);
 
 	// * while falling, will this room's next step be inside another room?
 	//		if true, step to the edge of the room
@@ -102,4 +151,14 @@ protected:
 	// * stepping is based on m_sAtributes's velocities
 	// * if return true, sets isFalling == false b/c falling means stepping normally
 	bool correctMapCollision_down();
+
+	// * while falling, will this room's next step be outside the game window?
+	//		if true; step to the edge of the window
+	//		else, step normally
+	// * stepping is based on m_sAtributes's velocities
+	// * if return true, sets isFalling == false b/c falling means steping normally
+	bool correctWindowCollision_down();
 };
+
+
+#endif // !CROOM_H

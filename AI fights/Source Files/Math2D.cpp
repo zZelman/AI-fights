@@ -62,6 +62,20 @@ void CAABB_f::setEverything(float upperX, float upperY, float lowerX, float lowe
 }
 
 
+void CAABB_f::setEverything(SCoords2<int>* topLeft, SCoords2<int>* bottomRight)
+{
+	// delete the previous CVector2<float> coords because you are reseting everything
+	delete min;
+	delete max;
+
+	min = new CVector2<float>(topLeft->x, topLeft->y);
+	max = new CVector2<float>(bottomRight->x, bottomRight->y);
+
+	width = bottomRight->x - topLeft->x;
+	height = bottomRight->y - topLeft->y;
+}
+
+
 void CAABB_f::setMin(CVector2<float>* _min)
 {
 	// delete because if you move the pointer you will cause a memory leak

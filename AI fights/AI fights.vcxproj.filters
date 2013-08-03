@@ -96,6 +96,9 @@
     <ClCompile Include="Source Files\CMap.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\CRoom.cpp">
+      <Filter>Source Files\Base Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\stdafx.h">

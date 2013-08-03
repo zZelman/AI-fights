@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CAI_BOT_H
+#define CAI_BOT_H
+
 
 #include "stdafx.h"
 #include "CWindow.h"
@@ -20,3 +22,6 @@ private:
 	bool isMovingRight; // true for yes, false for left
 
 };
+
+
+#endif // !CAI_BOT_H

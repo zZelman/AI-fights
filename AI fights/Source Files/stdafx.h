@@ -3,7 +3,9 @@
 // are changed infrequently
 //
 
-#pragma once
+#ifndef STDAFX_H
+#define STDAFX_H
+
 
 #include "targetver.h"
 
@@ -33,3 +35,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Math2D.h"
+
+
+
+#endif // !STDAFX_H

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SATRIBUTES_H
+#define SATRIBUTES_H
+
 
 //#include "CTimer.h"
 
@@ -32,3 +34,6 @@
 //		velosity_y = 0;
 //	}
 //};
+
+
+#endif // !SATRIBUTES_H

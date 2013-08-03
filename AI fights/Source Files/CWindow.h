@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CWINDOW_H
+#define CWINDOW_H
+
 
 #include "stdafx.h"
 
@@ -32,3 +34,7 @@ private:
 
 	void init();
 };
+
+
+
+#endif // !CWINDOW_H

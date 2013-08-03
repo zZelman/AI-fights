@@ -1,13 +1,48 @@
-#pragma once
+#ifndef CMAP_H
+#define CMAP_H
+
 
 #include "stdafx.h"
 #include "CResourceDirectories.h"
 #include "CSprite.h"
 #include "CBot.h"
+#include "SCoords2.h"
 
 //////////////////////////////////////////////////////////////////////////
 template<typename T> struct SCoords2;
 //////////////////////////////////////////////////////////////////////////
+
+// * used in representing each tile
+// * saves on computation time at the cost of memory... worth it thought
+//		does not have an innate AABB because AABB's are big, and there are a lot of tiles
+//		instead has the data to produce an AABB
+template<typename T>
+struct STileData
+{
+	int width; // size of tile
+	int height; // size of tile
+
+	// LENGTH (column, row) number from the sprite sheet
+	SCoords2<T> spriteCoords;
+
+	// INDEX (column, row) representation for data structure axis
+	SCoords2<T> mapCoords;
+
+	// INDEX (x, y) representation for rendering
+	SCoords2<T> screenCoords_topLeft;
+
+	// INDEX (x, y) representation for rendering
+	SCoords2<T> screenCoords_bottomRight;
+
+	STileData();
+};
+
+
+template<typename T>
+STileData<T>::STileData() {}
+
+//////////////////////////////////////////////////////////////////////////
+
 
 class CMap : public CResourceDirectories
 {
@@ -17,6 +52,11 @@ public:
 
 	int getRows();
 	int getColumns();
+
+	int getWidth_tile();
+	int getHeight_tile();
+
+	const std::vector<STileData<int>*>* getMapTiles();
 
 	// determines if the map is just drawn to the screen or if
 	//		100% of the map is drawn just changed to fit the screen stretched
@@ -30,13 +70,13 @@ public:
 	// * tileCollidedWith will be the returned tile that the aabb collided with
 	//		this allows resolution of what to do next to happen outside of CMap
 	bool collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith = NULL);
-	bool collision_screenToMap_fake(CAABB_f* aabb, CAABB_f* tileCollidedWith = NULL);
 
 	// * checks if any part of the AABB is within a tile
 	// * 0's represent no rendering -> non-zero is collision
 	bool collision_mapToMap(int x, int y);
 
-	void convertScreenToMap(int* screenX, int* screenY); // converts an (x,y) screen into an (x,y) map
+	// converts an (x,y) screen into an (column, row) map
+	void convertScreenToMap(int* screenX, int* screenY);
 	int convertScreenToMap_X(int screenX);
 	int convertScreenToMap_Y(int screenY);
 
@@ -55,7 +95,10 @@ private:
 	SCoords2<int>* m_pTileCoordsArray; // LENGTH an array of (row,col) coords on the sprite sheet for rendering
 	int m_tileLength; // what image @ 'Length' on the sprite sheet is being rendered
 
-	std::vector<std::vector<int>> m_mapData; // a 2D vector of int's
+	//std::vector<std::vector<int>> m_mapData; // a 2D vector of int's
+
+	// every tile that exists (non 0 entry) for this map, is within this vector
+	std::vector<STileData<int>*> m_pMapTiles;
 
 	bool isMapLoaded;
 	bool isMapStretched;
@@ -66,7 +109,10 @@ private:
 	// a boolean to determine whether or not the tile is within screen viable space
 	// the row/column are the INDECIES within the data structure holding the map
 	// only works if isMapStretched == false
-	bool shouldCull(int row, int column);
+	bool shouldCull(int column, int row);
 
 	void free();
 };
+
+
+#endif // !CMAP_H

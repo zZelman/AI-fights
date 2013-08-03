@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CVECTOR2_H
+#define CVECTOR2_H
+
 
 #include "stdafx.h"
 
@@ -88,3 +90,6 @@ T CVector2<T>::findAngle(CVector2 other)
 
 	return pheta;
 }
+
+
+#endif // !CVECTOR2_H

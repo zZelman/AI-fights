@@ -13,14 +13,15 @@ CPhysics::CPhysics()
 CPhysics::~CPhysics() {}
 
 
-void CPhysics::applyGravity(CBot* bot)
+void CPhysics::applyGravity(CRoom* room)
 {
-	Uint32 time = bot->m_sAtributes.gravityTimer.getTime();
+	Uint32 time = room->m_sAtributes.gravityTimer.getTime();
 
 	float timef = MStoSec(time);
 
-	// use the first derivative of the parabolic formula to account for changes in velocity
-	bot->m_sAtributes.velosity_y = ((m_gravityA * m_gravityA) * timef) + m_gravityB;
+	// * use the first derivative of the parabolic formula to account for changes in velocity
+	// * uncomment m_gravityB to have the object go up then down, instead of just start its decent asap
+	room->m_sAtributes.velosity_y = ((2 * m_gravityA) * timef)/* + m_gravityB*/;
 }
 
 

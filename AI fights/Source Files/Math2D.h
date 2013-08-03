@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MATH2D_H
+#define MATH2D_H
+
 
 #include "stdafx.h"
 #include "CBot.h"
@@ -55,6 +57,7 @@ public:
 	// * sets the min/max CVector2<float>
 	// * calculates the width and height accordingly
 	void setEverything(float upperX, float upperY, float lowerX, float lowerY);
+	void setEverything(SCoords2<int>* topLeft, SCoords2<int>* bottomRight);
 
 	void setMin(CVector2<float>* _min);
 	void setMin(float x, float y);
@@ -122,3 +125,6 @@ struct SManifold
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#endif // !MATH2D_H

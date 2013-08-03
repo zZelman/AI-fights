@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CUSERCONTROLLED_BOT_H
+#define CUSERCONTROLLED_BOT_H
+
 
 #include "stdafx.h"
 
@@ -28,3 +30,6 @@ private:
 	bool isLeftPressed, isRightPressed;
 
 };
+
+
+#endif // !CUSERCONTROLLED_BOT_H

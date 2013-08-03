@@ -1,8 +1,14 @@
-﻿Build started 8/2/2013 8:18:59 PM.
+﻿Build started 8/3/2013 4:08:59 PM.
      1>Project "C:\Users\DonBot\workspace - C++\AI fights\AI fights\AI fights.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\AI fights.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Source Files\CGame.cpp"
-         CGame.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\AI fights.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Source Files\CRoom.cpp"
+         CRoom.cpp
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\croom.cpp(207): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\croom.cpp(244): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\croom.cpp(245): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\croom.cpp(249): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\croom.cpp(264): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\donbot\workspace - c++\ai fights\ai fights\source files\croom.cpp(265): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib SDL2_image.lib SDL2_mixer.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\DonBot\workspace - C++\AI fights\Debug\AI fights.lib" /MACHINE:X86 "Debug\1 Main.obj"
          Debug\CAI_Bot.obj
@@ -10,6 +16,7 @@
          Debug\CMap.obj
          Debug\CMusic.obj
          Debug\CPhysics.obj
+         Debug\CRoom.obj
          Debug\CUserControlled_Bot.obj
          Debug\CGame.obj
          Debug\CResourceDirectories.obj
@@ -23,4 +30,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.54
+Time Elapsed 00:00:00.28

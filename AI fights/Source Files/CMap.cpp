@@ -19,7 +19,7 @@ CMap::CMap(CWindow* window, std::string fileName)
 
 CMap::~CMap()
 {
-
+	free();
 }
 
 
@@ -32,6 +32,24 @@ int CMap::getRows()
 int CMap::getColumns()
 {
 	return m_MapColumns;
+}
+
+
+int CMap::getWidth_tile()
+{
+	return m_tileWidth;
+}
+
+
+int CMap::getHeight_tile()
+{
+	return m_tileHeight;
+}
+
+
+const std::vector<STileData<int>*>* CMap::getMapTiles()
+{
+	return &m_pMapTiles;
 }
 
 
@@ -116,6 +134,7 @@ void CMap::load()
 		if (line.find(data) != string::npos && !dataFound)
 		{
 
+			std::vector<std::vector<int>> mapData;
 			for (int i = 0; i < m_MapRows; ++i)
 			{
 				getline(fileStream, line);
@@ -138,9 +157,29 @@ void CMap::load()
 				//		(it is uninitialized data which could be a problem)
 				lineVector.resize(m_MapColumns);
 
-				m_mapData.push_back(lineVector);
+				mapData.push_back(lineVector);
 			}
 
+			for (int i = 0; i < mapData.size(); ++i)
+			{
+				vector<int> lineVector = mapData[i];
+				for (int n = 0; n < lineVector.size(); ++n)
+				{
+					if (lineVector[n] == 0)
+						continue;
+
+					STileData<int>* pTile = new STileData<int>();
+					pTile->width = m_tileWidth;
+					pTile->height = m_tileHeight;
+					pTile->spriteCoords.setCoords(lineVector[n], 1);
+					pTile->mapCoords.setCoords(n, i);
+					pTile->screenCoords_topLeft.setCoords(n * m_tileHeight, i * m_tileWidth);
+					pTile->screenCoords_bottomRight.setCoords(
+						n * m_tileHeight + m_tileHeight, 
+						i * m_tileWidth + m_tileWidth);
+					m_pMapTiles.push_back(pTile);
+				}
+			}
 		}
 
 	}
@@ -159,7 +198,7 @@ void CMap::load()
 	// this for loop assumes that it is a 1D tile set of sequential indecies converted to lengths
 	for (int i = 0; i < spriteColumns; ++i)
 	{
-		m_pTileCoordsArray[i] = SCoords2<int>(i + 1, 1);
+		m_pTileCoordsArray[i].setCoords(i + 1, 1);
 	}
 }
 
@@ -167,51 +206,26 @@ void CMap::load()
 void CMap::render()
 {
 	// using int = 0 instead of iterators because I need indecies of locations ([i][n])
-	for (int i = 0; i < m_mapData.size(); ++i) // row
+	for (int i = 0; i < m_pMapTiles.size(); ++i) // row
 	{
-		std::vector<int> lineVector = m_mapData[i];
-		for (int n = 0; n < lineVector.size(); ++n) // column
+		STileData<int>* pTile = m_pMapTiles[i];
+
+		// 0 represents no tile (thats why all sprite rendering is done in lengths)
+		if (shouldCull(pTile->mapCoords.x, pTile->mapCoords.y))
 		{
-			// 0 represents no tile (thats why all sprite rendering is done in lengths)
-			if (lineVector[n] == 0 || shouldCull(i, n))
-			{
-				continue;
-			}
-			else
-			{
-				int screenX, screenY;
-				int screenW, screenH;
+			continue;
+		}
+		else
+		{
+			// what number represents the tile that should be drawn
+			int numberInPosition = pTile->spriteCoords.x;
+			// -1 b/c length -> index in data structure
+			int spriteR = m_pTileCoordsArray[numberInPosition - 1].y;
+			int spriteC = m_pTileCoordsArray[numberInPosition - 1].x;
 
-				if (isMapStretched == true)
-				{
-					// these two floats are what make the map draw to the entire screen no mater what
-					float proportionX = m_pWindow->getWidth() / lineVector.size();
-					float proportionY = m_pWindow->getHeight() / m_mapData.size();
-
-					screenX = n * proportionX;
-					screenY = i * proportionY;
-
-					screenW = proportionX;
-					screenH = proportionY;
-				}
-				else if (isMapStretched == false)
-				{
-					screenX = n * m_pSpriteSheet->getImageWidth();
-					screenY = i * m_pSpriteSheet->getImageHeight();
-
-					screenW = m_pSpriteSheet->getImageWidth();
-					screenH = m_pSpriteSheet->getImageHeight();
-				}
-
-				// what number represents the tile that should be drawn
-				int numberInPosition = lineVector[n];
-				// -1 b/c length -> index in data structure
-				int spriteR = m_pTileCoordsArray[numberInPosition - 1].y;
-				int spriteC = m_pTileCoordsArray[numberInPosition - 1].x;
-
-				m_pSpriteSheet->render(screenX, screenY, screenW, screenH,
-				                       spriteR, spriteC);
-			}
+			m_pSpriteSheet->render(	pTile->screenCoords_topLeft.x, pTile->screenCoords_topLeft.y, 
+									pTile->width, pTile->height,
+				                    spriteR, spriteC);
 		}
 	}
 }
@@ -219,173 +233,40 @@ void CMap::render()
 
 bool CMap::collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith)
 {
-	for (int i = 0; i < m_mapData.size(); ++i) // row
+	for (int i = 0; i < m_pMapTiles.size(); ++i) // row
 	{
-		std::vector<int> lineVector = m_mapData[i];
-		for (int n = 0; n < lineVector.size(); ++n) // column
+		// i don't believe culling will help here, because then off screen objects will just fall forever
+
+		STileData<int>* pTile = m_pMapTiles[i];
+
+		CVector2<float> tileMin(pTile->screenCoords_topLeft.x, pTile->screenCoords_topLeft.y);
+		CVector2<float> tileMax(pTile->screenCoords_bottomRight.x, pTile->screenCoords_bottomRight.y);
+		CAABB_f tileAABB(&tileMin, &tileMax);
+
+		if (aabb->collision(&tileAABB) == true)
 		{
-			if (lineVector[n] == 0 || shouldCull(i, n))
+			if (tileCollidedWith != NULL)
 			{
-				continue;
+				// give the calling place the tile that the given aabb collided with
+				tileCollidedWith->setEverything(
+					pTile->screenCoords_topLeft.x, pTile->screenCoords_topLeft.y,
+					pTile->screenCoords_bottomRight.x, pTile->screenCoords_bottomRight.y);
 			}
-
-			int topLeftX, topLeftY;
-			int botomRightX, botomRightY;
-
-			if (isMapStretched == true)
-			{
-				// window size / how many tiles are in it = size of individual tile
-				float proportionX = m_pWindow->getWidth() / lineVector.size();
-				float proportionY = m_pWindow->getHeight() / m_mapData.size();
-
-				topLeftX = n * proportionX;
-				topLeftY = i * proportionY;
-
-				botomRightX = topLeftX + proportionX;
-				botomRightY = topLeftY + proportionY;
-			}
-			else if (isMapStretched == false)
-			{
-				topLeftX = n * m_pSpriteSheet->getImageWidth();
-				topLeftY = i * m_pSpriteSheet->getImageHeight();
-
-				botomRightX = topLeftX + m_pSpriteSheet->getImageWidth();
-				botomRightY = topLeftY + m_pSpriteSheet->getImageHeight();
-			}
-
-			CVector2<float> tileMin(topLeftX, topLeftY);
-			CVector2<float> tileMax(botomRightX, botomRightY);
-			CAABB_f tileAABB(&tileMin, &tileMax);
-
-			if (aabb->collision(&tileAABB) == true)
-			{
-				if (tileCollidedWith != NULL)
-				{
-					// give the calling place the tile that the given aabb collided with
-					tileCollidedWith->setEverything(topLeftX, topLeftY, botomRightX, botomRightY);
-				}
-				//collision_screenToMap_fake(aabb, tileCollidedWith);
-				return true;
-			}
+			return true;
 		}
 	}
 	return false;
 }
 
 
-bool CMap::collision_screenToMap_fake(CAABB_f* aabb, CAABB_f* tileCollidedWith)
-{
-	int topLeftX = aabb->getMin()->x;
-	int topLeftY = aabb->getMin()->y;
-
-	int botomRightX = aabb->getMax()->x;
-	int botomRightY = aabb->getMax()->y;
-
-	int topRightX = botomRightX;
-	int topRightY = topLeftY;
-
-	int botomLeftX = topLeftX;
-	int botomLeftY = botomRightY;
-
-	//convertScreenToMap(&topLeftX,		&topLeftY);
-	//convertScreenToMap(&botomRightX,	&botomRightY);
-	convertScreenToMap(&topRightX,		&topRightY);
-	//convertScreenToMap(&botomLeftX,		&botomLeftY);
-
-	// NOTE!!	* now the vars are in MAP coords
-	//			* collision happens on map if coord is != 0 b/c Tiled does it that way
-
-	// window size / how many tiles are in it = size of individual tile
-	//float proportionX = m_pWindow->getWidth() / m_mapData[1].size();
-	//float proportionY = m_pWindow->getHeight() / m_mapData.size();
-
-	// length to index inside of data structure
-	//int map_topLeft = m_mapData[topLeftY-1][topLeftX-1];
-	//int map_botomRight = m_mapData[botomRightY-1][botomRightX-1];
-	int map_topRight = m_mapData[topRightY][topRightX];
-	//int map_botomLeft = m_mapData[botomLeftY-1][botomLeftX-1];
-
-	int q = 0;
-
-	//if (m_mapData[topLeftY][topLeftX] != 0)
-	//{
-	//	if (tileCollidedWith != NULL)
-	//	{
-	//		int topLeftX_tile = topLeftX * proportionX;
-	//		int topLeftY_tile = topLeftY * proportionY;
-
-	//		int botomRightX_tile = topLeftX_tile + proportionX;
-	//		int botomRightY_tile = topLeftY_tile + proportionY;
-
-	//		// give the calling place the tile that the given aabb collided with
-	//		tileCollidedWith->setEverything(topLeftX_tile, topLeftY_tile, botomRightX_tile, botomRightY_tile);
-	//	}
-
-	//	return true;
-	//}
-	//if (m_mapData[botomRightY][botomRightX] != 0)
-	//{
-	//	if (tileCollidedWith != NULL)
-	//	{
-	//		int topLeftX_tile = botomRightX * proportionX;
-	//		int topLeftY_tile = botomRightY * proportionY;
-
-	//		int botomRightX_tile = topLeftX_tile + proportionX;
-	//		int botomRightY_tile = topLeftY_tile + proportionY;
-
-	//		// give the calling place the tile that the given aabb collided with
-	//		tileCollidedWith->setEverything(topLeftX_tile, topLeftY_tile, botomRightX_tile, botomRightY_tile);
-	//	}
-
-	//	return true;
-	//}
-	//if (m_mapData[topRightY][topRightX] != 0)
-	//{
-	//	if (tileCollidedWith != NULL)
-	//	{
-	//		int topLeftX_tile = topRightX * proportionX;
-	//		int topLeftY_tile = topRightY * proportionY;
-
-	//		int botomRightX_tile = topLeftX_tile + proportionX;
-	//		int botomRightY_tile = topLeftY_tile + proportionY;
-
-	//		// give the calling place the tile that the given aabb collided with
-	//		tileCollidedWith->setEverything(topLeftX_tile, topLeftY_tile, botomRightX_tile, botomRightY_tile);
-	//	}
-
-	//	return true;
-	//}
-	//if (m_mapData[botomLeftY][botomLeftX] != 0)
-	//{
-	//	if (tileCollidedWith != NULL)
-	//	{
-	//		int topLeftX_tile = botomLeftX * proportionX;
-	//		int topLeftY_tile = botomLeftY * proportionY;
-
-	//		int botomRightX_tile = topLeftX_tile + proportionX;
-	//		int botomRightY_tile = topLeftY_tile + proportionY;
-
-	//		// give the calling place the tile that the given aabb collided with
-	//		tileCollidedWith->setEverything(topLeftX_tile, topLeftY_tile, botomRightX_tile, botomRightY_tile);
-	//	}
-
-	//	return true;
-	//}
-
-	return false;
-}
-
-
 bool CMap::collision_mapToMap(int row, int column)
 {
-	std::vector<int> lineVector = m_mapData[row];
-	int num = lineVector[column];
-
-	if (num != 0) // 0 represents no rendering on map -> != is collision
+	for (int i = 0; i < m_pMapTiles.size(); ++i)
 	{
-		return true;
+		STileData<int>* pTile = m_pMapTiles[i];
+		if (pTile->mapCoords.x == column && pTile->mapCoords.y == row)
+			return true;
 	}
-
 	return false;
 }
 
@@ -403,8 +284,11 @@ int CMap::convertScreenToMap_X(int screenX)
 //	assert(screenX >= 0 && screenX <= m_pWindow->getWidth());
 //#endif // DEBUG
 
-	int mapX = ceil(((float)m_pSpriteSheet->getNumColumns() * (float)m_pSpriteSheet->getImageWidth())
-	                / (float)screenX);
+	float mapSize = (float)m_pSpriteSheet->getNumColumns() * (float)m_pSpriteSheet->getImageWidth();
+	float subDevision_num = m_pSpriteSheet->getNumColumns();
+	float subDevision_size = mapSize / subDevision_num;
+
+	int mapX = (float)screenX / (float)subDevision_size;
 	return mapX;
 }
 
@@ -415,8 +299,11 @@ int CMap::convertScreenToMap_Y(int screenY)
 //	assert(screenY >= 0 && screenY <= m_pWindow->getHeight());
 //#endif // DEBUG
 
-	int mapY = ceil(((float)m_pSpriteSheet->getNumRows() * (float)m_pSpriteSheet->getImageHeight())
-	                / (float)screenY);
+	float mapSize = (float)m_pSpriteSheet->getNumRows() * (float)m_pSpriteSheet->getImageHeight();
+	float subDevision_num = m_pSpriteSheet->getNumRows();
+	float subDevision_size = mapSize / subDevision_num;
+
+	int mapY = (float)screenY / (float)subDevision_size;
 	return mapY;
 }
 
@@ -430,7 +317,7 @@ int CMap::stringToInt(std::string str)
 }
 
 
-bool CMap::shouldCull(int row, int column)
+bool CMap::shouldCull(int column, int row)
 {
 	if (isMapStretched == true) // don't cull anything because everything is rendered to screen
 		return false;

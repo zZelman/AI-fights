@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CTIMER_H
+#define CTIMER_H
+
 
 #include "stdafx.h"
 
@@ -29,3 +31,6 @@ private:
 	bool isPaused;	// status of timer
 	bool isStarted;	// status of timer
 };
+
+
+#endif // !CTIMER_H

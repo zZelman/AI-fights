@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CBOT_H
+#define CBOT_H
+
 
 #include "stdafx.h"
 #include "CWindow.h"
@@ -55,6 +57,28 @@ struct SCoords2
 	{
 		x = _x;
 		y = _y;
+	}
+
+	template <typename T>
+	void operator=(SCoords2<T> other)
+	{
+		x = other.x;
+		y = other.y;
+	}
+
+	template <typename T>
+	void setCoords(T _x, T _y)
+	{
+		x = _x;
+		y = _y;
+	}
+
+	template <typename T>
+	bool equals(SCoords2<T> other)
+	{
+		if (x == other.x && y == other.y)
+			return true;
+		return false;
 	}
 };
 
@@ -119,3 +143,6 @@ protected:
 	bool correctScreenEdgeCollision_left();
 	bool correctScreenEdgeCollision_right();
 };
+
+
+#endif // !CBOT_H

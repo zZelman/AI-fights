@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CMUSIC_H
+#define CMUSIC_H
 
 #include "stdafx.h"
 #include "CResourceDirectories.h"
@@ -43,4 +44,8 @@ private:
 
 	void musicOver(); // when music has stopped playing this gets called [TODO: fix callback scope]
 
-};
+};  
+
+
+
+#endif // !CMUSIC_H

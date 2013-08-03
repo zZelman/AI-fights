@@ -1,8 +1,11 @@
-#pragma once
+#ifndef CPHYSICS_H
+#define CPHYSICS_H
+
 
 #include "stdafx.h"
 #include "CBot.h"
 #include "CWindow.h"
+#include "CRoom.h"
 
 // * This class is the 'physics engine' for the game
 // * It is intended to be used at the same level as the data structure that houses
@@ -16,7 +19,7 @@ public:
 
 	// * applies gravity to bot
 	// * does not move bot, only changes the velocities within the bot to reflect gravity
-	void applyGravity(CBot* bot);
+	void applyGravity(CRoom* room);
 
 	// * returns true if yes, false if no
 	bool collisionDetection(CBot* bot1, CBot* bot2);
@@ -48,3 +51,6 @@ private:
 	//		(top left to bottom left)
 	float m_gravityB;
 };
+
+
+#endif // !CPHYSICS_H

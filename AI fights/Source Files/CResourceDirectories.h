@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CRESOURCE_DIRECTORIES_H
+#define CRESOURCE_DIRECTORIES_H
+
 
 #include "stdafx.h"
 
@@ -14,3 +16,6 @@ protected:
 	std::string m_resource_music; // directory to music files
 	std::string m_resource_tileSets; // tilesets
 };
+
+
+#endif // !CRESOURCE_DIRECTORIES_H

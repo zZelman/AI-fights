@@ -18,7 +18,7 @@ CGame::CGame()
 
 	m_pMap			= new CMap(m_pGameWindow, "Resource Files/Maps/testing.txt");
 
-	m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, m_pMap, "Resource Files/Sprites/ninja (46h 32w).png", 32, 46, 2, 6);
+	//m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, m_pMap, "Resource Files/Sprites/ninja (46h 32w).png", 32, 46, 2, 6);
 
 	//m_pAIBot		= new CAI_Bot("blueAI.png", m_pGameWindow);
 }
@@ -41,8 +41,10 @@ CGame::~CGame()
 	delete m_pMap;
 	m_pMap = NULL;
 
-	delete m_pUserBot;
-	m_pUserBot = NULL;
+	m_roomVector.erase(m_roomVector.begin(), m_roomVector.end());
+
+	//delete m_pUserBot;
+	//m_pUserBot = NULL;
 
 	//delete m_pAIBot;
 	//m_pAIBot = NULL;
@@ -128,7 +130,7 @@ void CGame::gameEvents(SDL_Event& event)
 		}
 		else if (event.key.keysym.sym == SDLK_ESCAPE)
 		{
-			isGameRunning = false;
+			//isGameRunning = false;
 		}
 		else if (event.type == SDL_WINDOWEVENT)
 		{
@@ -136,15 +138,27 @@ void CGame::gameEvents(SDL_Event& event)
 		}
 		else if (event.key.keysym.sym == SDLK_b)
 		{
-			assert(false);
+			//assert(false);
 		}
 		else if (event.key.keysym.sym == SDLK_m && event.type == SDL_KEYDOWN)
 		{
 			m_pMap->swapIsStretched();
 		}
-		else
+		else if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT)
 		{
-			m_pUserBot->userInput(&event);
+			int x = event.button.x;
+			int y = event.button.y;
+
+			// this is to make the room appear with the grid
+			m_pMap->convertScreenToMap(&x, &y);
+			x = x * m_pMap->getWidth_tile();
+			y = event.button.y;
+
+			SCoords2<int> spawnCoords;
+			spawnCoords.setCoords(x, y);
+			m_roomVector.push_back(new CRoom(m_pGameWindow, m_pMap, &m_roomVector, 
+				spawnCoords, "Resource Files/Rooms/room.png", 
+				32, 32, 1, 1));
 		}
 	}
 }
@@ -152,8 +166,13 @@ void CGame::gameEvents(SDL_Event& event)
 
 void CGame::gameUpdate()
 {
-	m_pUserBot->update();
-	//std::cout << m_pUserBot->mapCollision(m_pMap) << std::endl;
+	for (auto itr = m_roomVector.begin(); itr != m_roomVector.end(); ++itr)
+	{
+		m_pPhysics->applyGravity(*itr);
+		(*itr)->update();
+	}
+
+	//m_pUserBot->update();
 
 	//m_pPhysics->collisionDetection(m_pAIBot, m_pGameWindow);
 	//m_pPhysics->applyGravity(m_pAIBot);
@@ -169,7 +188,13 @@ void CGame::gameRender()
 	SDL_RenderClear(m_pGameWindow->getRenderer());
 
 	m_pMap->render();
-	m_pUserBot->render();
+
+	for (auto itr = m_roomVector.begin(); itr != m_roomVector.end(); ++itr)
+	{
+		(*itr)->render();
+	}
+
+	//m_pUserBot->render();
 	//m_pAIBot->render();
 
 	SDL_RenderPresent(m_pGameWindow->getRenderer());
