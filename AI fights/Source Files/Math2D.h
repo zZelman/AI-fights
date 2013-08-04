@@ -51,6 +51,10 @@ public:
 	CVector2<float>* getMin();
 	CVector2<float>* getMax();
 
+	// * NOTE!! this function sets min and max to NULL -WITHOUT- deleting them!
+	//		only use this if you know what you are doing
+	void nullPtrs();
+
 	float getWidth();
 	float getHeight();
 

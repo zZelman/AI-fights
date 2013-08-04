@@ -128,6 +128,9 @@ protected:
 	CRoom* m_pRoomLeft;
 	CRoom* m_pRoomRight;
 
+	// sets adjacent room pointers to NULL
+	void nullPtrs();
+
 	// * check if this room has neighbors
 	// * NULL if no
 	// * ONLY GETS CALLED WHEN isFallign == false
@@ -137,6 +140,12 @@ protected:
 	void check_down(CRoom* oldPtr);
 	void check_left(CRoom* oldPtr);
 	void check_right(CRoom* oldPtr);
+
+	// * Checks collision in the area bounded by the given SCREEN space coords
+	// * NOTE: if step of 'this' is too large, it will completely fall over 'other'
+	// * 'this' is the coord set that DOES the stepping
+	bool collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pBottomRight_this,
+		SCoords2<int>* pTopLeft_other, SCoords2<int>* pBottomRight_other);
 
 	// * while falling, will this room's next step be inside another room?
 	//		if true, step to the edge of the room

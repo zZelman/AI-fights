@@ -160,12 +160,31 @@ void CRoom::update()
 			}
 		}
 	}
+
+	// only update the adjacent room pointers when not falling
+	if (!isFalling)
+	{
+		checkPtrs();
+	}
+	else // is falling - null pointers to prevent weird pathing glitches
+	{
+		nullPtrs();
+	}
 }
 
 
 void CRoom::render()
 {
 	m_pSprite->render(m_topLeft.x, m_topLeft.y, m_width, m_height);
+}
+
+
+void CRoom::nullPtrs()
+{
+	m_pRoomUp		= NULL;
+	m_pRoomDown		= NULL;
+	m_pRoomLeft		= NULL;
+	m_pRoomRight	= NULL;
 }
 
 
@@ -202,6 +221,23 @@ void CRoom::check_right(CRoom* oldPtr)
 }
 
 
+bool CRoom::collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pBottomRight_this,
+					  SCoords2<int>* pTopLeft_other, SCoords2<int>* pBottomRight_other)
+{
+	// check topLeft of 'this'
+	if (pTopLeft_this->x > pTopLeft_other->x && pTopLeft_this->x < pBottomRight_other->x &&
+		pTopLeft_this->y > pTopLeft_other->y && pTopLeft_this->y < pBottomRight_other->y)
+		return true;
+
+	// check bottomRight of 'this'
+	if (pBottomRight_this->x > pTopLeft_other->x && pBottomRight_this->x < pBottomRight_other->x &&
+		pBottomRight_this->y > pTopLeft_other->y && pBottomRight_this->y < pBottomRight_other->y)
+		return true;
+
+	return false;
+}
+
+
 bool CRoom::correctRoomCollision_down()
 {
 	for (int i = 0; i < m_pRoomVector->size(); ++i)
@@ -217,17 +253,19 @@ bool CRoom::correctRoomCollision_down()
 		SCoords2<int> other_bottomRight;
 		pRoom->getEverything(&other_topLeft, &other_topRight, &other_bottomLeft, &other_bottomRight);
 
-		CAABB_f aabb_other;
-		aabb_other.setEverything(&other_topLeft, &other_bottomRight);
+		// +1 on topLeft.x and -1 on bottomRight.x because technically, 
+		//		rooms at column cord n and n+1 or n-1 share the same bondings, 
+		//		so just do collision detection on something that is slightly less than the 
+		//		width of the room so the rooms can be right next to one another
+		SCoords2<int> this_topLeft, this_bottomRight;
+		this_topLeft.x		= (m_topLeft.x + 1) + m_sAtributes.velosity_x;
+		this_topLeft.y		= m_topLeft.y + m_sAtributes.velosity_y;
+		this_bottomRight.x	= (m_bottomRight.x - 1) + m_sAtributes.velosity_x;
+		this_bottomRight.y	= m_bottomRight.y + m_sAtributes.velosity_y;
 
-		CAABB_f aabb_this; // TODO: have collision detection for NEXT STEP
-		aabb_this.setEverything(
-			m_topLeft.x + m_sAtributes.velosity_x, m_topLeft.y + m_sAtributes.velosity_y,
-			m_bottomRight.x + m_sAtributes.velosity_x, m_bottomRight.y + m_sAtributes.velosity_y);
-
-		if (aabb_this.collision(&aabb_other))
+		if (collision(&this_topLeft, &this_bottomRight, &other_topLeft, &other_bottomRight) == true)
 		{
-			setBottomRight(other_topLeft.x + pRoom->getWidth(), other_topLeft.y);
+			setBottomRight(other_topRight.x, other_topRight.y);
 			m_sAtributes.gravityTimer.start();
 			isFalling = false;
 			return true;
@@ -256,16 +294,19 @@ bool CRoom::correctMapCollision_down()
 			continue;
 		}
 
-		// + velocities because we are checking the NEXT step
-		CVector2<float> min_room(m_topLeft.x + m_sAtributes.velosity_x, m_topLeft.y + m_sAtributes.velosity_y);
-		CVector2<float> max_room(m_bottomRight.x + m_sAtributes.velosity_x, m_bottomRight.y + m_sAtributes.velosity_y);
-		CAABB_f aabb_room(&min_room, &max_room);
+		SCoords2<int> room_topLeft, room_bottomRight;
+		room_topLeft.x		= (m_topLeft.x + 1) + m_sAtributes.velosity_x;
+		room_topLeft.y		= m_topLeft.y + m_sAtributes.velosity_y;
+		room_bottomRight.x	= (m_bottomRight.x - 1) + m_sAtributes.velosity_x;
+		room_bottomRight.y	= m_bottomRight.y + m_sAtributes.velosity_y;
 
-		CVector2<float> min_tile(pTile->screenCoords_topLeft.x, pTile->screenCoords_topLeft.y);
-		CVector2<float> max_tile(pTile->screenCoords_bottomRight.x, pTile->screenCoords_bottomRight.y);
-		CAABB_f aabb_tile(&min_tile, &max_tile);
+		SCoords2<int> tile_topLeft, tile_bottomRight;
+		tile_topLeft.x		= pTile->screenCoords_topLeft.x;
+		tile_topLeft.y		= pTile->screenCoords_topLeft.y;
+		tile_bottomRight.x	= pTile->screenCoords_bottomRight.x;
+		tile_bottomRight.y	= pTile->screenCoords_bottomRight.y;
 
-		if (aabb_room.collision(&aabb_tile))
+		if (collision(&room_topLeft, &room_bottomRight, &tile_topLeft, &tile_bottomRight) == true)
 		{
 			// want to set the room bottom right to the tile top right
 			setBottomRight(pTile->screenCoords_topLeft.x + pTile->width, pTile->screenCoords_topLeft.y);

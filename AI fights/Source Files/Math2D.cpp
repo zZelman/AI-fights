@@ -5,7 +5,11 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-CAABB_f::CAABB_f() {}
+CAABB_f::CAABB_f() 
+{
+	min = NULL;
+	max = NULL;
+}
 
 
 CAABB_f::CAABB_f(CVector2<float>* _min, CVector2<float>* _max)
@@ -33,6 +37,13 @@ CVector2<float>* CAABB_f::getMin()
 CVector2<float>* CAABB_f::getMax()
 {
 	return max;
+}
+
+
+void CAABB_f::nullPtrs()
+{
+	min = NULL;
+	max = NULL;
 }
 
 
