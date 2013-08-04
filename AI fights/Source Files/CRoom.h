@@ -19,26 +19,29 @@ public:
 	// * imageHeight:				height of sprite
 	// * numImages_rows:			how many rows of images are there in the sprite to be loaded
 	// * numImages_columns:	how many columns of images are there in the sprite to be loaded
-	CRoom(	CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom,
-			SCoords2<int> spawnCoords_screen, 
-			std::string filePath, int imageWidth, int imageHeight,
-			int numImages_rows = 1, int numImages_columns = 1);
+	CRoom(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom,
+	      SCoords2<int> spawnCoords_screen,
+	      std::string filePath, int imageWidth, int imageHeight,
+	      int numImages_rows = 1, int numImages_columns = 1);
 	virtual ~CRoom();
 
 	// SCREEN SPACE resets the values within the GIVEN 4 coord pairs to match what this rooms currently are
-	void getEverything(	SCoords2<int>* pTopLeft, SCoords2<int>* pTopRight,
-						SCoords2<int>* pBottomLeft, SCoords2<int>* pBottomRight);
+	void getEverything(SCoords2<int>* pTopLeft, SCoords2<int>* pTopRight,
+	                   SCoords2<int>* pBottomLeft, SCoords2<int>* pBottomRight);
 
 	// SCREEN SPACE resets the values within the GIVEN coord pairs to what this room currently are
 	void getMinMax(SCoords2<int>* pTopLeft, SCoords2<int>* pBottomRight);
+
+	// returns what MAP Space column this room is in (topLeft)
+	int getColumn();
 
 	// distance between each respective coord sets
 	int getWidth();
 	int getHeight();
 
 	// calculates NEW width and height based on the coords given
-	void setEverything(	SCoords2<int> topLeft, SCoords2<int> topRight, 
-		SCoords2<int> bottomLeft, SCoords2<int> bottomRight);
+	void setEverything(SCoords2<int> topLeft, SCoords2<int> topRight,
+	                   SCoords2<int> bottomLeft, SCoords2<int> bottomRight);
 
 	// calculates other coords based on set widths and heights
 	void setTopLeft(SCoords2<int> topLeft);
@@ -48,6 +51,10 @@ public:
 
 	// checks equivalence by checking coords
 	bool equals(CRoom* other);
+	bool equals(int mapColumn);
+
+	// checks if the point in SCREEN space is within this room's edges
+	bool collision(SCoords2<int>* pPoint);
 
 	virtual void update();
 	virtual void render();
@@ -81,6 +88,9 @@ protected:
 	SCoords2<int> m_topRight;
 	SCoords2<int> m_bottomLeft;
 	SCoords2<int> m_bottomRight;
+
+	// MAP SPACE column coordinate
+	int m_coord_column;
 
 	// detentions from one corner to another
 	int m_width;
@@ -134,18 +144,19 @@ protected:
 	// * check if this room has neighbors
 	// * NULL if no
 	// * ONLY GETS CALLED WHEN isFallign == false
-	// * 'oldPtr' is this room's respective pointer
-	void checkPtrs(); // wrapper function for all pointer checks
-	void check_up(CRoom* oldPtr);
-	void check_down(CRoom* oldPtr);
-	void check_left(CRoom* oldPtr);
-	void check_right(CRoom* oldPtr);
+	// * 'roomToCheck' is the room in the data structure to check if it is adjacent
+	// * 'pixelCheck' is how far in screen space coords to check for a room
+	void checkPtrs(int pixelCheck); // wrapper function for all pointer checks
+	bool check_up(CRoom* roomToCheck, int pixelCheck);
+	bool check_down(CRoom* roomToCheck, int pixelCheck);
+	bool check_left(CRoom* roomToCheck, int pixelCheck);
+	bool check_right(CRoom* roomToCheck, int pixelCheck);
 
 	// * Checks collision in the area bounded by the given SCREEN space coords
 	// * NOTE: if step of 'this' is too large, it will completely fall over 'other'
 	// * 'this' is the coord set that DOES the stepping
 	bool collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pBottomRight_this,
-		SCoords2<int>* pTopLeft_other, SCoords2<int>* pBottomRight_other);
+	               SCoords2<int>* pTopLeft_other, SCoords2<int>* pBottomRight_other);
 
 	// * while falling, will this room's next step be inside another room?
 	//		if true, step to the edge of the room

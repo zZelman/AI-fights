@@ -44,7 +44,7 @@ private:
 
 	void musicOver(); // when music has stopped playing this gets called [TODO: fix callback scope]
 
-};  
+};
 
 
 

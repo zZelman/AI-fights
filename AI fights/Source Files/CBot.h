@@ -77,7 +77,9 @@ struct SCoords2
 	bool equals(SCoords2<T> other)
 	{
 		if (x == other.x && y == other.y)
+		{
 			return true;
+		}
 		return false;
 	}
 };

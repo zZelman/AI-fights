@@ -166,7 +166,9 @@ void CMap::load()
 				for (int n = 0; n < lineVector.size(); ++n)
 				{
 					if (lineVector[n] == 0)
+					{
 						continue;
+					}
 
 					STileData<int>* pTile = new STileData<int>();
 					pTile->width = m_tileWidth;
@@ -175,8 +177,8 @@ void CMap::load()
 					pTile->mapCoords.setCoords(n, i);
 					pTile->screenCoords_topLeft.setCoords(n * m_tileHeight, i * m_tileWidth);
 					pTile->screenCoords_bottomRight.setCoords(
-						n * m_tileHeight + m_tileHeight, 
-						i * m_tileWidth + m_tileWidth);
+					    n * m_tileHeight + m_tileHeight,
+					    i * m_tileWidth + m_tileWidth);
 					m_pMapTiles.push_back(pTile);
 				}
 			}
@@ -223,9 +225,9 @@ void CMap::render()
 			int spriteR = m_pTileCoordsArray[numberInPosition - 1].y;
 			int spriteC = m_pTileCoordsArray[numberInPosition - 1].x;
 
-			m_pSpriteSheet->render(	pTile->screenCoords_topLeft.x, pTile->screenCoords_topLeft.y, 
-									pTile->width, pTile->height,
-				                    spriteR, spriteC);
+			m_pSpriteSheet->render(pTile->screenCoords_topLeft.x, pTile->screenCoords_topLeft.y,
+			                       pTile->width, pTile->height,
+			                       spriteR, spriteC);
 		}
 	}
 }
@@ -249,8 +251,8 @@ bool CMap::collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith)
 			{
 				// give the calling place the tile that the given aabb collided with
 				tileCollidedWith->setEverything(
-					pTile->screenCoords_topLeft.x, pTile->screenCoords_topLeft.y,
-					pTile->screenCoords_bottomRight.x, pTile->screenCoords_bottomRight.y);
+				    pTile->screenCoords_topLeft.x, pTile->screenCoords_topLeft.y,
+				    pTile->screenCoords_bottomRight.x, pTile->screenCoords_bottomRight.y);
 			}
 			return true;
 		}
@@ -265,7 +267,9 @@ bool CMap::collision_mapToMap(int row, int column)
 	{
 		STileData<int>* pTile = m_pMapTiles[i];
 		if (pTile->mapCoords.x == column && pTile->mapCoords.y == row)
+		{
 			return true;
+		}
 	}
 	return false;
 }
@@ -320,12 +324,18 @@ int CMap::stringToInt(std::string str)
 bool CMap::shouldCull(int column, int row)
 {
 	if (isMapStretched == true) // don't cull anything because everything is rendered to screen
+	{
 		return false;
+	}
 
-	if ( (row * m_pSpriteSheet->getImageHeight()) > m_pWindow->getHeight())
+	if ((row * m_pSpriteSheet->getImageHeight()) > m_pWindow->getHeight())
+	{
 		return true;
-	if ( (column * m_pSpriteSheet->getImageWidth()) > m_pWindow->getWidth())
+	}
+	if ((column * m_pSpriteSheet->getImageWidth()) > m_pWindow->getWidth())
+	{
 		return true;
+	}
 
 	return false;
 }

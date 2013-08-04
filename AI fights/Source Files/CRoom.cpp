@@ -3,9 +3,9 @@
 
 
 CRoom::CRoom(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom,
-			 SCoords2<int> spawnCoords_screen,
-			 std::string filePath, int imageWidth, int imageHeight,
-			 int numImages_rows, int numImages_columns)
+             SCoords2<int> spawnCoords_screen,
+             std::string filePath, int imageWidth, int imageHeight,
+             int numImages_rows, int numImages_columns)
 {
 	m_pWindow = window;
 	m_pCollisionMap = collisionMap;
@@ -16,11 +16,14 @@ CRoom::CRoom(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collision
 
 	setTopLeft(spawnCoords_screen);
 
+	m_coord_column = spawnCoords_screen.x;
+	m_coord_column = m_pCollisionMap->convertScreenToMap_X(m_coord_column);
+
 	m_pRoomVector = collisionRoom;
 
-	m_pSprite = new CSprite(window, filePath, 
-		imageWidth, imageHeight, 
-		numImages_rows, numImages_columns);
+	m_pSprite = new CSprite(window, filePath,
+	                        imageWidth, imageHeight,
+	                        numImages_rows, numImages_columns);
 
 	isFirstUpdate = true;
 
@@ -37,8 +40,8 @@ CRoom::~CRoom()
 }
 
 
-void CRoom::getEverything(	SCoords2<int>* pTopLeft, SCoords2<int>* pTopRight,
-							 SCoords2<int>* pBottomLeft, SCoords2<int>* pBottomRight)
+void CRoom::getEverything(SCoords2<int>* pTopLeft, SCoords2<int>* pTopRight,
+                          SCoords2<int>* pBottomLeft, SCoords2<int>* pBottomRight)
 {
 	pTopLeft->setCoords(m_topLeft.x, m_topLeft.y);
 	pTopRight->setCoords(m_topRight.x, m_topRight.y);
@@ -54,6 +57,12 @@ void CRoom::getMinMax(SCoords2<int>* pTopLeft, SCoords2<int>* pBottomRight)
 }
 
 
+int CRoom::getColumn()
+{
+	return m_coord_column;
+}
+
+
 int CRoom::getWidth()
 {
 	return m_width;
@@ -66,8 +75,8 @@ int CRoom::getHeight()
 }
 
 
-void CRoom::setEverything(SCoords2<int> topLeft, SCoords2<int> topRight, 
-						  SCoords2<int> bottomLeft, SCoords2<int> bottomRight)
+void CRoom::setEverything(SCoords2<int> topLeft, SCoords2<int> topRight,
+                          SCoords2<int> bottomLeft, SCoords2<int> bottomRight)
 {
 	// not implemented yet
 	assert(false);
@@ -136,6 +145,28 @@ bool CRoom::equals(CRoom* other)
 }
 
 
+bool CRoom::equals(int mapColumn)
+{
+	if (mapColumn == m_coord_column)
+		return true;
+
+	return false;
+}
+
+
+bool CRoom::collision(SCoords2<int>* pPoint)
+{
+	int x = pPoint->x;
+	int y = pPoint->y;
+
+	if (x > m_topLeft.x && x < m_bottomRight.x &&
+		y > m_topLeft.y && y < m_bottomRight.y)
+		return true;
+
+	return false;
+}
+
+
 void CRoom::update()
 {
 	// just to make sure that the first tick of time based things are not messy
@@ -164,7 +195,7 @@ void CRoom::update()
 	// only update the adjacent room pointers when not falling
 	if (!isFalling)
 	{
-		checkPtrs();
+		checkPtrs(1); // for now just 1 pixel
 	}
 	else // is falling - null pointers to prevent weird pathing glitches
 	{
@@ -188,51 +219,169 @@ void CRoom::nullPtrs()
 }
 
 
-void CRoom::checkPtrs()
+void CRoom::checkPtrs(int pixelCheck)
 {
-	check_up(m_pRoomUp);
-	check_down(m_pRoomDown);
-	check_left(m_pRoomLeft);
-	check_right(m_pRoomRight);
+	bool isRoomUp		= false; 
+	bool isRoomDown		= false; 
+	bool isRoomLeft		= false;
+	bool isRoomRight	= false;
+
+	for (int i = 0; i < m_pRoomVector->size(); ++i)
+	{
+		CRoom* pRoom = m_pRoomVector->at(i);
+
+		if (this->equals(pRoom))
+			continue;
+
+		// general logic:
+		// if not found (false)
+		//		then check to see if the room is found 
+		//		& set to true if found, false if not
+
+		if (isRoomUp == false)
+		{
+			isRoomUp = check_up(pRoom, pixelCheck);
+		}
+		if (isRoomDown == false)
+		{
+			isRoomDown = check_down(pRoom, pixelCheck);
+		}
+		if (isRoomLeft == false)
+		{
+			isRoomLeft = check_left(pRoom, pixelCheck);
+		}
+		if (isRoomRight == false)
+		{
+			isRoomRight = check_right(pRoom, pixelCheck);
+		}
+	}
+
+	// if the room hasn't been found in its respective pointer, set that pointer to NULL
+	//		indicating that there is not a room in that direction to pathing
+
+	if (isRoomUp == false)
+	{
+		m_pRoomUp = NULL;
+	}
+	if (isRoomDown == false)
+	{
+		m_pRoomDown = NULL;
+	}
+	if (isRoomLeft == false)
+	{
+		m_pRoomLeft = NULL;
+	}
+	if (isRoomRight == false)
+	{
+		m_pRoomRight = NULL;
+	}
 }
 
 
-void CRoom::check_up(CRoom* oldPtr)
+bool CRoom::check_up(CRoom* roomToCheck, int pixelCheck)
 {
+	// can only check up if the room is in the same column
+	if (this->equals(roomToCheck->getColumn()) == false)
+		return false;
 
+	SCoords2<int> pointToCheck;
+	pointToCheck.x = m_topLeft.x + m_width / 2;
+	pointToCheck.y = m_topLeft.y - pixelCheck;
+
+	if (roomToCheck->collision(&pointToCheck) == true)
+	{
+		m_pRoomUp = roomToCheck;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 
-void CRoom::check_down(CRoom* oldPtr)
+bool CRoom::check_down(CRoom* roomToCheck, int pixelCheck)
 {
+	// can only check down if the room is in the same column
+	if (this->equals(roomToCheck->getColumn()) == false)
+		return false;
 
+	SCoords2<int> pointToCheck;
+	pointToCheck.x = m_topLeft.x + m_width / 2;
+	pointToCheck.y = m_bottomRight.y + pixelCheck;
+
+	if (roomToCheck->collision(&pointToCheck) == true)
+	{
+		m_pRoomDown = roomToCheck;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 
-void CRoom::check_left(CRoom* oldPtr)
+bool CRoom::check_left(CRoom* roomToCheck, int pixelCheck)
 {
+	// can only be left if it is -1 column away from this one
+	if (m_coord_column-1 != roomToCheck->getColumn())
+		return false;
 
+	SCoords2<int> pointToCheck;
+	pointToCheck.x = m_topLeft.x - pixelCheck;
+	pointToCheck.y = m_topLeft.y + m_height / 2;
+
+	if (roomToCheck->collision(&pointToCheck) == true)
+	{
+		m_pRoomLeft = roomToCheck;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 
-void CRoom::check_right(CRoom* oldPtr)
+bool CRoom::check_right(CRoom* roomToCheck, int pixelCheck)
 {
+	// can only be left if it is +1 column away from this one
+	if (m_coord_column+1 != roomToCheck->getColumn())
+		return false;
 
+	SCoords2<int> pointToCheck;
+	pointToCheck.x = m_bottomRight.x + pixelCheck;
+	pointToCheck.y = m_bottomRight.y - m_height / 2;
+
+	if (roomToCheck->collision(&pointToCheck) == true)
+	{
+		m_pRoomRight = roomToCheck;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 
 bool CRoom::collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pBottomRight_this,
-					  SCoords2<int>* pTopLeft_other, SCoords2<int>* pBottomRight_other)
+                      SCoords2<int>* pTopLeft_other, SCoords2<int>* pBottomRight_other)
 {
 	// check topLeft of 'this'
 	if (pTopLeft_this->x > pTopLeft_other->x && pTopLeft_this->x < pBottomRight_other->x &&
-		pTopLeft_this->y > pTopLeft_other->y && pTopLeft_this->y < pBottomRight_other->y)
+	        pTopLeft_this->y > pTopLeft_other->y && pTopLeft_this->y < pBottomRight_other->y)
+	{
 		return true;
+	}
 
 	// check bottomRight of 'this'
 	if (pBottomRight_this->x > pTopLeft_other->x && pBottomRight_this->x < pBottomRight_other->x &&
-		pBottomRight_this->y > pTopLeft_other->y && pBottomRight_this->y < pBottomRight_other->y)
+	        pBottomRight_this->y > pTopLeft_other->y && pBottomRight_this->y < pBottomRight_other->y)
+	{
 		return true;
+	}
 
 	return false;
 }
@@ -245,7 +394,9 @@ bool CRoom::correctRoomCollision_down()
 		CRoom* pRoom = m_pRoomVector->at(i);
 
 		if (this->equals(pRoom))
+		{
 			continue;
+		}
 
 		SCoords2<int> other_topLeft;
 		SCoords2<int> other_topRight;
@@ -253,9 +404,9 @@ bool CRoom::correctRoomCollision_down()
 		SCoords2<int> other_bottomRight;
 		pRoom->getEverything(&other_topLeft, &other_topRight, &other_bottomLeft, &other_bottomRight);
 
-		// +1 on topLeft.x and -1 on bottomRight.x because technically, 
-		//		rooms at column cord n and n+1 or n-1 share the same bondings, 
-		//		so just do collision detection on something that is slightly less than the 
+		// +1 on topLeft.x and -1 on bottomRight.x because technically,
+		//		rooms at column cord n and n+1 or n-1 share the same bondings,
+		//		so just do collision detection on something that is slightly less than the
 		//		width of the room so the rooms can be right next to one another
 		SCoords2<int> this_topLeft, this_bottomRight;
 		this_topLeft.x		= (m_topLeft.x + 1) + m_sAtributes.velosity_x;
@@ -315,7 +466,7 @@ bool CRoom::correctMapCollision_down()
 			m_sAtributes.gravityTimer.start();
 			return true;
 		}
-		
+
 	}
 
 	return false;
@@ -325,7 +476,7 @@ bool CRoom::correctMapCollision_down()
 bool CRoom::correctWindowCollision_down()
 {
 	if (m_bottomLeft.y + m_sAtributes.velosity_y > m_pWindow->getHeight() ||
-		m_bottomRight.y + m_sAtributes.velosity_y > m_pWindow->getHeight())
+	        m_bottomRight.y + m_sAtributes.velosity_y > m_pWindow->getHeight())
 	{
 		setBottomRight(m_bottomRight.x, m_pWindow->getHeight());
 		m_sAtributes.gravityTimer.start();

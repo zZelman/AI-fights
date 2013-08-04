@@ -4,7 +4,7 @@
 CGame::CGame()
 {
 	int fps = 80;
-	fps_MS = SecToMS(1/fps);
+	fps_MS = SecToMS(1 / fps);
 
 	MAX_FRAME_SKIPS = 1000;
 
@@ -95,7 +95,7 @@ void CGame::gameLoop()
 		//if (sleepTime > 0) // still have time in this frame
 		//{
 		//	SDL_Delay(sleepTime);
-		//} 
+		//}
 		//else
 		//{
 		//	excessTime = sleepTime;
@@ -103,7 +103,7 @@ void CGame::gameLoop()
 
 		//beforeTime = m_pGameTimer->getTime(); // this is here because we may be doing updates below
 
-		//// if this while loop enters, it means that the last frame rendered 
+		//// if this while loop enters, it means that the last frame rendered
 		////		took longer than the individual frame render required by the fps.
 		////	So, update the game (without rendering) until we get back to the required frame render time
 		////		or reach an arbitrary maximum of frame skips
@@ -138,7 +138,7 @@ void CGame::gameEvents(SDL_Event& event)
 		}
 		else if (event.key.keysym.sym == SDLK_b)
 		{
-			//assert(false);
+			assert(false);
 		}
 		else if (event.key.keysym.sym == SDLK_m && event.type == SDL_KEYDOWN)
 		{
@@ -156,9 +156,9 @@ void CGame::gameEvents(SDL_Event& event)
 
 			SCoords2<int> spawnCoords;
 			spawnCoords.setCoords(x, y);
-			m_roomVector.push_back(new CRoom(m_pGameWindow, m_pMap, &m_roomVector, 
-				spawnCoords, "Resource Files/Rooms/room.png", 
-				32, 32, 1, 1));
+			m_roomVector.push_back(new CRoom(m_pGameWindow, m_pMap, &m_roomVector,
+			                                 spawnCoords, "Resource Files/Rooms/room.png",
+			                                 32, 32, 1, 1));
 		}
 	}
 }

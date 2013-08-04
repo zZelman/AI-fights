@@ -116,7 +116,7 @@ void CUserControlled_Bot::update()
 	float minPosY			= pMin->y;
 	float nextStepX_min		= minPosX + m_sAtributes.velosity_x;
 	float nextStepY_min		= minPosY + m_sAtributes.velosity_y;
-		
+
 	CVector2<float>* pMax = m_pAABB->getMax();
 	float maxPosX			= pMax->x;
 	float maxPosY			= pMax->y;
