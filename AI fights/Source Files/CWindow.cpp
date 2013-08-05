@@ -130,7 +130,7 @@ void CWindow::init()
 	m_pWindow = SDL_CreateWindow("AI fights",
 	                             m_windowPosX, m_windowPosY,
 	                             m_windowWidth, m_windowHeight,
-	                             SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+	                             SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
 #ifdef DEBUG
 	assert(m_pWindow != NULL);
 #endif // DEBUG

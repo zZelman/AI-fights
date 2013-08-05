@@ -99,6 +99,9 @@
     <ClCompile Include="Source Files\CRoom.cpp">
       <Filter>Source Files\Base Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\CRoomGenerator.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\stdafx.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="Source Files\CRoom.h">
       <Filter>Header Files\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CRoomGenerator.h">
+      <Filter>Header Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

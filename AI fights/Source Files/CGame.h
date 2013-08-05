@@ -9,6 +9,7 @@
 #include "CPhysics.h"
 #include "CMusic.h"
 #include "CMap.h"
+#include "CRoomGenerator.h"
 
 class CGame
 {
@@ -29,6 +30,7 @@ private:
 	CMusic* m_pMusic; // game music
 	CMap* m_pMap; // game map
 	CTimer* m_pGameTimer;
+	CRoomGenerator* m_pRoomGenerator; // wrapper class for the rooms.
 
 	CUserControlled_Bot* m_pUserBot; // first bot to be played :D
 	//CAI_Bot* m_pAIBot; // first attempt at AI :D

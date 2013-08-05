@@ -89,9 +89,6 @@ protected:
 	SCoords2<int> m_bottomLeft;
 	SCoords2<int> m_bottomRight;
 
-	// MAP SPACE column coordinate
-	int m_coord_column;
-
 	// detentions from one corner to another
 	int m_width;
 	int m_height;

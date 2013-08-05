@@ -16,8 +16,9 @@ CRoom::CRoom(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collision
 
 	setTopLeft(spawnCoords_screen);
 
-	m_coord_column = spawnCoords_screen.x;
-	m_coord_column = m_pCollisionMap->convertScreenToMap_X(m_coord_column);
+	m_coords.x = spawnCoords_screen.x;
+	m_coords.y = spawnCoords_screen.y;
+	m_pCollisionMap->convertScreenToMap(&m_coords.x, &m_coords.y);
 
 	m_pRoomVector = collisionRoom;
 
@@ -59,7 +60,7 @@ void CRoom::getMinMax(SCoords2<int>* pTopLeft, SCoords2<int>* pBottomRight)
 
 int CRoom::getColumn()
 {
-	return m_coord_column;
+	return m_coords.x;
 }
 
 
@@ -147,7 +148,7 @@ bool CRoom::equals(CRoom* other)
 
 bool CRoom::equals(int mapColumn)
 {
-	if (mapColumn == m_coord_column)
+	if (mapColumn == m_coords.x)
 		return true;
 
 	return false;
@@ -325,7 +326,7 @@ bool CRoom::check_down(CRoom* roomToCheck, int pixelCheck)
 bool CRoom::check_left(CRoom* roomToCheck, int pixelCheck)
 {
 	// can only be left if it is -1 column away from this one
-	if (m_coord_column-1 != roomToCheck->getColumn())
+	if (m_coords.x-1 != roomToCheck->getColumn())
 		return false;
 
 	SCoords2<int> pointToCheck;
@@ -347,7 +348,7 @@ bool CRoom::check_left(CRoom* roomToCheck, int pixelCheck)
 bool CRoom::check_right(CRoom* roomToCheck, int pixelCheck)
 {
 	// can only be left if it is +1 column away from this one
-	if (m_coord_column+1 != roomToCheck->getColumn())
+	if (m_coords.x+1 != roomToCheck->getColumn())
 		return false;
 
 	SCoords2<int> pointToCheck;

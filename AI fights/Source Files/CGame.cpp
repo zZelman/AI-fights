@@ -18,6 +18,8 @@ CGame::CGame()
 
 	m_pMap			= new CMap(m_pGameWindow, "Resource Files/Maps/testing.txt");
 
+	m_pRoomGenerator = new CRoomGenerator(m_pGameWindow, m_pMap, m_pPhysics, SecToMS(0));
+
 	//m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, m_pMap, "Resource Files/Sprites/ninja (46h 32w).png", 32, 46, 2, 6);
 
 	//m_pAIBot		= new CAI_Bot("blueAI.png", m_pGameWindow);
@@ -41,7 +43,8 @@ CGame::~CGame()
 	delete m_pMap;
 	m_pMap = NULL;
 
-	m_roomVector.erase(m_roomVector.begin(), m_roomVector.end());
+	delete m_pRoomGenerator;
+	m_pRoomGenerator = NULL;
 
 	//delete m_pUserBot;
 	//m_pUserBot = NULL;
@@ -130,7 +133,7 @@ void CGame::gameEvents(SDL_Event& event)
 		}
 		else if (event.key.keysym.sym == SDLK_ESCAPE)
 		{
-			//isGameRunning = false;
+			isGameRunning = false;
 		}
 		else if (event.type == SDL_WINDOWEVENT)
 		{
@@ -144,21 +147,8 @@ void CGame::gameEvents(SDL_Event& event)
 		{
 			m_pMap->swapIsStretched();
 		}
-		else if (event.button.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT)
+		else if (m_pRoomGenerator->generate(event) == true)
 		{
-			int x = event.button.x;
-			int y = event.button.y;
-
-			// this is to make the room appear with the grid
-			m_pMap->convertScreenToMap(&x, &y);
-			x = x * m_pMap->getWidth_tile();
-			y = event.button.y;
-
-			SCoords2<int> spawnCoords;
-			spawnCoords.setCoords(x, y);
-			m_roomVector.push_back(new CRoom(m_pGameWindow, m_pMap, &m_roomVector,
-			                                 spawnCoords, "Resource Files/Rooms/room.png",
-			                                 32, 32, 1, 1));
 		}
 	}
 }
@@ -166,11 +156,7 @@ void CGame::gameEvents(SDL_Event& event)
 
 void CGame::gameUpdate()
 {
-	for (auto itr = m_roomVector.begin(); itr != m_roomVector.end(); ++itr)
-	{
-		m_pPhysics->applyGravity(*itr);
-		(*itr)->update();
-	}
+	m_pRoomGenerator->update();
 
 	//m_pUserBot->update();
 
@@ -189,10 +175,7 @@ void CGame::gameRender()
 
 	m_pMap->render();
 
-	for (auto itr = m_roomVector.begin(); itr != m_roomVector.end(); ++itr)
-	{
-		(*itr)->render();
-	}
+	m_pRoomGenerator->render();
 
 	//m_pUserBot->render();
 	//m_pAIBot->render();
