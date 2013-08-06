@@ -85,15 +85,6 @@ bool CRoomGenerator::generate(SDL_Event& e)
 
 		// [BUG]: how to stop a 2xn from spawning in a 1xm spot?
 
-		// don't let a room spawn on another room
-		for (int i = 0; i < m_roomVector.size(); ++i)
-		{
-			if (m_roomVector.at(i)->collision(&spawnCoords) == true)
-			{
-				return false;
-			}
-		}
-
 		// don't let a room be spawned in a tile
 		if (m_pCollisionMap->collision_screenToMap(&spawnCoords) == true)
 		{
@@ -108,9 +99,43 @@ bool CRoomGenerator::generate(SDL_Event& e)
 
 		if (is1pressed && !is2pressed && !is3pressed && !is4pressed) // generate 1x1
 		{
+			int offset = 1;
+			int w = 32;
+			int h = 32;
+
+			SCoords2<int> topLeft, topRight, bottomLeft, bottomRight;
+			topLeft.setCoords(spawnCoords.x +offset, spawnCoords.y +offset);
+			topRight.setCoords(spawnCoords.x + w -offset, spawnCoords.y +offset);
+			bottomLeft.setCoords(spawnCoords.x +1, spawnCoords.y + h -1);
+			bottomRight.setCoords(spawnCoords.x + w -offset, spawnCoords.y + h -offset);
+
+			// don't let a room spawn on another room
+			for (int i = 0; i < m_roomVector.size(); ++i)
+			{
+				if (m_roomVector.at(i)->collision(&topLeft) == true)
+				{
+					return false;
+				}
+
+				if (m_roomVector.at(i)->collision(&topRight) == true)
+				{
+					return false;
+				}
+
+				if (m_roomVector.at(i)->collision(&bottomLeft) == true)
+				{
+					return false;
+				}
+
+				if (m_roomVector.at(i)->collision(&bottomRight) == true)
+				{
+					return false;
+				}
+			}
+
 			m_roomVector.push_back(new CRoom_1x1(m_pWindow, m_pCollisionMap, &m_roomVector,
 				spawnCoords, "Resource Files/Rooms/room 1x1.png",
-				32, 32, 1, 1));
+				w, h, 1, 1));
 		}
 		else if (!is1pressed && is2pressed && !is3pressed && !is4pressed) // generate 1x2
 		{
@@ -120,9 +145,43 @@ bool CRoomGenerator::generate(SDL_Event& e)
 		}
 		else if (!is1pressed && !is2pressed && !is3pressed && is4pressed) // generate 2x2
 		{
+			int offset = 1;
+			int w = 64;
+			int h = 64;
+
+			SCoords2<int> topLeft, topRight, bottomLeft, bottomRight;
+			topLeft.setCoords(spawnCoords.x +offset, spawnCoords.y +offset);
+			topRight.setCoords(spawnCoords.x + w -offset, spawnCoords.y +offset);
+			bottomLeft.setCoords(spawnCoords.x +1, spawnCoords.y + h -1);
+			bottomRight.setCoords(spawnCoords.x + w -offset, spawnCoords.y + h -offset);
+
+			// don't let a room spawn on another room
+			for (int i = 0; i < m_roomVector.size(); ++i)
+			{
+				if (m_roomVector.at(i)->collision(&topLeft) == true)
+				{
+					return false;
+				}
+
+				if (m_roomVector.at(i)->collision(&topRight) == true)
+				{
+					return false;
+				}
+
+				if (m_roomVector.at(i)->collision(&bottomLeft) == true)
+				{
+					return false;
+				}
+
+				if (m_roomVector.at(i)->collision(&bottomRight) == true)
+				{
+					return false;
+				}
+			}
+
 			m_roomVector.push_back(new CRoom_2x2(m_pWindow, m_pCollisionMap, &m_roomVector,
 				spawnCoords, "Resource Files/Rooms/room 2x2.png",
-				64, 64, 1, 1));
+				w, h, 1, 1));
 		}
 
 		m_prevTimeSpawn = m_pSpawnTimer->getTime();
