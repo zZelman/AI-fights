@@ -7,7 +7,7 @@
 #include "CRoom_1x1.h"
 #include "CRoom_2x2.h"
 //#include "CRoom_2x1.h"
-//#include "CRoom_1x2.h"
+#include "CRoom_1x2.h"
 #include "CMap.h"
 #include "CPhysics.h"
 #include "CTimer.h"
@@ -59,6 +59,20 @@ private:
 	// if (currentTime - prevTimeSpawn > spawnTime) then spawn room
 	//		else, do nothing
 	Uint32 m_prevTimeSpawn;
+
+	// sets/unsets the bools that control what room is spawns
+	void checkSpawnKeys(SDL_Event& e);
+
+	// * create a room and add it to the room vector
+	// * separated from the generate method for readability
+	bool spawn_1x1(SDL_Event& e, SCoords2<int>* spawnCoords);
+	bool spawn_1x2(SDL_Event& e, SCoords2<int>* spawnCoords);
+	bool spawn_2x1(SDL_Event& e, SCoords2<int>* spawnCoords);
+	bool spawn_2x2(SDL_Event& e, SCoords2<int>* spawnCoords);
+
+	// checks the coords against both the map tiles and rooms present
+	bool preventCollisions(SCoords2<int>* topLeft, SCoords2<int>* topRight, 
+		SCoords2<int>* bottomLeft, SCoords2<int>* bottomRight);
 
 };
 
