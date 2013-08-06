@@ -10,9 +10,9 @@ class CRoom_1x1 : public CRoom
 {
 public:
 	CRoom_1x1(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom,
-		SCoords2<int> spawnCoords_screen,
-		std::string filePath, int imageWidth, int imageHeight,
-		int numImages_rows = 1, int numImages_columns = 1);
+	          SCoords2<int> spawnCoords_screen,
+	          std::string filePath, int imageWidth, int imageHeight,
+	          int numImages_rows = 1, int numImages_columns = 1);
 	~CRoom_1x1();
 
 	void update();

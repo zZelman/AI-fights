@@ -196,7 +196,7 @@ bool CRoom::collision(SCoords2<int>* pPoint)
 	int y = pPoint->y;
 
 	if (x >= m_topLeft.x && x <= m_bottomRight.x &&
-	    y >= m_topLeft.y && y <= m_bottomRight.y)
+	        y >= m_topLeft.y && y <= m_bottomRight.y)
 	{
 		return true;
 	}
@@ -245,42 +245,42 @@ void CRoom::check_left(CRoom* roomToCheck, int pixelCheck) {}
 void CRoom::check_right(CRoom* roomToCheck, int pixelCheck) {}
 
 
-bool CRoom::collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pTopRight_this, 
-					  SCoords2<int>* pBottomLeft_this, SCoords2<int>* pBottomRight_this,
+bool CRoom::collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pTopRight_this,
+                      SCoords2<int>* pBottomLeft_this, SCoords2<int>* pBottomRight_this,
 
-					  SCoords2<int>* pTopLeft_other, SCoords2<int>* pTopRight_other, 
-					  SCoords2<int>* pBottomLeft_other, SCoords2<int>* pBottomRight_other)
+                      SCoords2<int>* pTopLeft_other, SCoords2<int>* pTopRight_other,
+                      SCoords2<int>* pBottomLeft_other, SCoords2<int>* pBottomRight_other)
 {
 	// bottom checking first because this room class will MOSTLY be falling down .. small optimization
 
 	// check bottomLeft of 'this'
 	if (pBottomLeft_this->x > pBottomLeft_other->x && pBottomLeft_this->x < pBottomRight_other->x &&
-		pBottomLeft_this->y > pTopLeft_other->y && pBottomLeft_this->y < pBottomRight_other->y)
+	        pBottomLeft_this->y > pTopLeft_other->y && pBottomLeft_this->y < pBottomRight_other->y)
 	{
 		return true;
 	}
 
 	// check bottomRight of 'this'
 	if (pBottomRight_this->x > pBottomLeft_other->x && pBottomRight_this->x < pBottomRight_other->x &&
-		pBottomRight_this->y > pTopRight_other->y && pBottomRight_this->y < pBottomRight_other->y)
+	        pBottomRight_this->y > pTopRight_other->y && pBottomRight_this->y < pBottomRight_other->y)
 	{
 		return true;
 	}
 
 	// check topLeft of 'this'
 	if (pTopLeft_this->x > pTopLeft_other->x && pTopLeft_this->x < pTopRight_other->x &&
-		pTopLeft_this->y > pTopLeft_other->y && pTopLeft_this->y < pBottomLeft_other->y)
+	        pTopLeft_this->y > pTopLeft_other->y && pTopLeft_this->y < pBottomLeft_other->y)
 	{
 		return true;
 	}
 
 	// check topRight of 'this'
 	if (pTopRight_this->x > pTopLeft_other->x && pTopRight_this->x < pTopRight_other->x &&
-		pTopRight_this->y > pTopRight_other->y && pTopRight_this->y < pBottomRight_other->y)
+	        pTopRight_this->y > pTopRight_other->y && pTopRight_this->y < pBottomRight_other->y)
 	{
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -289,12 +289,12 @@ SCoords2<int> CRoom::whichSubRoom(SCoords2<int>* pPoint)
 {
 	// because this is the BASE CLASS just return the point as intersecting the top left sub room
 	SCoords2<int> c;
-	c.setCoords(1,1);
+	c.setCoords(1, 1);
 	return c;
 }
 
 
-bool CRoom::correctRoomCollision_down() 
+bool CRoom::correctRoomCollision_down()
 {
 #ifdef DEBUG
 	assert(false);
@@ -303,7 +303,7 @@ bool CRoom::correctRoomCollision_down()
 }
 
 
-bool CRoom::correctMapCollision_down() 
+bool CRoom::correctMapCollision_down()
 {
 #ifdef DEBUG
 	assert(false);
@@ -315,7 +315,7 @@ bool CRoom::correctMapCollision_down()
 bool CRoom::correctWindowCollision_down()
 {
 	if (m_bottomLeft.y + m_sAtributes.velosity_y > m_pWindow->getHeight() ||
-	    m_bottomRight.y + m_sAtributes.velosity_y > m_pWindow->getHeight())
+	        m_bottomRight.y + m_sAtributes.velosity_y > m_pWindow->getHeight())
 	{
 		setBottomRight(m_bottomRight.x, m_pWindow->getHeight());
 		m_sAtributes.gravityTimer.start();

@@ -271,7 +271,7 @@ bool CMap::collision_screenToMap(SCoords2<int>* pPoint)
 		int y = pPoint->y;
 
 		if (x >= pTile->screenCoords_topLeft.x && x <= pTile->screenCoords_bottomRight.x &&
-			y >= pTile->screenCoords_topLeft.y && y <= pTile->screenCoords_bottomRight.y)
+		        y >= pTile->screenCoords_topLeft.y && y <= pTile->screenCoords_bottomRight.y)
 		{
 			return true;
 		}

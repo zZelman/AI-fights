@@ -104,10 +104,10 @@ bool CRoomGenerator::generate(SDL_Event& e)
 			int h = 32;
 
 			SCoords2<int> topLeft, topRight, bottomLeft, bottomRight;
-			topLeft.setCoords(spawnCoords.x +offset, spawnCoords.y +offset);
-			topRight.setCoords(spawnCoords.x + w -offset, spawnCoords.y +offset);
-			bottomLeft.setCoords(spawnCoords.x +1, spawnCoords.y + h -1);
-			bottomRight.setCoords(spawnCoords.x + w -offset, spawnCoords.y + h -offset);
+			topLeft.setCoords(spawnCoords.x + offset, spawnCoords.y + offset);
+			topRight.setCoords(spawnCoords.x + w - offset, spawnCoords.y + offset);
+			bottomLeft.setCoords(spawnCoords.x + 1, spawnCoords.y + h - 1);
+			bottomRight.setCoords(spawnCoords.x + w - offset, spawnCoords.y + h - offset);
 
 			// don't let a room spawn on another room
 			for (int i = 0; i < m_roomVector.size(); ++i)
@@ -134,8 +134,8 @@ bool CRoomGenerator::generate(SDL_Event& e)
 			}
 
 			m_roomVector.push_back(new CRoom_1x1(m_pWindow, m_pCollisionMap, &m_roomVector,
-				spawnCoords, "Resource Files/Rooms/room 1x1.png",
-				w, h, 1, 1));
+			                                     spawnCoords, "Resource Files/Rooms/room 1x1.png",
+			                                     w, h, 1, 1));
 		}
 		else if (!is1pressed && is2pressed && !is3pressed && !is4pressed) // generate 1x2
 		{
@@ -150,10 +150,10 @@ bool CRoomGenerator::generate(SDL_Event& e)
 			int h = 64;
 
 			SCoords2<int> topLeft, topRight, bottomLeft, bottomRight;
-			topLeft.setCoords(spawnCoords.x +offset, spawnCoords.y +offset);
-			topRight.setCoords(spawnCoords.x + w -offset, spawnCoords.y +offset);
-			bottomLeft.setCoords(spawnCoords.x +1, spawnCoords.y + h -1);
-			bottomRight.setCoords(spawnCoords.x + w -offset, spawnCoords.y + h -offset);
+			topLeft.setCoords(spawnCoords.x + offset, spawnCoords.y + offset);
+			topRight.setCoords(spawnCoords.x + w - offset, spawnCoords.y + offset);
+			bottomLeft.setCoords(spawnCoords.x + 1, spawnCoords.y + h - 1);
+			bottomRight.setCoords(spawnCoords.x + w - offset, spawnCoords.y + h - offset);
 
 			// don't let a room spawn on another room
 			for (int i = 0; i < m_roomVector.size(); ++i)
@@ -180,8 +180,8 @@ bool CRoomGenerator::generate(SDL_Event& e)
 			}
 
 			m_roomVector.push_back(new CRoom_2x2(m_pWindow, m_pCollisionMap, &m_roomVector,
-				spawnCoords, "Resource Files/Rooms/room 2x2.png",
-				w, h, 1, 1));
+			                                     spawnCoords, "Resource Files/Rooms/room 2x2.png",
+			                                     w, h, 1, 1));
 		}
 
 		m_prevTimeSpawn = m_pSpawnTimer->getTime();

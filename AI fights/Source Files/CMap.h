@@ -52,7 +52,7 @@ bool STileData<T>::collision(SCoords2<T>* pPoint)
 	T y = pPoint->y;
 
 	if (x >= screenCoords_topLeft.x && x <= screenCoords_bottomRight.x &&
-		y >= screenCoords_topLeft.y && y <= screenCoords_bottomRight.y)
+	        y >= screenCoords_topLeft.y && y <= screenCoords_bottomRight.y)
 	{
 		return true;
 	}

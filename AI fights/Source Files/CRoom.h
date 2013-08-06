@@ -175,11 +175,11 @@ protected:
 	// * Checks collision in the area bounded by the given SCREEN space coords
 	// * NOTE: if step of 'this' is too large, it will completely fall over 'other'
 	// * 'this' is the coord set that DOES the stepping
-	bool collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pTopRight_this, 
-				   SCoords2<int>* pBottomLeft_this, SCoords2<int>* pBottomRight_this,
+	bool collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pTopRight_this,
+	               SCoords2<int>* pBottomLeft_this, SCoords2<int>* pBottomRight_this,
 
-	               SCoords2<int>* pTopLeft_other, SCoords2<int>* pTopRight_other, 
-				   SCoords2<int>* pBottomLeft_other, SCoords2<int>* pBottomRight_other);
+	               SCoords2<int>* pTopLeft_other, SCoords2<int>* pTopRight_other,
+	               SCoords2<int>* pBottomLeft_other, SCoords2<int>* pBottomRight_other);
 
 
 	// * while falling, will this room's next step be inside another room?

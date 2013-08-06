@@ -4,14 +4,14 @@
 
 
 CRoom_2x2::CRoom_2x2(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom,
-					 SCoords2<int> spawnCoords_screen,
-					 std::string filePath, int imageWidth, int imageHeight,
-					 int numImages_rows, int numImages_columns)
+                     SCoords2<int> spawnCoords_screen,
+                     std::string filePath, int imageWidth, int imageHeight,
+                     int numImages_rows, int numImages_columns)
 
-					 : CRoom(window, collisionMap, collisionRoom, 
-					 spawnCoords_screen, 
-					 filePath, imageWidth, imageHeight, 
-					 numImages_rows, numImages_columns)
+	: CRoom(window, collisionMap, collisionRoom,
+	        spawnCoords_screen,
+	        filePath, imageWidth, imageHeight,
+	        numImages_rows, numImages_columns)
 {
 	m_layout.setCoords(2, 2);
 }
@@ -99,7 +99,7 @@ void CRoom_2x2::check_up(CRoom* roomToCheck, int pixelCheck)
 	if (m_pRoom_11_up == NULL)
 	{
 		SCoords2<int> pointToCheck;
-		pointToCheck.x = m_topLeft.x + m_width/4;
+		pointToCheck.x = m_topLeft.x + m_width / 4;
 		pointToCheck.y = m_topLeft.y - pixelCheck;
 
 		if (roomToCheck->collision(&pointToCheck) == true)
@@ -112,7 +112,7 @@ void CRoom_2x2::check_up(CRoom* roomToCheck, int pixelCheck)
 	if (m_pRoom_21_up == NULL)
 	{
 		SCoords2<int> pointToCheck;
-		pointToCheck.x = m_topRight.x - m_width/4;
+		pointToCheck.x = m_topRight.x - m_width / 4;
 		pointToCheck.y = m_topRight.y - pixelCheck;
 
 		if (roomToCheck->collision(&pointToCheck) == true)
@@ -129,7 +129,7 @@ void CRoom_2x2::check_down(CRoom* roomToCheck, int pixelCheck)
 	if (m_pRoom_12_down == NULL)
 	{
 		SCoords2<int> pointToCheck;
-		pointToCheck.x = m_bottomLeft.x + m_width/4;
+		pointToCheck.x = m_bottomLeft.x + m_width / 4;
 		pointToCheck.y = m_bottomLeft.y + pixelCheck;
 
 		if (roomToCheck->collision(&pointToCheck) == true)
@@ -142,7 +142,7 @@ void CRoom_2x2::check_down(CRoom* roomToCheck, int pixelCheck)
 	if (m_pRoom_22_down == NULL)
 	{
 		SCoords2<int> pointToCheck;
-		pointToCheck.x = m_bottomRight.x - m_width/4;
+		pointToCheck.x = m_bottomRight.x - m_width / 4;
 		pointToCheck.y = m_bottomRight.y + pixelCheck;
 
 		if (roomToCheck->collision(&pointToCheck) == true)
@@ -160,7 +160,7 @@ void CRoom_2x2::check_left(CRoom* roomToCheck, int pixelCheck)
 	{
 		SCoords2<int> pointToCheck;
 		pointToCheck.x = m_topLeft.x - pixelCheck;
-		pointToCheck.y = m_topLeft.y + m_height/4;
+		pointToCheck.y = m_topLeft.y + m_height / 4;
 
 		if (roomToCheck->collision(&pointToCheck) == true)
 		{
@@ -173,7 +173,7 @@ void CRoom_2x2::check_left(CRoom* roomToCheck, int pixelCheck)
 	{
 		SCoords2<int> pointToCheck;
 		pointToCheck.x = m_bottomLeft.x - pixelCheck;
-		pointToCheck.y = m_bottomLeft.y - m_height/4;
+		pointToCheck.y = m_bottomLeft.y - m_height / 4;
 
 		if (roomToCheck->collision(&pointToCheck) == true)
 		{
@@ -190,7 +190,7 @@ void CRoom_2x2::check_right(CRoom* roomToCheck, int pixelCheck)
 	{
 		SCoords2<int> pointToCheck;
 		pointToCheck.x = m_topRight.x + pixelCheck;
-		pointToCheck.y = m_topRight.y + m_height/4;
+		pointToCheck.y = m_topRight.y + m_height / 4;
 
 		if (roomToCheck->collision(&pointToCheck) == true)
 		{
@@ -203,7 +203,7 @@ void CRoom_2x2::check_right(CRoom* roomToCheck, int pixelCheck)
 	{
 		SCoords2<int> pointToCheck;
 		pointToCheck.x = m_bottomRight.x + pixelCheck;
-		pointToCheck.y = m_bottomRight.y - m_height/4;
+		pointToCheck.y = m_bottomRight.y - m_height / 4;
 
 		if (roomToCheck->collision(&pointToCheck) == true)
 		{
@@ -220,32 +220,32 @@ SCoords2<int> CRoom_2x2::whichSubRoom(SCoords2<int>* pPoint)
 	int y = pPoint->y;
 
 	// top left sub room (1,1)
-	if (x >= m_topLeft.x && x <= (m_topLeft.x + m_width/2) &&
-		y >= m_topLeft.y && y <= (m_topLeft.y + m_height/2))
+	if (x >= m_topLeft.x && x <= (m_topLeft.x + m_width / 2) &&
+	        y >= m_topLeft.y && y <= (m_topLeft.y + m_height / 2))
 	{
-		subRoom.setCoords(1,1);
+		subRoom.setCoords(1, 1);
 		return subRoom;
 	}
 
 	// top right sub room (2,1)
-	if (x >= (m_topRight.x - m_width/2) && x <= m_topRight.x &&
-		y >= m_topRight.y && y <= (m_topRight.y + m_height/2))
+	if (x >= (m_topRight.x - m_width / 2) && x <= m_topRight.x &&
+	        y >= m_topRight.y && y <= (m_topRight.y + m_height / 2))
 	{
-		subRoom.setCoords(2,1);
+		subRoom.setCoords(2, 1);
 		return subRoom;
 	}
 
 	// bottom left sub room (1,2)
-	if (x >= m_bottomLeft.x && x <= (m_bottomLeft.x + m_width/2) &&
-		y >= (m_bottomLeft.y - m_height/2) && y <= m_bottomLeft.y)
+	if (x >= m_bottomLeft.x && x <= (m_bottomLeft.x + m_width / 2) &&
+	        y >= (m_bottomLeft.y - m_height / 2) && y <= m_bottomLeft.y)
 	{
 		subRoom.setCoords(1, 2);
 		return subRoom;
 	}
 
 	// bottom right sub room (2,2)
-	if (x >= (m_bottomRight.x - m_width/2) && x <= m_bottomRight.x &&
-		y >= (m_bottomRight.y - m_height/2) && y <= m_bottomRight.y)
+	if (x >= (m_bottomRight.x - m_width / 2) && x <= m_bottomRight.x &&
+	        y >= (m_bottomRight.y - m_height / 2) && y <= m_bottomRight.y)
 	{
 		subRoom.setCoords(2, 2);
 		return subRoom;
@@ -268,7 +268,9 @@ bool CRoom_2x2::correctRoomCollision_down()
 		CRoom* pRoom = m_pRoomVector->at(i);
 
 		if (this->equals(pRoom))
+		{
 			continue;
+		}
 
 		SCoords2<int> other_topLeft;
 		SCoords2<int> other_topRight;
@@ -276,16 +278,16 @@ bool CRoom_2x2::correctRoomCollision_down()
 		SCoords2<int> other_bottomRight;
 		pRoom->getEverything(&other_topLeft, &other_topRight, &other_bottomLeft, &other_bottomRight);
 
-		// Here we are going to do a point collision detection on the extended midpoint 
-		//		from all of the sub rooms along the bottom row. If ANY of them collide with something, 
+		// Here we are going to do a point collision detection on the extended midpoint
+		//		from all of the sub rooms along the bottom row. If ANY of them collide with something,
 		//		the respective corner is set, and this room will not fall any farther
 		SCoords2<int> this_midBottomLeft, this_midBottomRight;
 		this_midBottomLeft.setCoords(
-			m_bottomLeft.x + m_width/4, 
-			(int)(m_bottomLeft.y + m_sAtributes.velosity_y));
+		    m_bottomLeft.x + m_width / 4,
+		    (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
 		this_midBottomRight.setCoords(
-			m_bottomRight.x - m_width/4,
-			(int)(m_bottomLeft.y + m_sAtributes.velosity_y));
+		    m_bottomRight.x - m_width / 4,
+		    (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
 
 		bool collision_bottomLeft = pRoom->collision(&this_midBottomLeft);
 		bool collision_bottomRight = pRoom->collision(&this_midBottomRight);
@@ -305,7 +307,7 @@ bool CRoom_2x2::correctRoomCollision_down()
 			}
 			else if (pRoom->getLayout()->x == 2)
 			{
-				setBottomLeft(other_topLeft.x + pRoom->getWidth()/2, other_topLeft.y);
+				setBottomLeft(other_topLeft.x + pRoom->getWidth() / 2, other_topLeft.y);
 			}
 
 			m_sAtributes.gravityTimer.start();
@@ -320,7 +322,7 @@ bool CRoom_2x2::correctRoomCollision_down()
 			}
 			else if (pRoom->getLayout()->x == 2)
 			{
-				setBottomRight(other_topLeft.x + pRoom->getWidth()/2, other_topLeft.y);
+				setBottomRight(other_topLeft.x + pRoom->getWidth() / 2, other_topLeft.y);
 			}
 
 			m_sAtributes.gravityTimer.start();
@@ -343,26 +345,28 @@ bool CRoom_2x2::correctMapCollision_down()
 	int right_row		= m_topRight.y + m_sAtributes.velosity_y;
 	m_pMap_collision->convertScreenToMap(&right_column, &right_row);
 
-	// Here we are going to do a point collision detection on the extended midpoint 
-	//		from all of the sub rooms along the bottom row. If ANY of them collide with something, 
+	// Here we are going to do a point collision detection on the extended midpoint
+	//		from all of the sub rooms along the bottom row. If ANY of them collide with something,
 	//		the respective corner is set, and this room will not fall any farther
 	SCoords2<int> this_midBottomLeft, this_midBottomRight;
 	this_midBottomLeft.setCoords(
-		m_bottomLeft.x + m_width/4, 
-		(int)(m_bottomLeft.y + m_sAtributes.velosity_y));
+	    m_bottomLeft.x + m_width / 4,
+	    (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
 	this_midBottomRight.setCoords(
-		m_bottomRight.x - m_width/4,
-		(int)(m_bottomLeft.y + m_sAtributes.velosity_y));
+	    m_bottomRight.x - m_width / 4,
+	    (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
 
 	const std::vector<STileData<int>*>* pMapTiles = m_pMap_collision->getMapTiles();
 	for (int i = 0; i < pMapTiles->size(); ++i)
 	{
 		STileData<int>* pTile = pMapTiles->at(i);
 
-		// small optimization.. only falling down so y check others not in the same collumn
-		if (pTile->mapCoords.x != left_column &&
-			pTile->mapCoords.x != right_column)
-			continue;
+		// [OPTIMIZATION]: how to column check when this is a 2x2 room?
+		//if (pTile->mapCoords.x != left_column &&
+		//        pTile->mapCoords.x != right_column)
+		//{
+		//	continue;
+		//}
 
 		bool collision_bottomLeft = pTile->collision(&this_midBottomLeft);
 		bool collision_bottomRight = pTile->collision(&this_midBottomRight);

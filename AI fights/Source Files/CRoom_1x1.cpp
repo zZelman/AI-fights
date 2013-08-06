@@ -4,14 +4,14 @@
 
 
 CRoom_1x1::CRoom_1x1(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom,
-					 SCoords2<int> spawnCoords_screen,
-					 std::string filePath, int imageWidth, int imageHeight,
-					 int numImages_rows, int numImages_columns)
+                     SCoords2<int> spawnCoords_screen,
+                     std::string filePath, int imageWidth, int imageHeight,
+                     int numImages_rows, int numImages_columns)
 
-					 : CRoom(window, collisionMap, collisionRoom, 
-					 spawnCoords_screen, 
-					 filePath, imageWidth, imageHeight, 
-					 numImages_rows, numImages_columns)
+	: CRoom(window, collisionMap, collisionRoom,
+	        spawnCoords_screen,
+	        filePath, imageWidth, imageHeight,
+	        numImages_rows, numImages_columns)
 {
 	m_layout.setCoords(1, 1);
 }
@@ -92,11 +92,11 @@ void CRoom_1x1::checkPtrs(int pixelCheck)
 
 void CRoom_1x1::check_up(CRoom* roomToCheck, int pixelCheck)
 {
-	// can only check up if the room is in the same column
-	if (this->equals(roomToCheck->getColumn()) == false)
-	{
-		return;
-	}
+	//// can only check up if the room is in the same column
+	//if (this->equals(roomToCheck->getColumn()) == false)
+	//{
+	//	return;
+	//}
 
 	// only search for it if it hasn't been found yet
 	if (m_pRoom_11_up == NULL || m_pRoom_21_up == NULL)
@@ -117,11 +117,11 @@ void CRoom_1x1::check_up(CRoom* roomToCheck, int pixelCheck)
 
 void CRoom_1x1::check_down(CRoom* roomToCheck, int pixelCheck)
 {
-	// can only check down if the room is in the same column
-	if (this->equals(roomToCheck->getColumn()) == false)
-	{
-		return;
-	}
+	//// can only check down if the room is in the same column
+	//if (this->equals(roomToCheck->getColumn()) == false)
+	//{
+	//	return;
+	//}
 
 	// only search for it if it hasn't been found yet
 	if (m_pRoom_12_down == NULL || m_pRoom_22_down == NULL)
@@ -143,10 +143,10 @@ void CRoom_1x1::check_down(CRoom* roomToCheck, int pixelCheck)
 void CRoom_1x1::check_left(CRoom* roomToCheck, int pixelCheck)
 {
 	// can only be left if it is -1 column away from this one
-	if (m_coords.x - 1 != roomToCheck->getColumn())
-	{
-		return;
-	}
+	//if (m_coords.x - 1 != roomToCheck->getColumn())
+	//{
+	//	return;
+	//}
 
 	// only search for it if it hasn't been found yet
 	if (m_pRoom_11_left == NULL || m_pRoom_12_left == NULL)
@@ -167,11 +167,11 @@ void CRoom_1x1::check_left(CRoom* roomToCheck, int pixelCheck)
 
 void CRoom_1x1::check_right(CRoom* roomToCheck, int pixelCheck)
 {
-	// can only be left if it is +1 column away from this one
-	if (m_coords.x + 1 != roomToCheck->getColumn())
-	{
-		return;
-	}
+	//// can only be left if it is +1 column away from this one
+	//if (m_coords.x + 1 != roomToCheck->getColumn())
+	//{
+	//	return;
+	//}
 
 	// only search for it if it hasn't been found yet
 	if (m_pRoom_21_right == NULL || m_pRoom_22_right == NULL)
@@ -209,7 +209,7 @@ bool CRoom_1x1::correctRoomCollision_down()
 
 		// Point collision detection extended from the midpoint on the bottom row
 		SCoords2<int> midBottom;
-		midBottom.setCoords(m_bottomLeft.x + m_width/2, (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
+		midBottom.setCoords(m_bottomLeft.x + m_width / 2, (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
 		if (pRoom->collision(&midBottom))
 		{
 			if (pRoom->getLayout()->x == 1)
@@ -258,7 +258,7 @@ bool CRoom_1x1::correctMapCollision_down()
 		}
 
 		SCoords2<int> midBottom;
-		midBottom.setCoords(m_bottomLeft.x + m_width/2, (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
+		midBottom.setCoords(m_bottomLeft.x + m_width / 2, (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
 		if (pTile->collision(&midBottom))
 		{
 			setBottomRight(pTile->screenCoords_topLeft.x + pTile->width, pTile->screenCoords_topLeft.y);
