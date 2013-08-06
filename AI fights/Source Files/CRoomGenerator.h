@@ -7,7 +7,7 @@
 #include "CRoom_1x1.h"
 #include "CRoom_2x2.h"
 #include "CRoom_2x1.h"
-//#include "CRoom_1x2.h"
+#include "CRoom_1x2.h"
 #include "CMap.h"
 #include "CPhysics.h"
 #include "CTimer.h"

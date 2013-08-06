@@ -51,7 +51,7 @@ bool CRoomGenerator::generate(SDL_Event& e)
 		// this is to make the room appear with the grid
 		m_pCollisionMap->convertScreenToMap(&x, &y);
 		x = x * m_pCollisionMap->getWidth_tile();
-		y = y * m_pCollisionMap->getHeight_tile();
+		y = e.button.y /*y * m_pCollisionMap->getHeight_tile()*/;
 		spawnCoords.setCoords(x, y);
 
 		if (is1pressed && !is2pressed && !is3pressed && !is4pressed) // 1: generate 1x1
@@ -67,14 +67,14 @@ bool CRoomGenerator::generate(SDL_Event& e)
 		}
 		else if (!is1pressed && is2pressed && !is3pressed && !is4pressed) // 2: generate 1x2
 		{
-			//if (!spawn_1x2(e, &spawnCoords))
-			//{
-			//	return false;
-			//}
-			//else
-			//{
-			//	return true;
-			//}
+			if (!spawn_1x2(e, &spawnCoords))
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
 		else if (!is1pressed && !is2pressed && is3pressed && !is4pressed) // 3: generate 2x1
 		{
@@ -147,7 +147,7 @@ void CRoomGenerator::checkSpawnKeys(SDL_Event& e)
 
 bool CRoomGenerator::spawn_1x1(SDL_Event& e, SCoords2<int>* spawnCoords)
 {
-	int offset = 1;
+	int offset = 3;
 	int w = 32;
 	int h = 32;
 
@@ -174,7 +174,7 @@ bool CRoomGenerator::spawn_1x1(SDL_Event& e, SCoords2<int>* spawnCoords)
 
 bool CRoomGenerator::spawn_1x2(SDL_Event& e, SCoords2<int>* spawnCoords)
 {
-	int offset = 1;
+	int offset = 3;
 	int w = 32;
 	int h = 64;
 
@@ -190,9 +190,9 @@ bool CRoomGenerator::spawn_1x2(SDL_Event& e, SCoords2<int>* spawnCoords)
 		return false;
 	}
 
-	//m_roomVector.push_back(new CRoom_1x2(m_pWindow, m_pCollisionMap, &m_roomVector,
-	//                                     *spawnCoords, "Resource Files/Rooms/room 1x2.png",
-	//                                     w, h, 1, 1));
+	m_roomVector.push_back(new CRoom_1x2(m_pWindow, m_pCollisionMap, &m_roomVector,
+		*spawnCoords, "Resource Files/Rooms/room 1x2.png",
+		w, h, 1, 1));
 
 	m_prevTimeSpawn = m_pSpawnTimer->getTime();
 	return true;
@@ -201,7 +201,7 @@ bool CRoomGenerator::spawn_1x2(SDL_Event& e, SCoords2<int>* spawnCoords)
 
 bool CRoomGenerator::spawn_2x1(SDL_Event& e, SCoords2<int>* spawnCoords)
 {
-	int offset = 1;
+	int offset = 3;
 	int w = 64;
 	int h = 32;
 
@@ -228,7 +228,7 @@ bool CRoomGenerator::spawn_2x1(SDL_Event& e, SCoords2<int>* spawnCoords)
 
 bool CRoomGenerator::spawn_2x2(SDL_Event& e, SCoords2<int>* spawnCoords)
 {
-	int offset = 1;
+	int offset = 3;
 	int w = 64;
 	int h = 64;
 

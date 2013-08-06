@@ -117,6 +117,9 @@
     <ClCompile Include="Source Files\CRoom_2x1.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\CRoom_1x2.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\stdafx.h">
@@ -183,6 +186,9 @@
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Source Files\CRoom_2x1.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CRoom_1x2.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
