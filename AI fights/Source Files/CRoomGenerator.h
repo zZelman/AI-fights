@@ -6,8 +6,8 @@
 #include "CRoom.h"
 #include "CRoom_1x1.h"
 #include "CRoom_2x2.h"
-//#include "CRoom_2x1.h"
-#include "CRoom_1x2.h"
+#include "CRoom_2x1.h"
+//#include "CRoom_1x2.h"
 #include "CMap.h"
 #include "CPhysics.h"
 #include "CTimer.h"
@@ -71,8 +71,8 @@ private:
 	bool spawn_2x2(SDL_Event& e, SCoords2<int>* spawnCoords);
 
 	// checks the coords against both the map tiles and rooms present
-	bool preventCollisions(SCoords2<int>* topLeft, SCoords2<int>* topRight, 
-		SCoords2<int>* bottomLeft, SCoords2<int>* bottomRight);
+	bool preventCollisions(SCoords2<int>* topLeft, SCoords2<int>* topRight,
+	                       SCoords2<int>* bottomLeft, SCoords2<int>* bottomRight);
 
 };
 

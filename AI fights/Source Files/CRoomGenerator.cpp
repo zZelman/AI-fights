@@ -54,7 +54,7 @@ bool CRoomGenerator::generate(SDL_Event& e)
 		y = y * m_pCollisionMap->getHeight_tile();
 		spawnCoords.setCoords(x, y);
 
-		if (is1pressed && !is2pressed && !is3pressed && !is4pressed) // generate 1x1
+		if (is1pressed && !is2pressed && !is3pressed && !is4pressed) // 1: generate 1x1
 		{
 			if (!spawn_1x1(e, &spawnCoords))
 			{
@@ -65,7 +65,7 @@ bool CRoomGenerator::generate(SDL_Event& e)
 				return true;
 			}
 		}
-		else if (!is1pressed && is2pressed && !is3pressed && !is4pressed) // generate 1x2
+		else if (!is1pressed && is2pressed && !is3pressed && !is4pressed) // 2: generate 1x2
 		{
 			//if (!spawn_1x2(e, &spawnCoords))
 			//{
@@ -76,18 +76,18 @@ bool CRoomGenerator::generate(SDL_Event& e)
 			//	return true;
 			//}
 		}
-		else if (!is1pressed && !is2pressed && is3pressed && !is4pressed) // generate 2x1
+		else if (!is1pressed && !is2pressed && is3pressed && !is4pressed) // 3: generate 2x1
 		{
-			//if (!spawn_2x1(e, &spawnCoords))
-			//{
-			//	return false;
-			//}
-			//else
-			//{
-			//	return true;
-			//}
+			if (!spawn_2x1(e, &spawnCoords))
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
-		else if (!is1pressed && !is2pressed && !is3pressed && is4pressed) // generate 2x2
+		else if (!is1pressed && !is2pressed && !is3pressed && is4pressed) // 4: generate 2x2
 		{
 			if (!spawn_2x2(e, &spawnCoords))
 			{
@@ -159,11 +159,13 @@ bool CRoomGenerator::spawn_1x1(SDL_Event& e, SCoords2<int>* spawnCoords)
 
 	// something is preventing the spawn
 	if (!preventCollisions(&topLeft, &topRight, &bottomLeft, &bottomRight))
+	{
 		return false;
+	}
 
 	m_roomVector.push_back(new CRoom_1x1(m_pWindow, m_pCollisionMap, &m_roomVector,
-		*spawnCoords, "Resource Files/Rooms/room 1x1.png",
-		w, h, 1, 1));
+	                                     *spawnCoords, "Resource Files/Rooms/room 1x1.png",
+	                                     w, h, 1, 1));
 
 	m_prevTimeSpawn = m_pSpawnTimer->getTime();
 	return true;
@@ -171,31 +173,6 @@ bool CRoomGenerator::spawn_1x1(SDL_Event& e, SCoords2<int>* spawnCoords)
 
 
 bool CRoomGenerator::spawn_1x2(SDL_Event& e, SCoords2<int>* spawnCoords)
-{
-	int offset = 1;
-	int w = 64;
-	int h = 32;
-
-	SCoords2<int> topLeft, topRight, bottomLeft, bottomRight;
-	topLeft.setCoords(spawnCoords->x + offset, spawnCoords->y + offset);
-	topRight.setCoords(spawnCoords->x + w - offset, spawnCoords->y + offset);
-	bottomLeft.setCoords(spawnCoords->x + 1, spawnCoords->y + h - 1);
-	bottomRight.setCoords(spawnCoords->x + w - offset, spawnCoords->y + h - offset);
-
-	// something is preventing the spawn
-	if (!preventCollisions(&topLeft, &topRight, &bottomLeft, &bottomRight))
-		return false;
-
-	m_roomVector.push_back(new CRoom_1x2(m_pWindow, m_pCollisionMap, &m_roomVector,
-		*spawnCoords, "Resource Files/Rooms/room 1x2.png",
-		w, h, 1, 1));
-
-	m_prevTimeSpawn = m_pSpawnTimer->getTime();
-	return true;
-}
-
-
-bool CRoomGenerator::spawn_2x1(SDL_Event& e, SCoords2<int>* spawnCoords)
 {
 	int offset = 1;
 	int w = 32;
@@ -209,11 +186,40 @@ bool CRoomGenerator::spawn_2x1(SDL_Event& e, SCoords2<int>* spawnCoords)
 
 	// something is preventing the spawn
 	if (!preventCollisions(&topLeft, &topRight, &bottomLeft, &bottomRight))
+	{
 		return false;
+	}
 
-	m_roomVector.push_back(new CRoom_1x2(m_pWindow, m_pCollisionMap, &m_roomVector,
-		*spawnCoords, "Resource Files/Rooms/room 2x1.png",
-		w, h, 1, 1));
+	//m_roomVector.push_back(new CRoom_1x2(m_pWindow, m_pCollisionMap, &m_roomVector,
+	//                                     *spawnCoords, "Resource Files/Rooms/room 1x2.png",
+	//                                     w, h, 1, 1));
+
+	m_prevTimeSpawn = m_pSpawnTimer->getTime();
+	return true;
+}
+
+
+bool CRoomGenerator::spawn_2x1(SDL_Event& e, SCoords2<int>* spawnCoords)
+{
+	int offset = 1;
+	int w = 64;
+	int h = 32;
+
+	SCoords2<int> topLeft, topRight, bottomLeft, bottomRight;
+	topLeft.setCoords(spawnCoords->x + offset, spawnCoords->y + offset);
+	topRight.setCoords(spawnCoords->x + w - offset, spawnCoords->y + offset);
+	bottomLeft.setCoords(spawnCoords->x + 1, spawnCoords->y + h - 1);
+	bottomRight.setCoords(spawnCoords->x + w - offset, spawnCoords->y + h - offset);
+
+	// something is preventing the spawn
+	if (!preventCollisions(&topLeft, &topRight, &bottomLeft, &bottomRight))
+	{
+		return false;
+	}
+
+	m_roomVector.push_back(new CRoom_2x1(m_pWindow, m_pCollisionMap, &m_roomVector,
+	                                     *spawnCoords, "Resource Files/Rooms/room 2x1.png",
+	                                     w, h, 1, 1));
 
 	m_prevTimeSpawn = m_pSpawnTimer->getTime();
 	return true;
@@ -234,19 +240,21 @@ bool CRoomGenerator::spawn_2x2(SDL_Event& e, SCoords2<int>* spawnCoords)
 
 	// something is preventing the spawn
 	if (!preventCollisions(&topLeft, &topRight, &bottomLeft, &bottomRight))
+	{
 		return false;
+	}
 
 	m_roomVector.push_back(new CRoom_2x2(m_pWindow, m_pCollisionMap, &m_roomVector,
-		*spawnCoords, "Resource Files/Rooms/room 2x2.png",
-		w, h, 1, 1));
+	                                     *spawnCoords, "Resource Files/Rooms/room 2x2.png",
+	                                     w, h, 1, 1));
 
 	m_prevTimeSpawn = m_pSpawnTimer->getTime();
 	return true;
 }
 
 
-bool CRoomGenerator::preventCollisions(SCoords2<int>* topLeft, SCoords2<int>* topRight, 
-									   SCoords2<int>* bottomLeft, SCoords2<int>* bottomRight)
+bool CRoomGenerator::preventCollisions(SCoords2<int>* topLeft, SCoords2<int>* topRight,
+                                       SCoords2<int>* bottomLeft, SCoords2<int>* bottomRight)
 {
 	// dont let a room spawn anywhere inside of a tile
 	const std::vector<STileData<int>*>* pMapTiles = m_pCollisionMap->getMapTiles();

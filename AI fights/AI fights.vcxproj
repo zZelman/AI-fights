@@ -91,7 +91,7 @@
     <ClCompile Include="Source Files\CRoom.cpp" />
     <ClCompile Include="Source Files\CRoomGenerator.cpp" />
     <ClCompile Include="Source Files\CRoom_1x1.cpp" />
-    <ClCompile Include="Source Files\CRoom_1x2.cpp" />
+    <ClCompile Include="Source Files\CRoom_2x1.cpp" />
     <ClCompile Include="Source Files\CRoom_2x2.cpp" />
     <ClCompile Include="Source Files\CUserControlled_Bot.cpp" />
     <ClCompile Include="Source Files\CGame.cpp" />
@@ -114,7 +114,7 @@
     <ClInclude Include="Source Files\CPhysics.h" />
     <ClInclude Include="Source Files\CRoomGenerator.h" />
     <ClInclude Include="Source Files\CRoom_1x1.h" />
-    <ClInclude Include="Source Files\CRoom_1x2.h" />
+    <ClInclude Include="Source Files\CRoom_2x1.h" />
     <ClInclude Include="Source Files\CRoom_2x2.h" />
     <ClInclude Include="Source Files\CUserControlled_Bot.h" />
     <ClInclude Include="Source Files\CGame.h" />

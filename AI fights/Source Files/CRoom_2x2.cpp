@@ -337,13 +337,13 @@ bool CRoom_2x2::correctRoomCollision_down()
 
 bool CRoom_2x2::correctMapCollision_down()
 {
-	int left_column		= m_topLeft.x;
-	int left_row		= m_topLeft.y + m_sAtributes.velosity_y;
-	m_pMap_collision->convertScreenToMap(&left_column, &left_row);
+	//int left_column		= m_topLeft.x;
+	//int left_row		= m_topLeft.y + m_sAtributes.velosity_y;
+	//m_pMap_collision->convertScreenToMap(&left_column, &left_row);
 
-	int right_column	= m_topRight.x;
-	int right_row		= m_topRight.y + m_sAtributes.velosity_y;
-	m_pMap_collision->convertScreenToMap(&right_column, &right_row);
+	//int right_column	= m_topRight.x;
+	//int right_row		= m_topRight.y + m_sAtributes.velosity_y;
+	//m_pMap_collision->convertScreenToMap(&right_column, &right_row);
 
 	// Here we are going to do a point collision detection on the extended midpoint
 	//		from all of the sub rooms along the bottom row. If ANY of them collide with something,
