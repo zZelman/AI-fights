@@ -35,11 +35,30 @@ struct STileData
 	SCoords2<T> screenCoords_bottomRight;
 
 	STileData();
+
+	// returns true if the point is within the tile
+	bool collision(SCoords2<T>* pPoint);
 };
 
 
 template<typename T>
 STileData<T>::STileData() {}
+
+
+template<typename T>
+bool STileData<T>::collision(SCoords2<T>* pPoint)
+{
+	T x = pPoint->x;
+	T y = pPoint->y;
+
+	if (x >= screenCoords_topLeft.x && x <= screenCoords_bottomRight.x &&
+		y >= screenCoords_topLeft.y && y <= screenCoords_bottomRight.y)
+	{
+		return true;
+	}
+
+	return false;
+}
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -70,6 +89,10 @@ public:
 	// * tileCollidedWith will be the returned tile that the aabb collided with
 	//		this allows resolution of what to do next to happen outside of CMap
 	bool collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith = NULL);
+
+	// * checks if screen coords (x, y) are inside of any tiles in the map
+	// * true if yes, false if now
+	bool collision_screenToMap(SCoords2<int>* pPoint);
 
 	// * checks if any part of the AABB is within a tile
 	// * 0's represent no rendering -> non-zero is collision

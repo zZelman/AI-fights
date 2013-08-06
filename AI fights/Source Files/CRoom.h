@@ -4,11 +4,16 @@
 
 #include "stdafx.h"
 
+// * Base class for all Rooms
+// * NOTE: all virtual functions are intended to be overridden, their inate functionality is intended for a 1x1 room
 class CRoom
 {
 public:
 	// holds all physics information for the room
 	SAtributes<float> m_sAtributes;
+
+	// just default constructor
+	CRoom();
 
 	// * window:						window to be drawn in
 	// * collisionMap:					map representing tile collision for this room
@@ -39,6 +44,10 @@ public:
 	int getWidth();
 	int getHeight();
 
+	// returns what internal structure this room has [1x1, 1x2, 2x1, 2x2]
+	// (column, row)
+	const SCoords2<int>* getLayout();
+
 	// calculates NEW width and height based on the coords given
 	void setEverything(SCoords2<int> topLeft, SCoords2<int> topRight,
 	                   SCoords2<int> bottomLeft, SCoords2<int> bottomRight);
@@ -46,12 +55,19 @@ public:
 	// calculates other coords based on set widths and heights
 	void setTopLeft(SCoords2<int> topLeft);
 	void setTopLeft(int x, int y);
+	void setBottomLeft(SCoords2<int> bottomLeft);
+	void setBottomLeft(int x, int y);
 	void setBottomRight(SCoords2<int> bottomRight);
 	void setBottomRight(int x, int y);
 
 	// checks equivalence by checking coords
 	bool equals(CRoom* other);
 	bool equals(int mapColumn);
+
+	// * returns which sub room the point is in, in this room
+	// * LENGTH: (1,1) is top left, (1,2) is top right and so on
+	// * NON 1x1 rooms need to override this
+	virtual SCoords2<int> whichSubRoom(SCoords2<int>* pPoint);
 
 	// checks if the point in SCREEN space is within this room's edges
 	bool collision(SCoords2<int>* pPoint);
@@ -70,7 +86,7 @@ protected:
 	CWindow* m_pWindow;
 
 	// the map that this room will be collision detected against
-	CMap* m_pCollisionMap;
+	CMap* m_pMap_collision;
 
 	// the sprite image that will be used for the room
 	CSprite* m_pSprite;
@@ -128,12 +144,19 @@ protected:
 	int m_numStairEnters;
 	bool isStairs; // does room have stairs in it
 
-	// * Pointers to the room(s) to the respective directions
+	// * Pointers to the room(s) to the respective directions [11 = sub room (1,1), etc]
 	// * NULL if there is no room
-	CRoom* m_pRoomUp;
-	CRoom* m_pRoomDown;
-	CRoom* m_pRoomLeft;
-	CRoom* m_pRoomRight;
+	CRoom* m_pRoom_11_up;
+	CRoom* m_pRoom_11_left;
+
+	CRoom* m_pRoom_21_up;
+	CRoom* m_pRoom_21_right;
+
+	CRoom* m_pRoom_12_left;
+	CRoom* m_pRoom_12_down;
+
+	CRoom* m_pRoom_22_right;
+	CRoom* m_pRoom_22_down;
 
 	// sets adjacent room pointers to NULL
 	void nullPtrs();
@@ -143,31 +166,35 @@ protected:
 	// * ONLY GETS CALLED WHEN isFallign == false
 	// * 'roomToCheck' is the room in the data structure to check if it is adjacent
 	// * 'pixelCheck' is how far in screen space coords to check for a room
-	void checkPtrs(int pixelCheck); // wrapper function for all pointer checks
-	bool check_up(CRoom* roomToCheck, int pixelCheck);
-	bool check_down(CRoom* roomToCheck, int pixelCheck);
-	bool check_left(CRoom* roomToCheck, int pixelCheck);
-	bool check_right(CRoom* roomToCheck, int pixelCheck);
+	virtual void checkPtrs(int pixelCheck); // wrapper function for all pointer checks
+	virtual void check_up(CRoom* roomToCheck, int pixelCheck);
+	virtual void check_down(CRoom* roomToCheck, int pixelCheck);
+	virtual void check_left(CRoom* roomToCheck, int pixelCheck);
+	virtual void check_right(CRoom* roomToCheck, int pixelCheck);
 
 	// * Checks collision in the area bounded by the given SCREEN space coords
 	// * NOTE: if step of 'this' is too large, it will completely fall over 'other'
 	// * 'this' is the coord set that DOES the stepping
-	bool collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pBottomRight_this,
-	               SCoords2<int>* pTopLeft_other, SCoords2<int>* pBottomRight_other);
+	bool collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pTopRight_this, 
+				   SCoords2<int>* pBottomLeft_this, SCoords2<int>* pBottomRight_this,
+
+	               SCoords2<int>* pTopLeft_other, SCoords2<int>* pTopRight_other, 
+				   SCoords2<int>* pBottomLeft_other, SCoords2<int>* pBottomRight_other);
+
 
 	// * while falling, will this room's next step be inside another room?
 	//		if true, step to the edge of the room
 	//		else, step normally
 	// * stepping is based on m_sAtributes's velocities
 	// * if return true, sets isFalling == false b/c falling means steping normally
-	bool correctRoomCollision_down();
+	virtual bool correctRoomCollision_down();
 
 	// * while falling, will this room's next step be inside a map tile?
 	//		if true; step to the edge of the tile
 	//		else, step normally
 	// * stepping is based on m_sAtributes's velocities
 	// * if return true, sets isFalling == false b/c falling means stepping normally
-	bool correctMapCollision_down();
+	virtual bool correctMapCollision_down();
 
 	// * while falling, will this room's next step be outside the game window?
 	//		if true; step to the edge of the window

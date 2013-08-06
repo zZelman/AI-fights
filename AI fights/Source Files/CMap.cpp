@@ -261,6 +261,26 @@ bool CMap::collision_screenToMap(CAABB_f* aabb, CAABB_f* tileCollidedWith)
 }
 
 
+bool CMap::collision_screenToMap(SCoords2<int>* pPoint)
+{
+	for (int i = 0; i < m_pMapTiles.size(); ++i)
+	{
+		STileData<int>* pTile = m_pMapTiles[i];
+
+		int x = pPoint->x;
+		int y = pPoint->y;
+
+		if (x >= pTile->screenCoords_topLeft.x && x <= pTile->screenCoords_bottomRight.x &&
+			y >= pTile->screenCoords_topLeft.y && y <= pTile->screenCoords_bottomRight.y)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
 bool CMap::collision_mapToMap(int row, int column)
 {
 	for (int i = 0; i < m_pMapTiles.size(); ++i)

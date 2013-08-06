@@ -143,6 +143,10 @@ void CGame::gameEvents(SDL_Event& event)
 		{
 			assert(false);
 		}
+		else if (event.key.keysym.sym == SDLK_c)
+		{
+			m_pRoomGenerator->clear();
+		}
 		else if (event.key.keysym.sym == SDLK_m && event.type == SDL_KEYDOWN)
 		{
 			m_pMap->swapIsStretched();

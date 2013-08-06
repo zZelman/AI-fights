@@ -46,10 +46,16 @@
     <Filter Include="Header Files\Templates">
       <UniqueIdentifier>{ce31338c-b330-44ce-9b2e-7ee8263c0d0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Parts">
+      <UniqueIdentifier>{18a5159b-75fb-4dfa-b957-220b250771d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Parts">
+      <UniqueIdentifier>{7d05876d-47f3-487f-acd2-30edf4d3f6bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="Other\Known Bugs.txt">
+    <Text Include="Other\Notes.txt">
       <Filter>Other</Filter>
     </Text>
   </ItemGroup>
@@ -63,18 +69,6 @@
     <ClCompile Include="Source Files\CResourceDirectories.cpp">
       <Filter>Source Files\Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\CWindow.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\CGame.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\CSprite.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\CTimer.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\CUserControlled_Bot.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
@@ -87,19 +81,37 @@
     <ClCompile Include="Source Files\CBot.cpp">
       <Filter>Source Files\Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\CPhysics.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\CMusic.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\CMap.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\CRoom.cpp">
       <Filter>Source Files\Base Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\CGame.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CMap.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CMusic.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CPhysics.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
     <ClCompile Include="Source Files\CRoomGenerator.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CSprite.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CTimer.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CWindow.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CRoom_1x1.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CRoom_2x2.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,20 +122,8 @@
     <ClInclude Include="Source Files\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source Files\CGame.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\CWindow.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Source Files\CResourceDirectories.h">
       <Filter>Header Files\Base Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\CSprite.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\CTimer.h">
-      <Filter>Header Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Source Files\CUserControlled_Bot.h">
       <Filter>Header Files\Classes</Filter>
@@ -137,15 +137,6 @@
     <ClInclude Include="Source Files\CBot.h">
       <Filter>Header Files\Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Source Files\CPhysics.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\CMusic.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\CMap.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Source Files\CVector2.h">
       <Filter>Header Files\Templates</Filter>
     </ClInclude>
@@ -158,7 +149,34 @@
     <ClInclude Include="Source Files\CRoom.h">
       <Filter>Header Files\Base Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Source Files\CMap.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CMusic.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CGame.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CPhysics.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
     <ClInclude Include="Source Files\CRoomGenerator.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CSprite.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CTimer.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CWindow.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CRoom_1x1.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CRoom_2x2.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

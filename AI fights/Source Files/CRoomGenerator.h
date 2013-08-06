@@ -4,6 +4,10 @@
 #include "stdafx.h"
 
 #include "CRoom.h"
+#include "CRoom_1x1.h"
+#include "CRoom_2x2.h"
+//#include "CRoom_2x1.h"
+//#include "CRoom_1x2.h"
 #include "CMap.h"
 #include "CPhysics.h"
 #include "CTimer.h"
@@ -13,6 +17,9 @@ class CRoomGenerator
 public:
 	CRoomGenerator(CWindow* window, CMap* collisionMap, CPhysics* physics, Uint32 spawnTime_MS);
 	~CRoomGenerator();
+
+	// removes all rooms from roomVector
+	void clear();
 
 	// * checks if 'e' is a mouse event and then checks to see if it is able to spawn (< spawnTime)
 	// * returns true if a room was spawned, false if not
@@ -25,6 +32,12 @@ public:
 	void render();
 
 private:
+	// if true, each respective room is generated
+	bool is1pressed; // 1x1
+	bool is2pressed; // 1x2
+	bool is3pressed; // 2x1
+	bool is4pressed; // 2x2
+
 	// window everything will be drawn to
 	CWindow* m_pWindow;
 

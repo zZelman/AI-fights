@@ -8,7 +8,7 @@
  <objectgroup name="object" width="40" height="35"/>
  <layer name="Tile Layer 1" width="40" height="35">
   <data encoding="base64" compression="zlib">
-   eJztw4EJAAAIA6DV/0f3RRQomAAAAPBBH1+q6voBk8cCMQ==
+   eJzt1DEKACEMAMHk/5+2FUEsop4cM5AukK0SAQAAvC6/DljIeL8R+Jfx5+RkTtzq7832b/btoK9GX42+mgbT6AA6
   </data>
  </layer>
 </map>
