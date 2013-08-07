@@ -139,9 +139,12 @@ void CRoom::check_right(CRoom* roomToCheck, int pixelCheck) {}
 
 SCoords2<int> CRoom::whichSubRoom(SCoords2<int>* pPoint)
 {
-	// because this is the BASE CLASS just return the point as intersecting the top left sub room
+#ifdef DEBUG
+	assert(false);
+#endif // DEBUG
+	
 	SCoords2<int> c;
-	c.setCoords(1, 1);
+	c.setCoords(-1, -1);
 	return c;
 }
 

@@ -74,6 +74,18 @@ struct SCoords2
 	}
 
 	template <typename T>
+	void setX(T _x)
+	{
+		x = _x;
+	}
+
+	template <typename T>
+	void setY(T _y)
+	{
+		y = _y;
+	}
+
+	template <typename T>
 	bool equals(SCoords2<T> other)
 	{
 		if (x == other.x && y == other.y)

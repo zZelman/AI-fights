@@ -197,7 +197,7 @@ SCoords2<int> CRoom_1x2::whichSubRoom(SCoords2<int>* pPoint)
 	int y = pPoint->y;
 
 	// top left sub room (1,1)
-	if (x >= m_topLeft.x && x <= (m_topLeft.x + m_width / 2) &&
+	if (x >= m_topLeft.x && x <= (m_topLeft.x + m_width) &&
 	        y >= m_topLeft.y && y <= (m_topLeft.y + m_height / 2))
 	{
 		subRoom.setCoords(1, 1);
@@ -205,7 +205,7 @@ SCoords2<int> CRoom_1x2::whichSubRoom(SCoords2<int>* pPoint)
 	}
 
 	// bottom left sub room (1,2)
-	if (x >= m_bottomLeft.x && x <= (m_bottomLeft.x + m_width / 2) &&
+	if (x >= m_bottomLeft.x && x <= (m_bottomLeft.x + m_width) &&
 	        y >= (m_bottomLeft.y - m_height / 2) && y <= m_bottomLeft.y)
 	{
 		subRoom.setCoords(1, 2);
@@ -214,7 +214,7 @@ SCoords2<int> CRoom_1x2::whichSubRoom(SCoords2<int>* pPoint)
 
 	// something went wrong
 #ifdef DEBUG
-	assert(false);
+	//assert(false);
 #endif // DEBUG
 
 	subRoom.setCoords(-1, -1);

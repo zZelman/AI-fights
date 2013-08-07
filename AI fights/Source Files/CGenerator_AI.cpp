@@ -40,17 +40,50 @@ bool CGenerator_AI::generate(SDL_Event& e)
 	if (e.button.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_RIGHT &&
 	        (m_pSpawnTimer->getTime() - m_prevTimeSpawn) > m_spawnTime_MS)
 	{
+		int w = 10;
+		int h = 10;
 		int x = e.button.x;
 		int y = e.button.y;
 		SCoords2<int> spawnCoords;
 		spawnCoords.setCoords(x, y);
 
-		int w = 16;
-		int h = 16;
+		SCoords2<int> topLeft, topRight, bottomLeft, bottomRight;
+		topLeft.setCoords(x, y);
+		topRight.setCoords(x + w, y);
+		bottomRight.setCoords(x + w, y + h);
+		bottomLeft.setCoords(x, y + h);
 
-		m_aiVector.push_back(new CAI(m_pWindow, m_pCollisionMap, m_pRoom_collision,
+		if (m_pRoom_collision->size() == 0)
+			return false;
+
+		bool isWithinARoom = false;
+		CRoom* pSpawnRoom = NULL;
+		for (int i = 0; i < m_pRoom_collision->size(); ++i)
+		{
+			pSpawnRoom = m_pRoom_collision->at(i);
+
+			// want to spawn AI within rooms
+			if (pSpawnRoom->collision(&topLeft) == true &&
+				pSpawnRoom->collision(&topRight) == true &&
+				pSpawnRoom->collision(&bottomLeft) == true &&
+				pSpawnRoom->collision(&bottomRight) == true)
+			{
+				isWithinARoom = true;
+				break;
+			}
+		}
+		if (isWithinARoom == false)
+		{
+			return false;
+		}
+
+		CAI* pAI = new CAI(m_pWindow, m_pCollisionMap, m_pRoom_collision,
 		                             spawnCoords, "Resource Files/AI/debug AI.png",
-		                             w, h, 1, 1));
+		                             w, h, 1, 1);
+		pAI->setCurrentRoom(pSpawnRoom);
+
+		m_aiVector.push_back(pAI);
+
 
 		return true;
 	}
@@ -67,7 +100,9 @@ void CGenerator_AI::update()
 		// delete a room if it is marked as needed to be deleted
 		if (pAI->isToBeDeleted == true)
 		{
-			// TODO
+			auto itr = m_aiVector.begin() + i;
+			m_aiVector.erase(itr);
+			continue;
 		}
 
 		pAI->setMove(isUpPressed, isDownPressed, isLeftPressed, isRightPressed);

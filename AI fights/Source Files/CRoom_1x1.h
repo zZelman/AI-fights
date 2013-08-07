@@ -18,6 +18,8 @@ public:
 	void update();
 	void render();
 
+	SCoords2<int> whichSubRoom(SCoords2<int>* pPoint);
+
 protected:
 	void checkPtrs(int pixelCheck);
 	void check_up(CRoom* roomToCheck, int pixelCheck);

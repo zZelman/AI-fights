@@ -4,6 +4,7 @@
 #include "stdafx.h"
 
 #include "CUpdatable.h"
+#include "CRoom.h"
 
 // * base class for all AI in the game
 class CAI : public CUpdatable
@@ -25,6 +26,8 @@ public:
 	CAI();
 	~CAI();
 
+	void setCurrentRoom(CRoom* pRoom);
+
 	virtual void update();
 
 	// * this is the interface that controlls the movement of the AI
@@ -35,6 +38,9 @@ private:
 	// movement bools set by AI generator through setMove
 	bool isMovingUp, isMovingDown;
 	bool isMovingLeft, isMovingRight;
+
+	// the room that this AI currently resides within
+	CRoom* m_pCurrentRoom;
 
 	// specific movement control
 	void moveUp();

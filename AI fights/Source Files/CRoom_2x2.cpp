@@ -252,7 +252,7 @@ SCoords2<int> CRoom_2x2::whichSubRoom(SCoords2<int>* pPoint)
 
 	// something went wrong
 #ifdef DEBUG
-	assert(false);
+	//assert(false);
 #endif // DEBUG
 
 	subRoom.setCoords(-1, -1);

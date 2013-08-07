@@ -189,6 +189,25 @@ void CRoom_1x1::check_right(CRoom* roomToCheck, int pixelCheck)
 }
 
 
+SCoords2<int> CRoom_1x1::whichSubRoom(SCoords2<int>* pPoint)
+{
+	SCoords2<int> subRoom;
+	int x = pPoint->x;
+	int y = pPoint->y;
+
+	// top left sub room (1,1)
+	if (x >= m_topLeft.x && x <= m_bottomRight.x &&
+		y >= m_topLeft.y && y <= m_bottomRight.y)
+	{
+		subRoom.setCoords(1, 1);
+		return subRoom;
+	}
+
+	subRoom.setCoords(-1, -1);
+	return subRoom;
+}
+
+
 bool CRoom_1x1::correctRoomCollision_down()
 {
 	for (int i = 0; i < m_pRoom_collision->size(); ++i)

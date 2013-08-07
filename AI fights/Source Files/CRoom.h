@@ -9,6 +9,21 @@
 class CRoom : public CUpdatable
 {
 public:
+	// * Pointers to the room(s) to the respective directions [11 = sub room (1,1), etc]
+	// * NULL if there is no room
+	CRoom* m_pRoom_11_up;
+	CRoom* m_pRoom_11_left;
+
+	CRoom* m_pRoom_21_up;
+	CRoom* m_pRoom_21_right;
+
+	CRoom* m_pRoom_12_left;
+	CRoom* m_pRoom_12_down;
+
+	CRoom* m_pRoom_22_right;
+	CRoom* m_pRoom_22_down;
+
+
 	// * window:						window to be drawn in
 	// * collisionMap:					map representing tile collision for this room
 	// * collisionRoom:				pointer to what container this room is apart of (outside of this object)
@@ -83,20 +98,6 @@ protected:
 	// number of 'door ways' of stairs if there are stairs
 	int m_numStairEnters;
 	bool isStairs; // does room have stairs in it
-
-	// * Pointers to the room(s) to the respective directions [11 = sub room (1,1), etc]
-	// * NULL if there is no room
-	CRoom* m_pRoom_11_up;
-	CRoom* m_pRoom_11_left;
-
-	CRoom* m_pRoom_21_up;
-	CRoom* m_pRoom_21_right;
-
-	CRoom* m_pRoom_12_left;
-	CRoom* m_pRoom_12_down;
-
-	CRoom* m_pRoom_22_right;
-	CRoom* m_pRoom_22_down;
 
 	// sets adjacent room pointers to NULL
 	void nullPtrs();
