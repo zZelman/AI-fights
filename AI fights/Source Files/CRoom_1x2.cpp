@@ -4,14 +4,14 @@
 
 
 CRoom_1x2::CRoom_1x2(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom,
-					 SCoords2<int> spawnCoords_screen,
-					 std::string filePath, int imageWidth, int imageHeight,
-					 int numImages_rows, int numImages_columns)
+                     SCoords2<int> spawnCoords_screen,
+                     std::string filePath, int imageWidth, int imageHeight,
+                     int numImages_rows, int numImages_columns)
 
-					 : CRoom(window, collisionMap, collisionRoom,
-					 spawnCoords_screen,
-					 filePath, imageWidth, imageHeight,
-					 numImages_rows, numImages_columns)
+	: CRoom(window, collisionMap, collisionRoom,
+	        spawnCoords_screen,
+	        filePath, imageWidth, imageHeight,
+	        numImages_rows, numImages_columns)
 {
 	m_layout.setCoords(1, 2);
 }
@@ -31,19 +31,18 @@ void CRoom_1x2::update()
 		isFirstUpdate = false;
 	}
 
-	if (!correctWindowCollision_down())
+	offCollisionMap();
+
+	if (!correctRoomCollision_down())
 	{
-		if (!correctRoomCollision_down())
+		if (!correctMapCollision_down())
 		{
-			if (!correctMapCollision_down())
-			{
-				m_topLeft.x += (int) m_sAtributes.velosity_x;
-				m_topLeft.y += (int) m_sAtributes.velosity_y;
+			m_topLeft.x += (int) m_sAtributes.velosity_x;
+			m_topLeft.y += (int) m_sAtributes.velosity_y;
 
-				setTopLeft(m_topLeft);
+			setTopLeft(m_topLeft);
 
-				isFalling = true;
-			}
+			isFalling = true;
 		}
 	}
 
@@ -69,9 +68,9 @@ void CRoom_1x2::checkPtrs(int pixelCheck)
 {
 	nullPtrs();
 
-	for (int i = 0; i < m_pRoomVector->size(); ++i)
+	for (int i = 0; i < m_pRoom_collision->size(); ++i)
 	{
-		CRoom* pRoom = m_pRoomVector->at(i);
+		CRoom* pRoom = m_pRoom_collision->at(i);
 
 		if (this->equals(pRoom))
 		{
@@ -199,7 +198,7 @@ SCoords2<int> CRoom_1x2::whichSubRoom(SCoords2<int>* pPoint)
 
 	// top left sub room (1,1)
 	if (x >= m_topLeft.x && x <= (m_topLeft.x + m_width / 2) &&
-		y >= m_topLeft.y && y <= (m_topLeft.y + m_height / 2))
+	        y >= m_topLeft.y && y <= (m_topLeft.y + m_height / 2))
 	{
 		subRoom.setCoords(1, 1);
 		return subRoom;
@@ -207,7 +206,7 @@ SCoords2<int> CRoom_1x2::whichSubRoom(SCoords2<int>* pPoint)
 
 	// bottom left sub room (1,2)
 	if (x >= m_bottomLeft.x && x <= (m_bottomLeft.x + m_width / 2) &&
-		y >= (m_bottomLeft.y - m_height / 2) && y <= m_bottomLeft.y)
+	        y >= (m_bottomLeft.y - m_height / 2) && y <= m_bottomLeft.y)
 	{
 		subRoom.setCoords(1, 2);
 		return subRoom;
@@ -225,9 +224,9 @@ SCoords2<int> CRoom_1x2::whichSubRoom(SCoords2<int>* pPoint)
 
 bool CRoom_1x2::correctRoomCollision_down()
 {
-	for (int i = 0; i < m_pRoomVector->size(); ++i)
+	for (int i = 0; i < m_pRoom_collision->size(); ++i)
 	{
-		CRoom* pRoom = m_pRoomVector->at(i);
+		CRoom* pRoom = m_pRoom_collision->at(i);
 
 		if (this->equals(pRoom))
 		{

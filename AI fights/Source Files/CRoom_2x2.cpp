@@ -31,19 +31,18 @@ void CRoom_2x2::update()
 		isFirstUpdate = false;
 	}
 
-	if (!correctWindowCollision_down())
+	offCollisionMap();
+
+	if (!correctRoomCollision_down())
 	{
-		if (!correctRoomCollision_down())
+		if (!correctMapCollision_down())
 		{
-			if (!correctMapCollision_down())
-			{
-				m_topLeft.x += (int) m_sAtributes.velosity_x;
-				m_topLeft.y += (int) m_sAtributes.velosity_y;
+			m_topLeft.x += (int) m_sAtributes.velosity_x;
+			m_topLeft.y += (int) m_sAtributes.velosity_y;
 
-				setTopLeft(m_topLeft);
+			setTopLeft(m_topLeft);
 
-				isFalling = true;
-			}
+			isFalling = true;
 		}
 	}
 
@@ -69,9 +68,9 @@ void CRoom_2x2::checkPtrs(int pixelCheck)
 {
 	nullPtrs();
 
-	for (int i = 0; i < m_pRoomVector->size(); ++i)
+	for (int i = 0; i < m_pRoom_collision->size(); ++i)
 	{
-		CRoom* pRoom = m_pRoomVector->at(i);
+		CRoom* pRoom = m_pRoom_collision->at(i);
 
 		if (this->equals(pRoom))
 		{
@@ -263,9 +262,9 @@ SCoords2<int> CRoom_2x2::whichSubRoom(SCoords2<int>* pPoint)
 
 bool CRoom_2x2::correctRoomCollision_down()
 {
-	for (int i = 0; i < m_pRoomVector->size(); ++i)
+	for (int i = 0; i < m_pRoom_collision->size(); ++i)
 	{
-		CRoom* pRoom = m_pRoomVector->at(i);
+		CRoom* pRoom = m_pRoom_collision->at(i);
 
 		if (this->equals(pRoom))
 		{

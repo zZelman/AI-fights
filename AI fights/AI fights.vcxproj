@@ -83,18 +83,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Files\1 Main.cpp" />
-    <ClCompile Include="Source Files\CAI_Bot.cpp" />
-    <ClCompile Include="Source Files\CBot.cpp" />
+    <ClCompile Include="Source Files\CAI.cpp" />
+    <ClCompile Include="Source Files\CGenerator.cpp" />
+    <ClCompile Include="Source Files\CGenerator_AI.cpp" />
     <ClCompile Include="Source Files\CMap.cpp" />
     <ClCompile Include="Source Files\CMusic.cpp" />
     <ClCompile Include="Source Files\CPhysics.cpp" />
     <ClCompile Include="Source Files\CRoom.cpp" />
-    <ClCompile Include="Source Files\CRoomGenerator.cpp" />
+    <ClCompile Include="Source Files\CGenerator_Room.cpp" />
     <ClCompile Include="Source Files\CRoom_1x1.cpp" />
     <ClCompile Include="Source Files\CRoom_1x2.cpp" />
     <ClCompile Include="Source Files\CRoom_2x1.cpp" />
     <ClCompile Include="Source Files\CRoom_2x2.cpp" />
-    <ClCompile Include="Source Files\CUserControlled_Bot.cpp" />
+    <ClCompile Include="Source Files\CUpdatable.cpp" />
     <ClCompile Include="Source Files\CGame.cpp" />
     <ClCompile Include="Source Files\CResourceDirectories.cpp" />
     <ClCompile Include="Source Files\CSprite.cpp" />
@@ -107,18 +108,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source Files\CAI_Bot.h" />
+    <ClInclude Include="Source Files\CAI.h" />
+    <ClInclude Include="Source Files\CGenerator.h" />
+    <ClInclude Include="Source Files\CGenerator_AI.h" />
     <ClInclude Include="Source Files\CRoom.h" />
-    <ClInclude Include="Source Files\CBot.h" />
     <ClInclude Include="Source Files\CMap.h" />
     <ClInclude Include="Source Files\CMusic.h" />
     <ClInclude Include="Source Files\CPhysics.h" />
-    <ClInclude Include="Source Files\CRoomGenerator.h" />
+    <ClInclude Include="Source Files\CGenerator_Room.h" />
     <ClInclude Include="Source Files\CRoom_1x1.h" />
     <ClInclude Include="Source Files\CRoom_1x2.h" />
     <ClInclude Include="Source Files\CRoom_2x1.h" />
     <ClInclude Include="Source Files\CRoom_2x2.h" />
-    <ClInclude Include="Source Files\CUserControlled_Bot.h" />
+    <ClInclude Include="Source Files\CUpdatable.h" />
     <ClInclude Include="Source Files\CGame.h" />
     <ClInclude Include="Source Files\CResourceDirectories.h" />
     <ClInclude Include="Source Files\CTimer.h" />
@@ -130,12 +132,6 @@
     <ClInclude Include="Source Files\SCoords2.h" />
     <ClInclude Include="Source Files\stdafx.h" />
     <ClInclude Include="Source Files\targetver.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resource Files\Sprites\blueAI.png" />
-    <Image Include="Resource Files\Sprites\redAI.png" />
-    <Image Include="Resource Files\Textures\foo.png" />
-    <Image Include="Resource Files\Textures\texture.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

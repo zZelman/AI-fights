@@ -9,7 +9,8 @@
 #include "CPhysics.h"
 #include "CMusic.h"
 #include "CMap.h"
-#include "CRoomGenerator.h"
+#include "CGenerator_Room.h"
+#include "CGenerator_AI.h"
 
 class CGame
 {
@@ -30,12 +31,11 @@ private:
 	CMusic* m_pMusic; // game music
 	CMap* m_pMap; // game map
 	CTimer* m_pGameTimer;
-	CRoomGenerator* m_pRoomGenerator; // wrapper class for the rooms.
+	CGenerator_room* m_pRoomGenerator; // wrapper class for the rooms.
+	CGenerator_AI* m_pAIGenerator; // wrapper class for the AI
 
 	CUserControlled_Bot* m_pUserBot; // first bot to be played :D
 	//CAI_Bot* m_pAIBot; // first attempt at AI :D
-
-	std::vector<CRoom*> m_roomVector;
 
 	void gameLoop(); // main game loop
 	void gameEvents(SDL_Event& event); // redirects user input appropriately

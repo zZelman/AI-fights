@@ -11,9 +11,9 @@ class CRoom_1x2 : public CRoom
 {
 public:
 	CRoom_1x2(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom,
-		SCoords2<int> spawnCoords_screen,
-		std::string filePath, int imageWidth, int imageHeight,
-		int numImages_rows = 1, int numImages_columns = 1);
+	          SCoords2<int> spawnCoords_screen,
+	          std::string filePath, int imageWidth, int imageHeight,
+	          int numImages_rows = 1, int numImages_columns = 1);
 	~CRoom_1x2();
 
 	void update();

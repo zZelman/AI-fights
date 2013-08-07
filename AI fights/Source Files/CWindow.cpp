@@ -56,54 +56,6 @@ void CWindow::updateSize()
 }
 
 
-bool CWindow::isOutsideWindow(CAABB_f* aabb)
-{
-	float minX = aabb->getMin()->x;
-	float minY = aabb->getMin()->y;
-
-	float maxX = aabb->getMax()->x;
-	float maxY = aabb->getMax()->y;
-
-	// min testing (top left of aabb)
-	if (minX < 0)
-	{
-		return true;
-	}
-	if (minX > m_windowWidth)
-	{
-		return true;
-	}
-	if (minY < 0)
-	{
-		return true;
-	}
-	if (minY > m_windowHeight)
-	{
-		return true;
-	}
-
-	// max testing (bottom right of aabb)
-	if (maxX < 0)
-	{
-		return true;
-	}
-	if (maxX > m_windowWidth)
-	{
-		return true;
-	}
-	if (maxY < 0)
-	{
-		return true;
-	}
-	if (maxY > m_windowHeight)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-
 void CWindow::init()
 {
 	// init sdl

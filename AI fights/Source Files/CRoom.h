@@ -1,20 +1,14 @@
+#include "stdafx.h"
+#include "CUpdatable.h"
+
 #ifndef CROOM_H
 #define CROOM_H
 
-
-#include "stdafx.h"
-
 // * Base class for all Rooms
 // * NOTE: all virtual functions are intended to be overridden, their inate functionality is intended for a 1x1 room
-class CRoom
+class CRoom : public CUpdatable
 {
 public:
-	// holds all physics information for the room
-	SAtributes<float> m_sAtributes;
-
-	// just default constructor
-	CRoom();
-
 	// * window:						window to be drawn in
 	// * collisionMap:					map representing tile collision for this room
 	// * collisionRoom:				pointer to what container this room is apart of (outside of this object)
@@ -28,37 +22,15 @@ public:
 	      SCoords2<int> spawnCoords_screen,
 	      std::string filePath, int imageWidth, int imageHeight,
 	      int numImages_rows = 1, int numImages_columns = 1);
+	CRoom();
 	virtual ~CRoom();
-
-	// SCREEN SPACE resets the values within the GIVEN 4 coord pairs to match what this rooms currently are
-	void getEverything(SCoords2<int>* pTopLeft, SCoords2<int>* pTopRight,
-	                   SCoords2<int>* pBottomLeft, SCoords2<int>* pBottomRight);
-
-	// SCREEN SPACE resets the values within the GIVEN coord pairs to what this room currently are
-	void getMinMax(SCoords2<int>* pTopLeft, SCoords2<int>* pBottomRight);
 
 	// returns what MAP Space column this room is in (topLeft)
 	int getColumn();
 
-	// distance between each respective coord sets
-	int getWidth();
-	int getHeight();
-
 	// returns what internal structure this room has [1x1, 1x2, 2x1, 2x2]
 	// (column, row)
 	const SCoords2<int>* getLayout();
-
-	// calculates NEW width and height based on the coords given
-	void setEverything(SCoords2<int> topLeft, SCoords2<int> topRight,
-	                   SCoords2<int> bottomLeft, SCoords2<int> bottomRight);
-
-	// calculates other coords based on set widths and heights
-	void setTopLeft(SCoords2<int> topLeft);
-	void setTopLeft(int x, int y);
-	void setBottomLeft(SCoords2<int> bottomLeft);
-	void setBottomLeft(int x, int y);
-	void setBottomRight(SCoords2<int> bottomRight);
-	void setBottomRight(int x, int y);
 
 	// checks equivalence by checking coords
 	bool equals(CRoom* other);
@@ -69,45 +41,13 @@ public:
 	// * NON 1x1 rooms need to override this
 	virtual SCoords2<int> whichSubRoom(SCoords2<int>* pPoint);
 
-	// checks if the point in SCREEN space is within this room's edges
-	bool collision(SCoords2<int>* pPoint);
-
 	virtual void update();
-	virtual void render();
 
 protected:
-	// which container this room resides within
-	std::vector<CRoom*>* m_pRoomVector;
-
-	// a bool to the first tick of time dependent things (ie: gravity) not messy the first time through
-	bool isFirstUpdate;
-
-	// window everything will be rendered to
-	CWindow* m_pWindow;
-
-	// the map that this room will be collision detected against
-	CMap* m_pMap_collision;
-
-	// the sprite image that will be used for the room
-	CSprite* m_pSprite;
-
-	// file path this Room was loaded with
-	std::string m_filePath;
-
 	// * whether or not this tile is descending
 	// * set to false by correctRoomCollision_down == true or correctMapCollision_down == true
 	//		b/c falling means stepping normally
 	bool isFalling;
-
-	// 4 corners of the box, in screen space
-	SCoords2<int> m_topLeft;
-	SCoords2<int> m_topRight;
-	SCoords2<int> m_bottomLeft;
-	SCoords2<int> m_bottomRight;
-
-	// detentions from one corner to another
-	int m_width;
-	int m_height;
 
 	// * the current coords of this room within the collisionMap data structure
 	// * INDEX
@@ -175,11 +115,11 @@ protected:
 	// * Checks collision in the area bounded by the given SCREEN space coords
 	// * NOTE: if step of 'this' is too large, it will completely fall over 'other'
 	// * 'this' is the coord set that DOES the stepping
-	bool collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pTopRight_this,
-	               SCoords2<int>* pBottomLeft_this, SCoords2<int>* pBottomRight_this,
+	//bool collision(SCoords2<int>* pTopLeft_this, SCoords2<int>* pTopRight_this,
+	//               SCoords2<int>* pBottomLeft_this, SCoords2<int>* pBottomRight_this,
 
-	               SCoords2<int>* pTopLeft_other, SCoords2<int>* pTopRight_other,
-	               SCoords2<int>* pBottomLeft_other, SCoords2<int>* pBottomRight_other);
+	//               SCoords2<int>* pTopLeft_other, SCoords2<int>* pTopRight_other,
+	//               SCoords2<int>* pBottomLeft_other, SCoords2<int>* pBottomRight_other);
 
 
 	// * while falling, will this room's next step be inside another room?
@@ -195,13 +135,6 @@ protected:
 	// * stepping is based on m_sAtributes's velocities
 	// * if return true, sets isFalling == false b/c falling means stepping normally
 	virtual bool correctMapCollision_down();
-
-	// * while falling, will this room's next step be outside the game window?
-	//		if true; step to the edge of the window
-	//		else, step normally
-	// * stepping is based on m_sAtributes's velocities
-	// * if return true, sets isFalling == false b/c falling means steping normally
-	bool correctWindowCollision_down();
 };
 
 

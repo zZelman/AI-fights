@@ -18,7 +18,9 @@ CGame::CGame()
 
 	m_pMap			= new CMap(m_pGameWindow, "Resource Files/Maps/testing.txt");
 
-	m_pRoomGenerator = new CRoomGenerator(m_pGameWindow, m_pMap, m_pPhysics, SecToMS(0));
+	m_pRoomGenerator = new CGenerator_room(m_pGameWindow, m_pMap, m_pPhysics, SecToMS(0));
+	m_pAIGenerator	= new CGenerator_AI(m_pGameWindow, m_pMap, m_pPhysics, SecToMS(0),
+	                                    m_pRoomGenerator->getRooms());
 
 	//m_pUserBot		= new CUserControlled_Bot(m_pGameWindow, m_pMap, "Resource Files/Sprites/ninja (46h 32w).png", 32, 46, 2, 6);
 
@@ -45,6 +47,9 @@ CGame::~CGame()
 
 	delete m_pRoomGenerator;
 	m_pRoomGenerator = NULL;
+
+	delete m_pAIGenerator;
+	m_pAIGenerator = NULL;
 
 	//delete m_pUserBot;
 	//m_pUserBot = NULL;
@@ -141,7 +146,7 @@ void CGame::gameEvents(SDL_Event& event)
 		}
 		else if (event.key.keysym.sym == SDLK_b)
 		{
-			assert(false);
+			//assert(false);
 		}
 		else if (event.key.keysym.sym == SDLK_c)
 		{
@@ -151,9 +156,8 @@ void CGame::gameEvents(SDL_Event& event)
 		{
 			m_pMap->swapIsStretched();
 		}
-		else if (m_pRoomGenerator->generate(event) == true)
-		{
-		}
+		else if (m_pRoomGenerator->generate(event) == true) {}
+		else if (m_pAIGenerator->generate(event) == true) {}
 	}
 }
 
@@ -161,6 +165,7 @@ void CGame::gameEvents(SDL_Event& event)
 void CGame::gameUpdate()
 {
 	m_pRoomGenerator->update();
+	m_pAIGenerator->update();
 
 	//m_pUserBot->update();
 
@@ -180,6 +185,7 @@ void CGame::gameRender()
 	m_pMap->render();
 
 	m_pRoomGenerator->render();
+	m_pAIGenerator->render();
 
 	//m_pUserBot->render();
 	//m_pAIBot->render();

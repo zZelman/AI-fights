@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Header Files\Classes">
       <UniqueIdentifier>{5fb73b01-47c9-4b5a-9c8c-569a26c8c885}</UniqueIdentifier>
     </Filter>
@@ -25,23 +21,11 @@
     <Filter Include="Source Files\Base Classes">
       <UniqueIdentifier>{e1771ac2-557a-42aa-8022-a448f2ec82ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Textures">
-      <UniqueIdentifier>{a5ff39c3-0de1-47ac-b4f4-31c7775d1475}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Sprites">
-      <UniqueIdentifier>{40f30155-ffd7-4e72-98db-24f4c8eb6b7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Interfaces">
       <UniqueIdentifier>{816f7712-d556-4204-b2ef-3039392fcbba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Music">
-      <UniqueIdentifier>{670b5361-d2d4-49d2-9f72-4bfedff56e2f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Other">
       <UniqueIdentifier>{94515ff4-5779-45c1-a8ac-dc4592d9cba5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Maps">
-      <UniqueIdentifier>{ae29c454-a9e1-4f3a-b934-526b56b7145c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Templates">
       <UniqueIdentifier>{ce31338c-b330-44ce-9b2e-7ee8263c0d0f}</UniqueIdentifier>
@@ -69,17 +53,8 @@
     <ClCompile Include="Source Files\CResourceDirectories.cpp">
       <Filter>Source Files\Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Source Files\CUserControlled_Bot.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\CAI_Bot.cpp">
-      <Filter>Source Files\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Source Files\Math2D.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\CBot.cpp">
-      <Filter>Source Files\Base Classes</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\CRoom.cpp">
       <Filter>Source Files\Base Classes</Filter>
@@ -94,9 +69,6 @@
       <Filter>Source Files\Engine Parts</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\CPhysics.cpp">
-      <Filter>Source Files\Engine Parts</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Files\CRoomGenerator.cpp">
       <Filter>Source Files\Engine Parts</Filter>
     </ClCompile>
     <ClCompile Include="Source Files\CSprite.cpp">
@@ -120,6 +92,21 @@
     <ClCompile Include="Source Files\CRoom_1x2.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Source Files\CGenerator_Room.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CGenerator.cpp">
+      <Filter>Source Files\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CGenerator_AI.cpp">
+      <Filter>Source Files\Engine Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CUpdatable.cpp">
+      <Filter>Source Files\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Files\CAI.cpp">
+      <Filter>Source Files\Base Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\stdafx.h">
@@ -131,17 +118,8 @@
     <ClInclude Include="Source Files\CResourceDirectories.h">
       <Filter>Header Files\Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Source Files\CUserControlled_Bot.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\CAI_Bot.h">
-      <Filter>Header Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Source Files\Math2D.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Files\CBot.h">
-      <Filter>Header Files\Base Classes</Filter>
     </ClInclude>
     <ClInclude Include="Source Files\CVector2.h">
       <Filter>Header Files\Templates</Filter>
@@ -167,9 +145,6 @@
     <ClInclude Include="Source Files\CPhysics.h">
       <Filter>Header Files\Engine Parts</Filter>
     </ClInclude>
-    <ClInclude Include="Source Files\CRoomGenerator.h">
-      <Filter>Header Files\Engine Parts</Filter>
-    </ClInclude>
     <ClInclude Include="Source Files\CSprite.h">
       <Filter>Header Files\Engine Parts</Filter>
     </ClInclude>
@@ -191,19 +166,20 @@
     <ClInclude Include="Source Files\CRoom_1x2.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resource Files\Textures\foo.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="Resource Files\Textures\texture.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="Resource Files\Sprites\redAI.png">
-      <Filter>Resource Files\Sprites</Filter>
-    </Image>
-    <Image Include="Resource Files\Sprites\blueAI.png">
-      <Filter>Resource Files\Sprites</Filter>
-    </Image>
+    <ClInclude Include="Source Files\CGenerator_AI.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CGenerator.h">
+      <Filter>Header Files\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CGenerator_Room.h">
+      <Filter>Header Files\Engine Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CAI.h">
+      <Filter>Header Files\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\CUpdatable.h">
+      <Filter>Header Files\Base Classes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

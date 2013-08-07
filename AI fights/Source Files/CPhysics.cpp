@@ -33,61 +33,61 @@ bool CPhysics::collisionDetection(CBot* bot1, CBot* bot2)
 
 void CPhysics::collisionDetection(CBot* bot, CWindow* window)
 {
-	CAABB_f* pAABB = bot->getAABB();
-	CVector2<float>* pMin = bot->getAABB()->getMin();
-	CVector2<float>* pMax = bot->getAABB()->getMax();
+	//CAABB_f* pAABB = bot->getAABB();
+	//CVector2<float>* pMin = bot->getAABB()->getMin();
+	//CVector2<float>* pMax = bot->getAABB()->getMax();
 
-	int winWidth = window->getWidth();
-	int winHeight = window->getHeight();
+	//int winWidth = window->getWidth();
+	//int winHeight = window->getHeight();
 
-	// General logic:
-	// if (bot's next step is outside of screen)
-	//		step to edge of screen;
-	//		if (vertical movement)
-	//			start timer to record time since last 'ground' bounce
-	//		else
-	//			velocity = -velocity
-	// else
-	//		do not change anything
+	//// General logic:
+	//// if (bot's next step is outside of screen)
+	////		step to edge of screen;
+	////		if (vertical movement)
+	////			start timer to record time since last 'ground' bounce
+	////		else
+	////			velocity = -velocity
+	//// else
+	////		do not change anything
 
-	// as it stands now, this function is intended to be for
-	//		passive collisions (something not user controlled)
+	//// as it stands now, this function is intended to be for
+	////		passive collisions (something not user controlled)
 
-	if (bot->m_sAtributes.velosity_x > 0) // moving right
-	{
-		if (pMin->x + bot->m_sAtributes.velosity_x + pAABB->getWidth() > winWidth)
-		{
-			pAABB->setMinX(winWidth - pAABB->getWidth());
-			bot->m_sAtributes.velosity_x = -bot->m_sAtributes.velosity_x;
-		}
-	}
-	else if (bot->m_sAtributes.velosity_x < 0) // moving left
-	{
-		if (pMin->x  + bot->m_sAtributes.velosity_x < 0)
-		{
-			pAABB->setMinX(0);
-			bot->m_sAtributes.velosity_x = -bot->m_sAtributes.velosity_x;
-		}
-	}
+	//if (bot->m_sAtributes.velosity_x > 0) // moving right
+	//{
+	//	if (pMin->x + bot->m_sAtributes.velosity_x + pAABB->getWidth() > winWidth)
+	//	{
+	//		pAABB->setMinX(winWidth - pAABB->getWidth());
+	//		bot->m_sAtributes.velosity_x = -bot->m_sAtributes.velosity_x;
+	//	}
+	//}
+	//else if (bot->m_sAtributes.velosity_x < 0) // moving left
+	//{
+	//	if (pMin->x  + bot->m_sAtributes.velosity_x < 0)
+	//	{
+	//		pAABB->setMinX(0);
+	//		bot->m_sAtributes.velosity_x = -bot->m_sAtributes.velosity_x;
+	//	}
+	//}
 
-	if (bot->m_sAtributes.velosity_y < 0) // moving up
-	{
-		if (pMin->y + bot->m_sAtributes.velosity_y < 0)
-		{
-			pAABB->setMinY(0);
+	//if (bot->m_sAtributes.velosity_y < 0) // moving up
+	//{
+	//	if (pMin->y + bot->m_sAtributes.velosity_y < 0)
+	//	{
+	//		pAABB->setMinY(0);
 
-			//bot->m_sAtributes.gravityTimer.start();
-		}
-	}
-	else if (bot->m_sAtributes.velosity_y > 0) // moving down
-	{
-		if (pMin->y + bot->m_sAtributes.velosity_y + pAABB->getHeight() > winHeight)
-		{
-			pAABB->setMinY(winHeight - pAABB->getHeight());
+	//		//bot->m_sAtributes.gravityTimer.start();
+	//	}
+	//}
+	//else if (bot->m_sAtributes.velosity_y > 0) // moving down
+	//{
+	//	if (pMin->y + bot->m_sAtributes.velosity_y + pAABB->getHeight() > winHeight)
+	//	{
+	//		pAABB->setMinY(winHeight - pAABB->getHeight());
 
-			bot->m_sAtributes.gravityTimer.start();
-		}
-	}
+	//		bot->m_sAtributes.gravityTimer.start();
+	//	}
+	//}
 }
 
 
