@@ -34,7 +34,7 @@ public:
 	// * local bools are set, and then update() exicutes on them with restrictions
 	void setMove(bool up, bool down, bool left, bool right);
 
-private:
+protected:
 	// movement bools set by AI generator through setMove
 	bool isMovingUp, isMovingDown;
 	bool isMovingLeft, isMovingRight;
@@ -42,11 +42,19 @@ private:
 	// the room that this AI currently resides within
 	CRoom* m_pCurrentRoom;
 
-	// specific movement control
-	void moveUp();
-	void moveDown();
-	void moveLeft();
-	void moveRight();
+	// * specific movement control
+	// * true if collision, false if no collision
+	virtual bool isCollision_up(SCoords2<int>* leftCorner, SCoords2<int>* rightCorner);
+	virtual bool isCollision_down(SCoords2<int>* leftCorner, SCoords2<int>* rightCorner);
+	virtual bool isCollision_left(SCoords2<int>* top, SCoords2<int>* bottom);
+	virtual bool isCollision_right(SCoords2<int>* top, SCoords2<int>* bottom);
+
+	// * while falling, will this AI's next step be inside a map tile?
+	//		if true; step to the edge of the tile
+	//		else, step normally
+	// * stepping is based on m_sAtributes's velocities
+	// * if return true, sets isFalling == false b/c falling means stepping normally
+	virtual bool correctMapCollision_down();
 };
 
 

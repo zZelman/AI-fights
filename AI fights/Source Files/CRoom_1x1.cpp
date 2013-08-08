@@ -24,14 +24,7 @@ CRoom_1x1::~CRoom_1x1()
 
 void CRoom_1x1::update()
 {
-	// just to make sure that the first tick of time based things are not messy
-	if (isFirstUpdate == true)
-	{
-		m_sAtributes.gravityTimer.start();
-		isFirstUpdate = false;
-	}
-
-	offCollisionMap();
+	CRoom::update();
 
 	if (!correctRoomCollision_down())
 	{
@@ -259,33 +252,5 @@ bool CRoom_1x1::correctRoomCollision_down()
 
 bool CRoom_1x1::correctMapCollision_down()
 {
-	// get the x coord in map space for a fast search
-	int column = m_topLeft.x + m_sAtributes.velosity_x;
-	int row = m_topLeft.y + m_sAtributes.velosity_y;
-	m_pMap_collision->convertScreenToMap(&column, &row);
-
-	const std::vector<STileData<int>*>* pMapTiles = m_pMap_collision->getMapTiles();
-	for (int i = 0; i < pMapTiles->size(); ++i)
-	{
-		STileData<int>* pTile = pMapTiles->at(i);
-
-		// we are only looking for a specific column (falling down), no need to search needlessly
-		if (pTile->mapCoords.x != column)
-		{
-			continue;
-		}
-
-		SCoords2<int> midBottom;
-		midBottom.setCoords(m_bottomLeft.x + m_width / 2, (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
-		if (pTile->collision(&midBottom))
-		{
-			setBottomRight(pTile->screenCoords_topLeft.x + pTile->width, pTile->screenCoords_topLeft.y);
-
-			isFalling = false;
-			m_sAtributes.gravityTimer.start();
-			return true;
-		}
-	}
-
-	return false;
+	return CUpdatable::correctMapCollision_down();
 }

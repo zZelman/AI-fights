@@ -15,6 +15,8 @@ CAI::CAI(CWindow* window, CMap* collisionMap, std::vector<CRoom*>* collisionRoom
 	isMovingDown	= false;
 	isMovingLeft	= false;
 	isMovingRight	= false;
+
+	m_pCurrentRoom = NULL;
 }
 
 
@@ -35,28 +37,63 @@ void CAI::setCurrentRoom( CRoom* pRoom )
 
 void CAI::update()
 {
+	// change this to m_sAtributes.velosity_(x or y) to make ai dependant on physics
+	int increment = m_sAtributes.defaultVelosity_pos;
+
 	// move up
 	if (isMovingUp && !isMovingDown)
 	{
-		moveUp();
+		// must collision detect on both the top and bottom corners so no phasing through
+		SCoords2<int> left, right;
+		left.setCoords(m_topLeft.x, m_topLeft.y - increment);
+		right.setCoords(m_topRight.x, m_topRight.y - increment);
+		if (!isCollision_up(&left, &right))
+		{
+			// no collisions, step normally (does not mater which corner gets updated)
+			setTopLeft(left);
+		}
 	}
 
 	// move down
 	if (!isMovingUp && isMovingDown)
 	{
-		moveDown();
+		// must collision detect on both the top and bottom corners so no phasing through
+		SCoords2<int> left, right;
+		left.setCoords(m_bottomLeft.x, m_bottomLeft.y + increment);
+		right.setCoords(m_bottomRight.x, m_bottomRight.y + increment);
+		if (!isCollision_down(&left, &right))
+		{
+			// no collisions, step normally (does not mater which corner gets updated)
+			setBottomLeft(left);
+		}
 	}
 
 	// move left
 	if (isMovingLeft && !isMovingRight)
 	{
-		moveLeft();
+		// must collision detect on both the top and bottom corners so no phasing through
+		SCoords2<int> top, bottom;
+		top.setCoords(m_topLeft.x - increment, m_topLeft.y);
+		bottom.setCoords(m_bottomLeft.x - increment, m_bottomLeft.y);
+		if (!isCollision_left(&top, &bottom))
+		{
+			// no collisions, step normally (does not mater which corner gets updated)
+			setTopLeft(top);
+		}
 	}
 
 	// move right
 	if (!isMovingLeft && isMovingRight)
 	{
-		moveRight();
+		// must collision detect on both the top and bottom corners so no phasing through
+		SCoords2<int> top, bottom;
+		top.setCoords(m_topRight.x + increment, m_topRight.y);
+		bottom.setCoords(m_bottomRight.x + increment, m_bottomRight.y);
+		if (!isCollision_right(&top, &bottom))
+		{
+			// no collisions, step normally (does not mater which corner gets updated)
+			setTopRight(top);
+		}
 	}
 }
 
@@ -71,19 +108,10 @@ void CAI::setMove(bool up, bool down, bool left, bool right)
 }
 
 
-void CAI::moveUp()
+bool CAI::isCollision_up( SCoords2<int>* leftCorner, SCoords2<int>* rightCorner )
 {
-	// TODO : have AI physics dependent
-
-	int increment = m_sAtributes.defaultVelosity_pos;
-
-	// must collision detect on both the top and bottom corners so no phasing through
-	SCoords2<int> stepUp_left, stepUp_right;
-	stepUp_left.setCoords(m_topLeft.x, m_topLeft.y - increment);
-	stepUp_right.setCoords(m_topRight.x, m_topRight.y - increment);
-
 	// if next step of the bottom left corner is going out of the room
-	if (m_pCurrentRoom->collision(&stepUp_left) == false)
+	if (m_pCurrentRoom->collision(leftCorner) == false)
 	{
 		SCoords2<int> currentSubRoom = m_pCurrentRoom->whichSubRoom(&m_topLeft);
 
@@ -104,15 +132,14 @@ void CAI::moveUp()
 		{
 			SCoords2<int> room_topLeft, room_bottomLeft;
 			m_pCurrentRoom->getMinMax(&room_topLeft, &room_bottomLeft);
-			stepUp_left.setCoords(stepUp_left.x, room_topLeft.y);
+			leftCorner->setCoords(leftCorner->x, room_topLeft.y);
+			setTopLeft(*leftCorner);
+			return true;
 		}
-
-		setTopLeft(stepUp_left);
-		return;
 	}
 
 	// if next step of the bottom right corner is going out of the room
-	if (m_pCurrentRoom->collision(&stepUp_right) == false)
+	if (m_pCurrentRoom->collision(rightCorner) == false)
 	{
 		SCoords2<int> currentSubRoom = m_pCurrentRoom->whichSubRoom(&m_topRight);
 
@@ -133,33 +160,21 @@ void CAI::moveUp()
 		{
 			SCoords2<int> room_topLeft, room_bottomRight;
 			m_pCurrentRoom->getMinMax(&room_topLeft, &room_bottomRight);
-			stepUp_right.setCoords(stepUp_right.x, room_topLeft.y);
+			rightCorner->setCoords(rightCorner->x, room_topLeft.y);
+			setTopRight(*rightCorner);
+			return true;
 		}
-
-		setTopRight(stepUp_right);
-		return;
 	}
 
-
-	// nothing is obstructing the AI and the next step on both of the corners will be within the room
-	// just step normally on either of the corners, it does not matter
-	setTopLeft(stepUp_left);
+	// no collisions happend
+	return false;
 }
 
 
-void CAI::moveDown()
+bool CAI::isCollision_down( SCoords2<int>* leftCorner, SCoords2<int>* rightCorner )
 {
-	// TODO : have AI physics dependent
-
-	int increment = m_sAtributes.defaultVelosity_pos;
-
-	// must collision detect on both the top and bottom corners so no phasing through
-	SCoords2<int> stepDown_left, stepDown_right;
-	stepDown_left.setCoords(m_bottomLeft.x, m_bottomLeft.y + increment);
-	stepDown_right.setCoords(m_bottomRight.x, m_bottomRight.y + increment);
-
 	// if next step of the bottom left corner is going out of the room
-	if (m_pCurrentRoom->collision(&stepDown_left) == false)
+	if (m_pCurrentRoom->collision(leftCorner) == false)
 	{
 		SCoords2<int> currentSubRoom = m_pCurrentRoom->whichSubRoom(&m_bottomLeft);
 
@@ -180,15 +195,14 @@ void CAI::moveDown()
 		{
 			SCoords2<int> room_topLeft, room_bottomLeft;
 			m_pCurrentRoom->getMinMax(&room_topLeft, &room_bottomLeft);
-			stepDown_left.setCoords(stepDown_left.x, room_bottomLeft.y);
+			leftCorner->setCoords(leftCorner->x, room_bottomLeft.y);
+			setBottomLeft(*leftCorner);
+			return true;
 		}
-
-		setBottomLeft(stepDown_left);
-		return;
 	}
 
 	// if next step of the bottom right corner is going out of the room
-	if (m_pCurrentRoom->collision(&stepDown_right) == false)
+	if (m_pCurrentRoom->collision(rightCorner) == false)
 	{
 		SCoords2<int> currentSubRoom = m_pCurrentRoom->whichSubRoom(&m_bottomRight);
 
@@ -209,33 +223,21 @@ void CAI::moveDown()
 		{
 			SCoords2<int> room_topLeft, room_bottomRight;
 			m_pCurrentRoom->getMinMax(&room_topLeft, &room_bottomRight);
-			stepDown_right.setCoords(stepDown_right.x, room_bottomRight.y);
+			rightCorner->setCoords(rightCorner->x, room_bottomRight.y);
+			setBottomRight(*rightCorner);
+			return true;
 		}
-
-		setBottomRight(stepDown_right);
-		return;
 	}
-
-
-	// nothing is obstructing the AI and the next step on both of the corners will be within the room
-	// just step normally on either of the corners, it does not matter
-	setBottomLeft(stepDown_left);
+	
+	// no collisions
+	return false;
 }
 
 
-void CAI::moveLeft()
+bool CAI::isCollision_left( SCoords2<int>* top, SCoords2<int>* bottom )
 {
-	// TODO : have AI physics dependent
-
-	int increment = m_sAtributes.defaultVelosity_pos;
-
-	// must collision detect on both the top and bottom corners so no phasing through
-	SCoords2<int> stepLeft_top, stepLeft_bottom;
-	stepLeft_top.setCoords(m_topLeft.x - increment, m_topLeft.y);
-	stepLeft_bottom.setCoords(m_bottomLeft.x - increment, m_bottomLeft.y);
-
 	// if next step of the top left corner is going to go out of the room
-	if (m_pCurrentRoom->collision(&stepLeft_top) == false)
+	if (m_pCurrentRoom->collision(top) == false)
 	{
 		SCoords2<int> currentSubRoom = m_pCurrentRoom->whichSubRoom(&m_topLeft);
 
@@ -256,15 +258,14 @@ void CAI::moveLeft()
 		{
 			SCoords2<int> room_topLeft, room_bottomRight;
 			m_pCurrentRoom->getMinMax(&room_topLeft, &room_bottomRight);
-			stepLeft_top.setCoords(room_topLeft.x, stepLeft_top.y);
+			top->setCoords(room_topLeft.x, top->y);
+			setTopLeft(*top);
+			return true;
 		}
-
-		setTopLeft(stepLeft_top);
-		return;
 	}
 
 	// if the next step of the bottom left corner is going out of the room
-	if (m_pCurrentRoom->collision(&stepLeft_bottom) == false)
+	if (m_pCurrentRoom->collision(bottom) == false)
 	{
 		SCoords2<int> currentSubRoom = m_pCurrentRoom->whichSubRoom(&m_bottomLeft);
 
@@ -285,32 +286,21 @@ void CAI::moveLeft()
 		{
 			SCoords2<int> room_topLeft, room_bottomRight;
 			m_pCurrentRoom->getMinMax(&room_topLeft, &room_bottomRight);
-			stepLeft_bottom.setCoords(room_topLeft.x, stepLeft_bottom.y);
+			bottom->setCoords(room_topLeft.x, bottom->y);
+			setBottomLeft(*bottom);
+			return true;
 		}
-
-		setBottomLeft(stepLeft_bottom);
-		return;
 	}
-
-	// nothing is obstructing the AI and the next step on both of the corners will be within the room
-	// just step normally on either of the corners, it does not matter
-	setBottomLeft(stepLeft_bottom);
+	
+	// no collisions
+	return false;
 }
 
 
-void CAI::moveRight()
+bool CAI::isCollision_right( SCoords2<int>* top, SCoords2<int>* bottom )
 {
-	// TODO : have AI physics dependent
-
-	int increment = m_sAtributes.defaultVelosity_pos;
-	
-	// must collision detect on both the top and bottom corners so no phasing through
-	SCoords2<int> stepRight_top, stepRight_bottom;
-	stepRight_top.setCoords(m_topRight.x + increment, m_topRight.y);
-	stepRight_bottom.setCoords(m_bottomRight.x + increment, m_bottomRight.y);
-
 	// if next step of the top right corner is going to go out of the room
-	if (m_pCurrentRoom->collision(&stepRight_top) == false)
+	if (m_pCurrentRoom->collision(top) == false)
 	{
 		SCoords2<int> currentSubRoom = m_pCurrentRoom->whichSubRoom(&m_topRight);
 
@@ -331,15 +321,14 @@ void CAI::moveRight()
 		{
 			SCoords2<int> room_topLeft, room_bottomRight;
 			m_pCurrentRoom->getMinMax(&room_topLeft, &room_bottomRight);
-			stepRight_top.setCoords(room_bottomRight.x, stepRight_top.y);
+			top->setCoords(room_bottomRight.x, top->y);
+			setTopRight(*top);
+			return true;
 		}
-
-		setTopRight(stepRight_top);
-		return;
 	}
 
 	// if the next step of the bottom right corner is going out of the room
-	if (m_pCurrentRoom->collision(&stepRight_bottom) == false)
+	if (m_pCurrentRoom->collision(bottom) == false)
 	{
 		SCoords2<int> currentSubRoom = m_pCurrentRoom->whichSubRoom(&m_bottomRight);
 
@@ -360,14 +349,16 @@ void CAI::moveRight()
 		{
 			SCoords2<int> room_topLeft, room_bottomRight;
 			m_pCurrentRoom->getMinMax(&room_topLeft, &room_bottomRight);
-			stepRight_bottom.setCoords(room_bottomRight.x, stepRight_bottom.y);
+			bottom->setCoords(room_bottomRight.x, bottom->y);
+			setBottomRight(*bottom);
+			return true;
 		}
-
-		setBottomRight(stepRight_bottom);
-		return;
 	}
 
-	// nothing is obstructing the AI and the next step on both of the corners will be within the room
-	// just step normally on either of the corners, it does not matter
-	setTopRight(stepRight_top);
+	return false;
+}
+
+bool CAI::correctMapCollision_down()
+{
+	return CUpdatable::correctMapCollision_down();
 }

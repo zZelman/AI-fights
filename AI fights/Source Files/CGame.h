@@ -4,8 +4,6 @@
 
 #include "stdafx.h"
 #include "CWindow.h"
-#include "CUserControlled_Bot.h"
-#include "CAI_Bot.h"
 #include "CPhysics.h"
 #include "CMusic.h"
 #include "CMap.h"
@@ -34,8 +32,6 @@ private:
 	CGenerator_room* m_pRoomGenerator; // wrapper class for the rooms.
 	CGenerator_AI* m_pAIGenerator; // wrapper class for the AI
 
-	CUserControlled_Bot* m_pUserBot; // first bot to be played :D
-	//CAI_Bot* m_pAIBot; // first attempt at AI :D
 
 	void gameLoop(); // main game loop
 	void gameEvents(SDL_Event& event); // redirects user input appropriately

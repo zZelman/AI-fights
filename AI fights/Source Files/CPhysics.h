@@ -3,7 +3,6 @@
 
 
 #include "stdafx.h"
-#include "CBot.h"
 #include "CWindow.h"
 #include "CRoom.h"
 
@@ -20,25 +19,6 @@ public:
 	// * applies gravity to bot
 	// * does not move bot, only changes the velocities within the bot to reflect gravity
 	void applyGravity(CRoom* room);
-
-	// * returns true if yes, false if no
-	bool collisionDetection(CBot* bot1, CBot* bot2);
-
-	// * checks the bot's collision against the window edges
-	// * calculates against the bot's NEXT move
-	void collisionDetection(CBot* bot, CWindow* window);
-
-	// * calculates how much bot1 has collided with bot2
-	// * NOTE: does not check collision detection, it is assumed as true
-	float penetrationDepth(CBot* bot1, CBot* bot2);
-
-	// * calculates the normal produced from the collision between bot1 and bot2
-	// * NOTE: does not check collision detection, it is assumed as true
-	CVector2<float>* collisionNormal(CBot* bot1, CBot* bot2);
-
-	// * Generates a manifold
-	// * a manifold is a small object that contains information about a collision between two objects
-	SManifold* generateManafold(CBot* bot1, CBot* bot2);
 
 private:
 	// * 'a' in the parabolic formula ax^2 + bx + c

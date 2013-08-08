@@ -59,11 +59,6 @@ public:
 	virtual void update();
 
 protected:
-	// * whether or not this tile is descending
-	// * set to false by correctRoomCollision_down == true or correctMapCollision_down == true
-	//		b/c falling means stepping normally
-	bool isFalling;
-
 	// * the current coords of this room within the collisionMap data structure
 	// * INDEX
 	SCoords2<int> m_coords;
@@ -74,10 +69,6 @@ protected:
 	int m_wallSize_down;
 	int m_wallSize_right;
 	int m_wallSize_left;
-
-	// * (x,y): 1x1, 1x2, 2x1, 2x2
-	// * how many tiles the room takes up
-	SCoords2<int> m_layout;
 
 	// * If the room spans multiple tiles, it may have internal floors
 	// * minimum value of 1

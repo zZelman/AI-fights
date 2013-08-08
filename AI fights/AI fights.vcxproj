@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Files\CAI.h" />
+    <ClInclude Include="Source Files\CAI_Soldier.h" />
     <ClInclude Include="Source Files\CGenerator.h" />
     <ClInclude Include="Source Files\CGenerator_AI.h" />
     <ClInclude Include="Source Files\CRoom.h" />
@@ -128,6 +129,7 @@
     <ClInclude Include="Source Files\CWindow.h" />
     <ClInclude Include="Source Files\CSprite.h" />
     <ClInclude Include="Source Files\Math2D.h" />
+    <ClInclude Include="Source Files\SAnimation.h" />
     <ClInclude Include="Source Files\SAtributes.h" />
     <ClInclude Include="Source Files\SCoords2.h" />
     <ClInclude Include="Source Files\stdafx.h" />

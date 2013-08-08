@@ -181,5 +181,11 @@
     <ClInclude Include="Source Files\CUpdatable.h">
       <Filter>Header Files\Base Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Source Files\CAI_Soldier.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Files\SAnimation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

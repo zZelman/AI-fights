@@ -3,7 +3,6 @@
 
 
 #include "stdafx.h"
-#include "CBot.h"
 
 #include "CVector2.h"
 #include "SCoords2.h"
@@ -81,51 +80,6 @@ private:
 
 	float width, height; // size of the AABB from the top left to each corresponding edge
 };
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// a manifold is a small object that contains information about a collision between two objects
-struct SManifold
-{
-	CBot* bot1;
-	CBot* bot2;
-	float penetration;
-	CVector2<float> normal;
-};
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// commented out because CBot isnt able to see this for whatever reason (in CBot.h atm)
-
-//// Holds physics information about the object
-//struct SAtributes<float>
-//{
-//	float defaultVelosity_pos; // DEFAULT movement size each update
-//	float defaultVelosity_neg; // DEFAULT movement size each update
-//	float velosity_x; // change in the x axis each update
-//	float velosity_y; // change in the y axis each update
-//	float mass;
-//
-//	void nullVelosity()
-//	{
-//		velosity_x = 0;
-//		velosity_y = 0;
-//	}
-//
-//	void nullVelosity_x()
-//	{
-//		velosity_x = 0;
-//	}
-//
-//	void nullVelosity_y()
-//	{
-//		velosity_y = 0;
-//	}
-//};
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

@@ -51,11 +51,6 @@ CGame::~CGame()
 	delete m_pAIGenerator;
 	m_pAIGenerator = NULL;
 
-	//delete m_pUserBot;
-	//m_pUserBot = NULL;
-
-	//delete m_pAIBot;
-	//m_pAIBot = NULL;
 }
 
 
@@ -167,12 +162,6 @@ void CGame::gameUpdate()
 {
 	m_pRoomGenerator->update();
 	m_pAIGenerator->update();
-
-	//m_pUserBot->update();
-
-	//m_pPhysics->collisionDetection(m_pAIBot, m_pGameWindow);
-	//m_pPhysics->applyGravity(m_pAIBot);
-	//m_pAIBot->update();
 }
 
 
@@ -187,9 +176,6 @@ void CGame::gameRender()
 
 	m_pRoomGenerator->render();
 	m_pAIGenerator->render();
-
-	//m_pUserBot->render();
-	//m_pAIBot->render();
 
 	SDL_RenderPresent(m_pGameWindow->getRenderer());
 }

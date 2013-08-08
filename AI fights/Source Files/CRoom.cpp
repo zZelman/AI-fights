@@ -63,7 +63,17 @@ bool CRoom::equals(int mapColumn)
 }
 
 
-void CRoom::update() {}
+void CRoom::update() 
+{
+	// just to make sure that the first tick of time based things are not messy
+	if (isFirstUpdate == true)
+	{
+		m_sAtributes.gravityTimer.start();
+		isFirstUpdate = false;
+	}
+
+	offCollisionMap();
+}
 
 
 void CRoom::nullPtrs()

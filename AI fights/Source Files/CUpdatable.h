@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "CWindow.h"
 #include "CMap.h"
+#include "SAnimation.h"
 
 //////////////////////////////////////////////////////////////////////////
 class CRoom; // a prototype and not an #include because if #include, it would be circular inclusion
@@ -73,17 +74,28 @@ public:
 	void render();
 
 protected:
+	// * whether or not this tile is descending
+	// * set to false by correctRoomCollision_down == true or correctMapCollision_down == true
+	//		b/c falling means stepping normally
+	bool isFalling;
+
+	// * (x,y): 1x1, 1x2, 2x1, 2x2
+	// * how many tiles this takes up
+	SCoords2<int> m_layout;
+
+	SAnimation m_sAnimation;
+
 	// the room that this collides with
 	std::vector<CRoom*>* m_pRoom_collision;
+
+	// the map that this room will be collision detected against
+	CMap* m_pMap_collision;
 
 	// a bool to the first tick of time dependent things (ie: gravity) not messy the first time through
 	bool isFirstUpdate;
 
 	// window everything will be rendered to
 	CWindow* m_pWindow;
-
-	// the map that this room will be collision detected against
-	CMap* m_pMap_collision;
 
 	// the sprite image that will be used for the room
 	CSprite* m_pSprite;
@@ -103,6 +115,14 @@ protected:
 	//		else, do nothing
 	// * stepping is based on m_sAtributes's velocities
 	void offCollisionMap();
+
+	// * default functionality is for a 1x1
+	// * while falling, will this's next step be inside a map tile?
+	//		if true; step to the edge of the tile
+	//		else, step normally
+	// * stepping is based on m_sAtributes's velocities
+	// * if return true, sets isFalling == false b/c falling means stepping normally
+	virtual bool correctMapCollision_down();
 };
 
 

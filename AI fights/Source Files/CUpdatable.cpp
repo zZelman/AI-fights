@@ -206,3 +206,36 @@ void CUpdatable::offCollisionMap()
 		isToBeDeleted = true;
 	}
 }
+
+bool CUpdatable::correctMapCollision_down()
+{
+	// get the x coord in map space for a fast search
+	int column = m_topLeft.x + m_sAtributes.velosity_x;
+	int row = m_topLeft.y + m_sAtributes.velosity_y;
+	m_pMap_collision->convertScreenToMap(&column, &row);
+
+	const std::vector<STileData<int>*>* pMapTiles = m_pMap_collision->getMapTiles();
+	for (int i = 0; i < pMapTiles->size(); ++i)
+	{
+		STileData<int>* pTile = pMapTiles->at(i);
+
+		// we are only looking for a specific column (falling down), no need to search needlessly
+		if (pTile->mapCoords.x != column)
+		{
+			continue;
+		}
+
+		SCoords2<int> midBottom;
+		midBottom.setCoords(m_bottomLeft.x + m_width / 2, (int)(m_bottomLeft.y + m_sAtributes.velosity_y));
+		if (pTile->collision(&midBottom))
+		{
+			setBottomRight(pTile->screenCoords_topLeft.x + pTile->width, pTile->screenCoords_topLeft.y);
+
+			isFalling = false;
+			m_sAtributes.gravityTimer.start();
+			return true;
+		}
+	}
+
+	return false;
+}

@@ -24,14 +24,7 @@ CRoom_1x2::~CRoom_1x2()
 
 void CRoom_1x2::update()
 {
-	// just to make sure that the first tick of time based things are not messy
-	if (isFirstUpdate == true)
-	{
-		m_sAtributes.gravityTimer.start();
-		isFirstUpdate = false;
-	}
-
-	offCollisionMap();
+	CRoom::update();
 
 	if (!correctRoomCollision_down())
 	{

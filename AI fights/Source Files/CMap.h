@@ -5,12 +5,10 @@
 #include "stdafx.h"
 #include "CResourceDirectories.h"
 #include "CSprite.h"
-#include "CBot.h"
 #include "SCoords2.h"
 
 //////////////////////////////////////////////////////////////////////////
 template<typename T> struct SCoords2;
-class CAABB_f;
 //////////////////////////////////////////////////////////////////////////
 
 // * used in representing each tile
