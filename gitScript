@@ -1,6 +1,5 @@
 #!/bin/bash
 
-git add -A *.*
-git commit --message=$*
+git commit -a -m linux test commit
 git push
 
