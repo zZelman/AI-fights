@@ -1,5 +1,0 @@
-#!/bin/bash
-
-git add -A *
-git commit -a -m "$*"
-git push https://github.com/zZelman/AI-wars	&

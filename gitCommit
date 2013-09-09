@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+# this line verbosely adds all files at the current derectory and subdirectories
+git add -v --all *.*
+
+# this line scans all files, updates changed files, then comments the commit with what was said after the bash shell was invoked (./--- here)
+git commit -a -c $*
+
+# pushes to my AI wars repo
+git push https://github.com/zZelman/AI-wars.git
