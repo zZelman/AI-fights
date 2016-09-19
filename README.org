@@ -1,0 +1,4 @@
+#+Title: AI-wars
+#+AUTHOR: Kyle Avrett
+
+As a freshman in college, I wanted to experiment with 2D tile based video games, and this is what I created. It is a straight on strategy game where the player can buy tetris-like blocks to build a fortress that spawn troops to attack the adjacent fortress. It uses SFML as the windowing and graphics library, and everything else was created by me.
